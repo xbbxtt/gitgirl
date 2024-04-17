@@ -13,7 +13,7 @@ steps = [
         """,
         # "Down" SQL statement
         """
-        DROP TABLE jobs;
+        DROP TABLE applications;
         """
     ],
 ]
