@@ -13,6 +13,9 @@ class JWTUserData(BaseModel):
 
     id: int
     username: str
+    full_name: str
+    email: str
+    linkedin_url: str
 
 
 # This represents the payload stored inside the JWT
