@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from typing import List
 
 
 class JobIn(BaseModel):
@@ -23,3 +23,7 @@ class JobOut(BaseModel):
     company_name: str
     job_description: str
     creator_id: int
+
+
+class JobList(BaseModel):
+    jobs: List[JobOut]

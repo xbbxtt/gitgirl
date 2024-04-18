@@ -1,6 +1,4 @@
 from pydantic import BaseModel
-from jobs import JobOut
-from users import UserApplicant, UserResponse
 import datetime
 from typing import List
 
@@ -13,8 +11,8 @@ class ApplicationIn(BaseModel):
 class ApplicationOut(BaseModel):
     id: int
     applied_at: datetime
-    job: JobOut
-    applicant: UserResponse
+    job_id: int
+    applicant_id: int
 
 
 class ApplicationList(BaseModel):
