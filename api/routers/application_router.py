@@ -13,8 +13,6 @@ from models.jobs import JobIn, JobOut, JobList
 from models.applications import (
     ApplicationOut,
     ApplicationList,
-    ApplicationForPoster,
-    ApplicationListForPoster
 )
 from models.users import UserResponse
 from utils.exceptions import UserDatabaseException

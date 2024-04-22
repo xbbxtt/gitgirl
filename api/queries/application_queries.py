@@ -6,9 +6,7 @@ from typing import Optional, List, Dict
 from models.jobs import JobOut, JobIn, JobList
 from models.applications import (
     ApplicationOut,
-    ApplicationForPoster,
     ApplicationList,
-    ApplicationListForPoster
 )
 from models.users import UserWithPw
 from utils.exceptions import UserDatabaseException
