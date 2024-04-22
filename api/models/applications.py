@@ -1,18 +1,15 @@
 from pydantic import BaseModel
-import datetime
+from models.jobs import JobOut, JobOutPosterApp
+from models.users import UserResponse, ApplicantOut
+from datetime import datetime
 from typing import List
-
-
-class ApplicationIn(BaseModel):
-    job_id: int
-    user_id: int
 
 
 class ApplicationOut(BaseModel):
     id: int
-    applied_at: datetime
     job_id: int
     applicant_id: int
+    applied_at: datetime
 
 
 class ApplicationList(BaseModel):
