@@ -2,7 +2,7 @@
 //@ts-check
 import { Route, Routes } from 'react-router-dom';
 import Navigation from './components/Navigation';
-import Construct from './components/Construct';
+import Construct from './components/Home';
 import SignUpForm from './components/SignUpForm';
 import SignInForm from './components/SignInForm';
 import './App.css';
