@@ -3,5 +3,8 @@
     "python.formatting.provider": "black",
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "cSpell.words": ["pydantic"]
+    "cSpell.words": [
+        "fastapi",
+        "pydantic"
+    ]
 }
