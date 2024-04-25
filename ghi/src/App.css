@@ -12749,4 +12749,27 @@ fieldset:disabled .btn {
 
 .footer {
     background-color: #332b3b !important;
+
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+    .container {
+        flex-direction: column;
+    }
+
+    .contact {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .copyright-extras-container {
+        display: flex;
+        justify-content: space-between;
+        color: #948b9c;
+    }
+
+    .pink-svg {
+        fill: #dda3a6;
+    }
 }
