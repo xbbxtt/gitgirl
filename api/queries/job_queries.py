@@ -44,6 +44,39 @@ class JobQueries:
             print(e)
             return {"message": "Could not get all jobs"}
 
+    def get_all_jobs_by_poster(self, creator_id: int) -> List[JobOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id, image_url, position_title, company_name,
+                        job_description, creator_id
+                        FROM jobs
+                        WHERE creator_id = %s
+                        """,
+                        [
+                            creator_id
+                        ]
+                    )
+                    result = []
+                    print(db)
+                    for record in db:
+                        job = JobOut(
+                            id=record[0],
+                            image_url=record[1],
+                            position_title=record[2],
+                            company_name=record[3],
+                            job_description=record[4],
+                            creator_id=record[5],
+                        )
+                        result.append(job)
+                    return result
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get all jobs"}
+
+
     def get_job_by_id(self, job_id: int):
         try:
             with pool.connection() as conn:

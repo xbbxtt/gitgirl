@@ -22,21 +22,21 @@ export default function SignInForm() {
     }
 
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{ marginTop: '1rem' }}>
-            <div className="container" style={{ maxWidth: '20rem' }}>
-                <form onSubmit={handleFormSubmit}>
-                    <div className="card border-primary mb-3">
-                        <div className="card-header text-center">Sign In to be a GitGirl</div>
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh', backgroundColor: 'black' }}>
+            <div className="container d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
+                <form onSubmit={handleFormSubmit} style={{ maxWidth: '20rem', width: '100%' }}>
+                    <div className="card text-white bg-primary mb-3">
+                        <h4 className="card-header text-center">Welcome back GitGirl </h4>
                         <div className="card-body">
                             <div className="mb-3">
-                                <label htmlFor="exampleInputUsername" className="form-label">GitGirl Username</label>
+                                <label htmlFor="exampleInputUsername" className="form-label"> Username</label>
                                 <input type="text" className="form-control" id="exampleInputUsername" placeholder="Enter username" value={username} onChange={(e) => setUsername(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="exampleInputPassword" className="form-label">Password</label>
                                 <input type="password" className="form-control" id="exampleInputPassword" placeholder="Password" autoComplete="off" value={password} onChange={(e) => setPassword(e.target.value)} />
                             </div>
-                            <button type="submit" className="btn btn-primary">Sign In</button>
+                            <button type="submit" className="btn btn-light">Sign In</button>
                         </div>
                     </div>
                 </form>

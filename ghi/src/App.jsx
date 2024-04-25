@@ -1,11 +1,12 @@
-// This makes VSCode check types as if you are using TypeScript
 //@ts-check
+import React from 'react';
 import { Route, Routes } from 'react-router-dom'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
-import Construct from './components/Home'
+import Home from './components/Home'
 import SignUpForm from './components/SignUpForm'
 import SignInForm from './components/SignInForm'
+import UserProfile from './components/UserProfile';
 import './App.css'
 
 // When using environment variables, you should do a check to see if
@@ -23,11 +24,14 @@ function App() {
                 <Navigation />
             </header>
             <main>
+                <main>
                 <Routes>
-                    <Route path="/" element={<Construct />} />
-                    <Route path="/signup" element={<SignUpForm />} />
-                    <Route path="/signin" element={<SignInForm />} />
-                </Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/signup" element={<SignUpForm />} />
+                        <Route path="/signin" element={<SignInForm />} />
+                        <Route path="/profile" element={<UserProfile />} />
+                    </Routes>
+            </main>
             </main>
             <Footer />
         </div>
