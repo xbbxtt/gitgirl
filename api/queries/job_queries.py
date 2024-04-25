@@ -43,7 +43,6 @@ class JobQueries:
         except Exception as e:
             print(e)
             return {"message": "Could not get all jobs"}
-        
 
     def get_all_jobs_by_poster(self, creator_id: int) -> List[JobOut]:
         try:
