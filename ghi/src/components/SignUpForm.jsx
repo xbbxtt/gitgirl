@@ -1,7 +1,8 @@
-// @ts-check
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import useAuthService from '../hooks/useAuthService';
+import workingwoman from '/src/workingwoman.mp4';
+
 
 export default function SignUpForm() {
     const [formData, setFormData] = useState({
@@ -27,8 +28,8 @@ export default function SignUpForm() {
 
     return (
         <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh', backgroundColor: 'white' }}>
-            <div className="container d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
-                <form onSubmit={handleFormSubmit} style={{ maxWidth: '20rem', width: '100%' }}>
+            <div className="container d-flex justify-content-between align-items-center" style={{ height: '100%' }}>
+                <form onSubmit={handleFormSubmit} style={{ maxWidth: '30rem', width: '100%' }}>
                     {error && <div className="error">{error.message}</div>}
                     <div className="card text-white mb-3" style={{ backgroundColor: '#332b3b' }}>
                         <h3 className="card-header text-center" style={{color:'#e99b9b'}}>Join the GitGirl Network</h3>
@@ -92,6 +93,16 @@ export default function SignUpForm() {
                         </div>
                     </div>
                 </form>
+                <div className="card text-white mb-3" style={{ backgroundColor: '#332b3b', width: '100%', flexBasis: '50%', marginLeft: '20px' }}>
+                    <video className="card-img-top" controls autoPlay muted loop style={{ width: '100%' }}>
+                        <source src={workingwoman} type="video/mp4" />
+                        Whoops! Looks like our video is not working.
+                    </video>
+                    <div className="card-body">
+                        <h5 className="card-title text-center" style={{ color: '#e99b9b' }}>Branch Out. Commit. Push Forward.</h5>
+                        <p className="card-text"></p>
+                    </div>
+                </div>
             </div>
         </div>
     );
