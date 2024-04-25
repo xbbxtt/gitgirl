@@ -6,6 +6,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import UserProfile from './components/UserProfile'
+import AppliedJobs from './components/AppliedJobs';
+import MyPostedJobs from './components/MyPostedJobs'
 import App from './App'
 import AuthProvider from './components/AuthProvider'
 
@@ -19,7 +21,7 @@ if (!BASE_URL) {
 const router = createBrowserRouter(
     [
         {
-            path: '/',
+            path: '*',
             element: <App />,
             children: [
                 {
@@ -30,10 +32,17 @@ const router = createBrowserRouter(
                     path: 'signin',
                     element: <SignInForm />,
                 },
-
                 {
                     path: 'profile',
                     element: <UserProfile />,
+                },
+                {
+                    path: 'applications',
+                    element: <AppliedJobs />,
+                },
+                {
+                    path: 'postedjobs',
+                    element: <MyPostedJobs />,
                 },
             ],
         },

@@ -26,12 +26,12 @@ export default function SignUpForm() {
     }
 
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh', backgroundColor: 'black' }}>
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh', backgroundColor: 'white' }}>
             <div className="container d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
                 <form onSubmit={handleFormSubmit} style={{ maxWidth: '20rem', width: '100%' }}>
                     {error && <div className="error">{error.message}</div>}
-                    <div className="card text-white bg-primary mb-3">
-                        <h3 className="card-header text-center">Join the GitGirl Network</h3>
+                    <div className="card text-white mb-3" style={{ backgroundColor: '#332b3b' }}>
+                        <h3 className="card-header text-center" style={{color:'#e99b9b'}}>Join the GitGirl Network</h3>
                         <div className="card-body">
                             <div className="mb-3">
                                 <label htmlFor="username" className="form-label">Username</label>
@@ -88,7 +88,7 @@ export default function SignUpForm() {
                                     placeholder="Enter LinkedIn URL"
                                 />
                             </div>
-                            <button type="submit" className="btn btn-light">Sign Up</button>
+                            <button type="submit" className="btn" style={{ backgroundColor: '#e99b9b', color: 'white' }}>Sign Up</button>
                         </div>
                     </div>
                 </form>
