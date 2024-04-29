@@ -1,4 +1,3 @@
-// @ts-check
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import useAuthService from '../hooks/useAuthService';
@@ -22,7 +21,7 @@ export default function SignInForm() {
     }
 
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '50vh', backgroundColor: 'white' }}>
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh', backgroundColor: 'white' }}>
             <div className="container d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
                 <form onSubmit={handleFormSubmit} style={{ maxWidth: '20rem', width: '100%' }}>
                     <div className="card text-white mb-3" style={{ backgroundColor: '#332b3b' }}>
