@@ -42,8 +42,7 @@ def get_all_jobs_by_poster(
         raise HTTPException(status_code=401, detail="You must be logged in")
 
     jobs = repo.get_all_jobs_by_poster(creator_id=user.id)
-    job_dicts = [job.model_dump(by_alias=True) for job in jobs]
-    return {"jobs": job_dicts}
+    return {"jobs": jobs}
 
 
 @router.get("/{job_id}", response_model=JobOut)
