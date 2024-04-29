@@ -4,29 +4,33 @@ import { NavLink } from 'react-router-dom'
 const Footer = () => {
     return (
         <footer
-            className="navbar navbar-expand-lg bg-primary footer"
+            className="footer footer-expand-lg bg-primary footer"
             data-bs-theme="dark"
             style={{ marginBottom: '0' }}
         >
             <div className="container">
                 <div className="row">
                     <div className="text-center">
-                        <NavLink className="navbar-brand" to="/">
+                        <NavLink className="footer-brand" to="/">
                             <img src="/src/logo.jpg" alt="Logo" height="60" />
                         </NavLink>
                     </div>
                     <div className="about">
                         <p className="text-center text-light mb-0">
                             <a href="/" className="text-light">
+                                Home
+                            </a>
+                            &nbsp; | &nbsp;
+                            <a href="/" className="text-light">
                                 About Us
                             </a>
                             &nbsp; | &nbsp;
                             <a href="/" className="text-light">
-                                For Employers
+                                Events
                             </a>
                             &nbsp; | &nbsp;
                             <a href="/" className="text-light">
-                                Events
+                                For Employers
                             </a>
                         </p>
                     </div>
@@ -79,7 +83,7 @@ const Footer = () => {
                     <div className="copyright-extras-container">
                         <div className="copyright">
                             <div className="col-md-20 mb-6 text-md-left">
-                                <span className="text-light small-text">
+                                <span className="text-grey small-text">
                                     Copyright &copy; 2024 GitGirl, LLC. All
                                     rights reserved.
                                 </span>

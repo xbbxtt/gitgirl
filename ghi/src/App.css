@@ -12749,10 +12749,10 @@ fieldset:disabled .btn {
 
 .footer {
     background-color: #332b3b !important;
-
-    position: fixed;
-    bottom: 0;
+    position: relative;
+    bottom: 0px;
     width: 100%;
+    padding-bottom: 20px;
 
     .container {
         flex-direction: column;
@@ -12767,6 +12767,10 @@ fieldset:disabled .btn {
         display: flex;
         justify-content: space-between;
         color: #948b9c;
+    }
+
+    .extras a {
+        color: #948b9c !important;
     }
 
     .pink-svg {
