@@ -39,7 +39,7 @@ class JobQueries:
                             creator_id=record[5],
                         )
                         result.append(job)
-                    return JobList(jobs=result)
+                    return result
         except Exception as e:
             print(e)
             return {"message": "Could not get all jobs"}
@@ -75,6 +75,7 @@ class JobQueries:
         except Exception as e:
             print(e)
             return {"message": "Could not get all jobs"}
+
 
     def get_job_by_id(self, job_id: int):
         try:

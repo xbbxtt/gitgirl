@@ -30,7 +30,9 @@ def get_all_jobs(
     if user is None:
         raise HTTPException(status_code=401, detail="You must be logged in")
 
-    return repo.get_all_jobs()
+    return {
+        "jobs": repo.get_all_jobs()
+    }
 
 
 @router.get("/mine", response_model=JobList)
@@ -41,8 +43,9 @@ def get_all_jobs_by_poster(
     if user is None:
         raise HTTPException(status_code=401, detail="You must be logged in")
 
-    jobs = repo.get_all_jobs_by_poster(creator_id=user.id)
-    return {"jobs": jobs}
+    return {
+        "jobs": repo.get_all_jobs_by_poster(creator_id=user.id)
+    }
 
 
 @router.get("/{job_id}", response_model=JobOut)
