@@ -6,8 +6,9 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import UserProfile from './components/UserProfile'
-import AppliedJobs from './components/AppliedJobs';
+import AppliedJobs from './components/AppliedJobs'
 import MyPostedJobs from './components/MyPostedJobs'
+import CreateJobForm from './components/CreateJobForm'
 import App from './App'
 import AuthProvider from './components/AuthProvider'
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter(
                 {
                     path: 'postedjobs',
                     element: <MyPostedJobs />,
+                },
+                {
+                    path: 'createjob',
+                    element: <CreateJobForm />,
                 },
             ],
         },
