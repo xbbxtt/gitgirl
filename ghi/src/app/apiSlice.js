@@ -12,9 +12,49 @@ export const gitGirlApi = createApi({
                 url: `/api/jobs`
             })
         }),
+        listAllJobsByPoster: builder.query({
+            query: () => ({
+                url: `/api/jobs/mine`
+            })
+        }),
         jobDetails: builder.query({
             query: (jobID) => ({
                 url: `/api/jobs/${jobID}`
+            })
+        }),
+        createJob: builder.mutation({
+            query: (body) => ({
+                url: `/api/jobs`,
+                method: 'POST',
+                body
+            })
+        }),
+        deleteJob: builder.mutation({
+            query: (jobID) => ({
+                url: `/api/jobs/${jobID}`,
+                method: 'DELETE'
+            })
+        }),
+        listAllAppsForJobseeker: builder.query({
+            query: () => ({
+                url: `/api/applications/mine`
+            })
+        }),
+        listAllAppsForPosterByJob: builder.query({
+            query: (jobID) => ({
+                url: `/api/jobs/${jobID}/applications`
+            })
+        }),
+        createApp: builder.mutation({
+            query: (jobID) => ({
+                url: `/api/${jobID}/applications`,
+                method: 'POST'
+            })
+        }),
+        deleteApp: builder.mutation({
+            query: (appID) => ({
+                url: `/api/applications/${appID}`,
+                method: 'DELETE'
             })
         }),
         authenticate: builder.query({
@@ -52,10 +92,19 @@ export const gitGirlApi = createApi({
 
 export const {
     useListAllJobsQuery,
+    useListAllJobsByPosterQuery,
+    useLazyListAllJobsByPosterQuery,
     useJobDetailsQuery,
+    useCreateJobMutation,
+    useDeleteJobMutation,
+    useListAllAppsForJobseekerQuery,
+    useLazyListAllAppsForJobseekerQuery,
+    useListAllAppsForPosterByJobQuery,
+    useLazyListAllAppsForPosterByJobQuery,
+    useCreateAppMutation,
+    useDeleteAppMutation,
     useAuthenticateQuery,
     useSignoutMutation,
     useSigninMutation,
-    useSignupMutation,
-
+    useSignupMutation
 } = gitGirlApi
