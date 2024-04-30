@@ -1,25 +1,28 @@
 // @ts-check
-import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import useAuthService from '../hooks/useAuthService';
+import { useState, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useSigninMutation } from '../app/apiSlice';
 
 export default function SignInForm() {
+    const navigate = useNavigate()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { signin, user, error } = useAuthService();
+    const [errorMessage, setErrorMessage] = useState('');
+    const [signin, signinStatus] = useSigninMutation()
 
-    /**
-     * @param {React.FormEvent<HTMLFormElement>} e
-     */
-    async function handleFormSubmit(e) {
+
+    useEffect(() => {
+        if (signinStatus.isSuccess) navigate('/')
+        if (signinStatus.isError) {
+            setErrorMessage(signinStatus.error.data.detail)
+        }
+    }, [signinStatus, navigate])
+
+    const handleFormSubmit = (e) => {
         e.preventDefault();
-        await signin({ username, password });
+        signin({ username, password });
     }
 
-    if (user) {
-        console.log('user', user);
-        return <Navigate to="/" />;
-    }
 
     return (
         <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh', backgroundColor: 'black' }}>
@@ -28,6 +31,9 @@ export default function SignInForm() {
                     <div className="card text-white bg-primary mb-3">
                         <h4 className="card-header text-center">Welcome back GitGirl </h4>
                         <div className="card-body">
+                            {errorMessage && <div className="alert alert-danger" role="alert">
+                                {errorMessage}
+                            </div>}
                             <div className="mb-3">
                                 <label htmlFor="exampleInputUsername" className="form-label"> Username</label>
                                 <input type="text" className="form-control" id="exampleInputUsername" placeholder="Enter username" value={username} onChange={(e) => setUsername(e.target.value)} />

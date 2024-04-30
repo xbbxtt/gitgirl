@@ -1,9 +1,10 @@
 // @ts-check
-import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import useAuthService from '../hooks/useAuthService';
+import { useState, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useSignupMutation } from '../app/apiSlice';
 
 export default function SignUpForm() {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -11,28 +12,32 @@ export default function SignUpForm() {
         email: '',
         linkedin_url: ''
     });
-    const { signup, user, error } = useAuthService();
+    const [errorMessage, setErrorMessage] = useState('');
+    const [signup, signupStatus] = useSignupMutation()
 
-    /**
-     * @param {React.FormEvent<HTMLFormElement>} e
-     */
-    async function handleFormSubmit(e) {
+    useEffect(() => {
+        if (signupStatus.isSuccess) navigate('/')
+        if (signupStatus.isError) {
+            setErrorMessage(signupStatus.error.data.detail)
+        }
+    }, [signupStatus, navigate])
+
+
+    const handleFormSubmit = (e) => {
         e.preventDefault();
-        await signup(formData);
-    }
-
-    if (user) {
-        return <Navigate to="/" />;
+        signup(formData);
     }
 
     return (
         <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh', backgroundColor: 'black' }}>
             <div className="container d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
                 <form onSubmit={handleFormSubmit} style={{ maxWidth: '20rem', width: '100%' }}>
-                    {error && <div className="error">{error.message}</div>}
                     <div className="card text-white bg-primary mb-3">
                         <h3 className="card-header text-center">Join the GitGirl Network</h3>
                         <div className="card-body">
+                            {errorMessage && <div className="alert alert-danger" role="alert">
+                                {errorMessage}
+                            </div>}
                             <div className="mb-3">
                                 <label htmlFor="username" className="form-label">Username</label>
                                 <input
@@ -88,7 +93,7 @@ export default function SignUpForm() {
                                     placeholder="Enter LinkedIn URL"
                                 />
                             </div>
-                            <button type="submit" className="btn btn-light">Sign Up</button>
+                            <button type="submit" className="btn btn-light" onClick={handleFormSubmit}>Sign Up</button>
                         </div>
                     </div>
                 </form>

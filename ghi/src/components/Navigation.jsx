@@ -1,7 +1,24 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuthenticateQuery, useSignoutMutation } from '../app/apiSlice';
+import { useEffect } from 'react';
 
 const Navigation = () => {
+    const navigate = useNavigate()
+    const { data: user, isLoading } = useAuthenticateQuery()
+    console.log({user, isLoading})
+
+    const [ signout, signoutStatus ] = useSignoutMutation()
+
+    console.log({signoutStatus})
+
+    useEffect(() => {
+        if (signoutStatus.isSuccess) navigate('/')
+    }, [signoutStatus])
+
+    const onSignoutClick = (e) => (
+        signout()
+    )
     return (
         <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div className="container-fluid">
@@ -14,15 +31,18 @@ const Navigation = () => {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
-                        <li className="nav-item">
+                        {!user &&<li className="nav-item">
                             <NavLink className="nav-link" to="/signup">Sign Up</NavLink>
-                        </li>
-                        <li className="nav-item">
+                        </li>}
+                        {!user && <li className="nav-item">
                             <NavLink className="nav-link" to="/signin">Sign In</NavLink>
-                        </li>
-                        <li className="nav-item">
+                        </li>}
+                        {user && <li className="nav-item">
                             <NavLink className="nav-link" to="/profile">Profile</NavLink>
-                        </li>
+                        </li>}
+                        {user && <li className="nav-item">
+                            <NavLink className="nav-link" onClick={onSignoutClick}>Sign Out</NavLink>
+                        </li>}
                     </ul>
                 </div>
             </div>
