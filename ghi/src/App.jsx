@@ -59,7 +59,7 @@ function App() {
                     <Route path="/signin" element={<SignInForm />} />
                     <Route path="/profile" element={<UserProfile />} />
                     <Route path="/applications" element={<AppliedJobs appliedJobs={appliedJobs} />} />
-                    <Route path="/postedjobs" element={<MyPostedJobs postedJobs={postedJobs} />} />
+                    <Route path="/jobs/mine" element={<MyPostedJobs postedJobs={postedJobs} />} />
                     <Route path="/jobs" element={<JobsTable jobs={jobs} />} />
                 </Routes>
             </main>
