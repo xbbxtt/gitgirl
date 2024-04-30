@@ -23,7 +23,7 @@ pool = ConnectionPool(DATABASE_URL)
 
 class ApplicationQueries:
 
-    #  Get a list of applications for job seeker
+    # Get a list of applications for job seeker
     def list_apps_for_job_seeker(
                             self,
                             user_id: int,
@@ -134,6 +134,38 @@ class ApplicationQueries:
                 }
 
 
+    # Gets an instance of an application for job seeker
+    def get_application(self, applicant_id: int, job_id: int) -> ApplicationOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        SELECT id, job_id, applicant_id, applied_at
+                        FROM applications
+                        WHERE applicant_id = %s
+                        AND job_id = %s
+                        """,
+                        [
+                            applicant_id,
+                            job_id,
+                        ],
+                    )
+                    record = db.fetchone()
+                    if record:
+                        return ApplicationOut(
+                            id=record[0],
+                            job_id=record[1],
+                            applicant_id=record[2],
+                            applied_at=record[3],
+                        )
+                    else:
+                        return None
+        except Exception as e:
+            print(e)
+            return None
+
+
     # Creates an instance of an application for job seeker
     def create_application(self, applicant_id: int, job_id: int) -> ApplicationOut:
         try:
@@ -168,6 +200,7 @@ class ApplicationQueries:
         except Exception as e:
             print(e)
             return {"message": "Application did not post"}
+
 
     # Deletes an application by the application's ID
     def delete_application(self, app_id: int) -> bool:
