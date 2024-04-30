@@ -9,6 +9,8 @@ import ListAllJobs from './components/ListAllJobs'
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import UserProfile from './components/UserProfile'
+import AppliedJobs from './components/AppliedJobs';
+import MyPostedJobs from './components/MyPostedJobs'
 import App from './App'
 import AuthProvider from './components/AuthProvider'
 
@@ -35,18 +37,21 @@ const router = createBrowserRouter(
                     path: 'signin',
                     element: <SignInForm />,
                 },
-
                 {
                     path: 'profile',
                     element: <UserProfile />,
                 },
                 {
-                    path: 'jobs',
-                    element: <ListAllJobs />
+                    path: 'applications',
+                    element: <AppliedJobs />,
                 },
                 {
-                    path: 'jobs/:jobID',
-                    element: <JobDetails />
+                    path: 'postedjobs',
+                    element: <MyPostedJobs />,
+                },
+                {
+                    path: 'jobs',
+                    element: <MyPostedJobs />,
                 },
             ],
         },

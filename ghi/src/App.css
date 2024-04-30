@@ -12749,4 +12749,36 @@ fieldset:disabled .btn {
 
 .footer {
     background-color: #332b3b !important;
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    padding-bottom: 20px;
+
+    .container {
+        flex-direction: column;
+    }
+
+    .contact {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .copyright-extras-container {
+        display: flex;
+        justify-content: space-between;
+        color: #948b9c;
+    }
+
+    .extras a {
+        color: #948b9c !important;
+    }
+
+.pink-svg {
+    fill: #dda3a6;
+}
+
+.jobs-table-card-container {
+    border-color: #e07171 !important;
+}
+
 }

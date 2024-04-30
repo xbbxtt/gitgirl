@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useSignupMutation } from '../app/apiSlice';
+import workingwoman from '/src/workingwoman.mp4';
 
 export default function SignUpForm() {
     const navigate = useNavigate()
@@ -93,10 +94,21 @@ export default function SignUpForm() {
                                     placeholder="Enter LinkedIn URL"
                                 />
                             </div>
+                            <button type="submit" className="btn" style={{ backgroundColor: '#e99b9b', color: 'white' }}>Sign Up</button>
                             <button type="submit" className="btn btn-light" onClick={handleFormSubmit}>Sign Up</button>
                         </div>
                     </div>
                 </form>
+                <div className="card text-white mb-3" style={{ backgroundColor: '#332b3b', width: '100%', flexBasis: '50%', marginLeft: '20px' }}>
+                    <video className="card-img-top" controls autoPlay muted loop style={{ width: '100%' }}>
+                        <source src={workingwoman} type="video/mp4" />
+                        Whoops! Looks like our video is not working.
+                    </video>
+                    <div className="card-body">
+                        <h5 className="card-title text-center" style={{ color: '#e99b9b' }}>Branch Out. Commit. Push Forward.</h5>
+                        <p className="card-text"></p>
+                    </div>
+                </div>
             </div>
         </div>
     );
