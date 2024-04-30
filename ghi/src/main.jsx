@@ -14,8 +14,8 @@ import AppliedJobs from './components/AppliedJobs'
 import MyPostedJobs from './components/MyPostedJobs'
 import CreateJobForm from './components/CreateJobForm'
 import App from './App'
-
 import './index.css'
+import JobsTable from './components/JobsTable'
 
 
 const BASE_URL = import.meta.env.BASE_URL
@@ -46,12 +46,12 @@ const router = createBrowserRouter(
                     element: <AppliedJobs />,
                 },
                 {
-                    path: 'jobs/mine',
+                    path: 'mypostedjobs',
                     element: <MyPostedJobs />,
                 },
                 {
                     path: 'jobs',
-                    element: <MyPostedJobs />,
+                    element: <JobsTable />,
                 },
                 {
                     path: 'createjob',

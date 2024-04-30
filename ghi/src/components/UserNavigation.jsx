@@ -32,9 +32,9 @@ const UserNavigation = () => {
                         My Applications
                     </Link>
                     <Link
-                        to="/postedjobs"
+                        to="/mypostedjobs"
                         className={
-                            location.pathname === '/postedjobs'
+                            location.pathname === '/mypostedjobs'
                                 ? 'list-group-item list-group-item-action active'
                                 : 'list-group-item list-group-item-action'
                         }
