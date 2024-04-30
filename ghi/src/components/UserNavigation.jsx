@@ -42,8 +42,12 @@ const UserNavigation = () => {
                         Posted Jobs
                     </Link>
                     <Link
-                        to="#"
-                        className="list-group-item list-group-item-action"
+                        to="/createjob"
+                        className={
+                            location.pathname === '/createjob'
+                                ? 'list-group-item list-group-item-action active'
+                                : 'list-group-item list-group-item-action'
+                        }
                     >
                         Post a Job
                     </Link>

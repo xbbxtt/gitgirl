@@ -23,7 +23,7 @@ const MyPostedJobs = ({ postedJobs }) => {
                                     <tr key={index} className={index % 2 === 0 ? 'table-default' : 'table-primary'}>
                                         <td>{job.company_name}</td>
                                         <td>{job.position_title}</td>
-                                        <td>{job.applied_at}</td>
+                                        <td>{job.posted_date}</td>
                                     </tr>
                                 ))}
                             </tbody>

@@ -1,4 +1,3 @@
-// App.js
 //@ts-check
 import React from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
@@ -12,6 +11,7 @@ import AppliedJobs from './components/AppliedJobs'
 import MyPostedJobs from './components/MyPostedJobs'
 import CreateJobForm from './components/CreateJobForm'
 
+import JobsTable from './components/JobsTable'
 import './App.css'
 
 const API_HOST = import.meta.env.VITE_API_HOST

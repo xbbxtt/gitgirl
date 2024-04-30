@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import useAuthService from '../hooks/useAuthService';
+// @ts-check
+import { useState, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useSignupMutation } from '../app/apiSlice';
 import workingwoman from '/src/workingwoman.mp4';
 
-
 export default function SignUpForm() {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -12,25 +13,26 @@ export default function SignUpForm() {
         email: '',
         linkedin_url: ''
     });
-    const { signup, user, error } = useAuthService();
+    const [errorMessage, setErrorMessage] = useState('');
+    const [signup, signupStatus] = useSignupMutation()
 
-    /**
-     * @param {React.FormEvent<HTMLFormElement>} e
-     */
-    async function handleFormSubmit(e) {
+    useEffect(() => {
+        if (signupStatus.isSuccess) navigate('/')
+        if (signupStatus.isError) {
+            setErrorMessage(signupStatus.error.data.detail)
+        }
+    }, [signupStatus, navigate])
+
+
+    const handleFormSubmit = (e) => {
         e.preventDefault();
-        await signup(formData);
-    }
-
-    if (user) {
-        return <Navigate to="/" />;
+        signup(formData);
     }
 
     return (
         <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh', backgroundColor: 'white' }}>
             <div className="container d-flex justify-content-between align-items-center" style={{ height: '100%' }}>
                 <form onSubmit={handleFormSubmit} style={{ maxWidth: '30rem', width: '100%' }}>
-                    {error && <div className="error">{error.message}</div>}
                     <div className="card text-white mb-3" style={{ backgroundColor: '#332b3b' }}>
                         <h3 className="card-header text-center" style={{color:'#e99b9b'}}>Join the GitGirl Network</h3>
                         <div className="card-body">
@@ -89,7 +91,7 @@ export default function SignUpForm() {
                                     placeholder="Enter LinkedIn URL"
                                 />
                             </div>
-                            <button type="submit" className="btn" style={{ backgroundColor: '#e99b9b', color: 'white' }}>Sign Up</button>
+                            <button type="submit" className="btn" style={{ backgroundColor: '#e99b9b', color: 'white' }} onClick={handleFormSubmit}>Sign Up</button>
                         </div>
                     </div>
                 </form>

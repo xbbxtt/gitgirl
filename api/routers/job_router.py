@@ -27,8 +27,8 @@ def get_all_jobs(
     repo: JobQueries = Depends(),
     user: UserResponse = Depends(try_get_jwt_user_data)
 ):
-    if user is None:
-        raise HTTPException(status_code=401, detail="You must be logged in")
+    # if user is None:
+    #     raise HTTPException(status_code=401, detail="You must be logged in")
 
     return {
         "jobs": repo.get_all_jobs()
