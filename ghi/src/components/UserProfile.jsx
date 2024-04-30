@@ -1,11 +1,10 @@
-//@ts-check
 import React from 'react';
 import { Link } from 'react-router-dom';
 import UserNavigation from './UserNavigation';
 
-function UserProfile({ fullName, email, linkedInUrl }) {
+const UserProfile = ({ fullName, email, linkedInUrl }) => {
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" style={{ minHeight: '80vh' }}>
             <div className="row">
                 <UserNavigation />
                 <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4" style={{ marginTop: '20px' }}>
