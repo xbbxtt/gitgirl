@@ -3,7 +3,7 @@ import UserNavigation from './UserNavigation';
 
 const AppliedJobs = ({ appliedJobs }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const jobsPerPage = 3;
+    const jobsPerPage = 4;
 
     const indexOfLastJob = currentPage * jobsPerPage;
     const indexOfFirstJob = indexOfLastJob - jobsPerPage;
