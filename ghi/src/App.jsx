@@ -27,6 +27,8 @@ function App() {
         { company_name: 'Company C', position_title: 'Position C', applied_at: '2024-04-23' },
         { company_name: 'Company D', position_title: 'Position D', applied_at: '2024-04-22' },
         { company_name: 'Company E', position_title: 'Position E', applied_at: '2024-04-21' },
+        { company_name: 'Company F', position_title: 'Position E', applied_at: '2024-04-27' },
+        { company_name: 'Company G', position_title: 'Position E', applied_at: '2024-04-21' },
     ];
 
     const postedJobs = [
