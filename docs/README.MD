@@ -4,7 +4,7 @@
 - Taylor Shockley
 - Alyson Golden
 - Lauren Smith
-- Glen Padilla
+- Glenn Padilla
 
 ## Design
 - [Model Data](https://gitlab.com/adas-allies/gitgirl/-/blob/44-read-me-journal/docs/data-model.md?ref_type=heads)
