@@ -14,7 +14,7 @@
 GitGirl is a job board intended to support and promote women and femme presenting individuals searching for jobs in the Tech sector.
 
 ## Wireframe
-![GitGirl](Untitled-2024-02-01-1301.png)
+
 
 ## Functionality
 **Home Page**
