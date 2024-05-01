@@ -105,8 +105,18 @@ def create_application(
 ):
     if user is None:
         raise HTTPException(status_code=401, detail="You must be logged in")
-    application = application_queries.create_application(
-                                applicant_id=user.id,
-                                job_id=job_id
-                                )
-    return application
+    application = application_queries.get_application(
+        applicant_id=user.id,
+        job_id=job_id
+    )
+    if application is not None:
+        raise HTTPException(
+            status_code=401,
+            detail="You have already applied to this job."
+        )
+    else:
+        application = application_queries.create_application(
+            applicant_id=user.id,
+            job_id=job_id
+            )
+        return application

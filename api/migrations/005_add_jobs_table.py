@@ -9,7 +9,9 @@ steps = [
             company_name VARCHAR(250) NOT NULL,
             job_description TEXT,
             creator_id INTEGER NOT NULL REFERENCES users(id)
-              ON DELETE CASCADE
+              ON DELETE CASCADE,
+            posted_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            location VARCHAR(50) NOT NULL
         );
         """,
         # "Down" SQL statement

@@ -90,14 +90,14 @@ async def signin(
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Sorry, we couldn't find an account with those credentials.",
         )
 
     # Verify the user's password
     if not verify_password(user_request.password, user.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Sorry, we couldn't find an account with those credentials.",
         )
 
     # Generate a JWT token
