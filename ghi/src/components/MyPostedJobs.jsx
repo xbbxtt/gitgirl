@@ -1,14 +1,37 @@
 //@ts-check
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+    useAuthenticateQuery,
+    useLazyListAllJobsByPosterQuery
+} from '../app/apiSlice'
 import UserNavigation from './UserNavigation';
 
-const MyPostedJobs = ({ postedJobs }) => {
+const MyPostedJobs = () => {
+    const navigate = useNavigate()
+    const [ myJobs, setMyJobs ] = useState([])
+    const {data: user, isLoading: isLoadingUser} = useAuthenticateQuery()
+    const [ trigger, result ] = useLazyListAllJobsByPosterQuery()
     const [currentPage, setCurrentPage] = useState(1);
     const jobsPerPage = 4;
 
+    useEffect(() => {
+        if (!user && !isLoadingUser) {
+            navigate('/signin')
+        } else if (user) {
+            trigger()
+        }
+    }, [user, isLoadingUser, navigate, trigger])
+
+    useEffect(() => {
+        if (result.isSuccess) setMyJobs(result.data.jobs)
+    }, [result])
+
+    if (result.isLoading) return <div>Loading Jobs You've Posted...</div>
+
     const indexOfLastJob = currentPage * jobsPerPage;
     const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-    const currentJobs = postedJobs.slice(indexOfFirstJob, indexOfLastJob);
+    const currentJobs = myJobs.slice(indexOfFirstJob, indexOfLastJob);
 
     const handleJobDetail = (jobId) => {
         // Add logic to see job detail
@@ -16,6 +39,14 @@ const MyPostedJobs = ({ postedJobs }) => {
 
     const handleDeleteJob = (jobId) => {
         // Add logic to delete the job
+    };
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const month = date.toLocaleString('default', { month: 'short' });
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month}-${day}-${year}`;
     };
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -42,7 +73,7 @@ const MyPostedJobs = ({ postedJobs }) => {
                                     <tr key={index} className={index % 2 === 0 ? 'table-default' : 'table-primary'}>
                                         <td>{job.company_name}</td>
                                         <td>{job.position_title}</td>
-                                        <td>{job.posted_date}</td>
+                                        <td>{formatDate(job.posted_date)}</td>
                                         <td>
                                             <button
                                                 type="button"
@@ -71,12 +102,12 @@ const MyPostedJobs = ({ postedJobs }) => {
                             <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                                 <a className="page-link" href="#" onClick={() => paginate(currentPage - 1)}>&laquo;</a>
                             </li>
-                            {Array.from({ length: Math.ceil(postedJobs.length / jobsPerPage) }, (_, i) => (
+                            {Array.from({ length: Math.ceil(myJobs.length / jobsPerPage) }, (_, i) => (
                                 <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
                                     <a className="page-link" href="#" onClick={() => paginate(i + 1)}>{i + 1}</a>
                                 </li>
                             ))}
-                            <li className={`page-item ${currentPage === Math.ceil(postedJobs.length / jobsPerPage) ? 'disabled' : ''}`}>
+                            <li className={`page-item ${currentPage === Math.ceil(myJobs.length / jobsPerPage) ? 'disabled' : ''}`}>
                                 <a className="page-link" href="#" onClick={() => paginate(currentPage + 1)}>&raquo;</a>
                             </li>
                         </ul>

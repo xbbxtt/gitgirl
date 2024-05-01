@@ -92,6 +92,7 @@ export const gitGirlApi = createApi({
 
 export const {
     useListAllJobsQuery,
+    useLazyListAllJobsQuery,
     useListAllJobsByPosterQuery,
     useLazyListAllJobsByPosterQuery,
     useJobDetailsQuery,
