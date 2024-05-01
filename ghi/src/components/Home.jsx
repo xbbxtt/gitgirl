@@ -11,17 +11,15 @@ function Home() {
                         className="d-block user-select-none "
                         src={banner_3}
                         width="100%"
-                        height="100%"
-                    ></img>
+                        height="50%"
+                    />
                 </h1>
                 <div className="row">
                     <div className="col-md-8">
                         <div className="card-body">
-                            <h1 className="card-title">
-                                Branch Out. Commit. Push Forward.
-                            </h1>
-                            <h6 className="card-subtitle text-muted"></h6>
-                            <p className="card-text">
+                            <h1 className="card-title">Mission Statement</h1>
+                            <div></div>
+                            <p className="card-text " style={{ width: '75%' }}>
                                 GitGirl exists to redefine the tech landscape
                                 into a realm where women and femme-presenting
                                 individuals not only belong but flourish and
@@ -35,7 +33,7 @@ function Home() {
                                 innovation, and career paths are coded with
                                 success.
                             </p>
-                            <p className="card-text">
+                            <p className="card-text" style={{ width: '75%' }}>
                                 We commit to creating an inclusive environment
                                 by connecting talents with opportunities. We aim
                                 to push the boundaries of what is possible,
@@ -43,32 +41,22 @@ function Home() {
                                 their goals, and advance in their careers and
                                 aspirations.
                             </p>
-                            <p className="card-text">
-                                GitGirl is more than just a job platform; it is a
-                                movement towards a diverse, equitable, and
-                                innovative tech industry where every girl has
-                                the power to innovate, elevate, and execute her
-                                vision. Together, we are not just coding; we are
-                                transforming the tech industry one GitGirl at a
-                                time.
-                            </p>
-                        </div>
-                        <div className="row">
+                            <h2 className="card-subtitle text-muted">
+                                Branch Out. Commit. Push Forward.
+                            </h2>
                             <div className="d-flex m-3">
-                                <p>
-                                    <button
-                                        type="button"
-                                        className="btn btn-secondary me-5"
-                                    >
-                                        Sign In
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="btn btn-outline-secondary"
-                                    >
-                                        Sign up
-                                    </button>
-                                </p>
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary me-5"
+                                >
+                                    Sign In
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-secondary"
+                                >
+                                    Sign up
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -78,22 +66,37 @@ function Home() {
                             src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                             width="100%"
                             height="auto"
-                        ></img>
+                        />
                     </div>
                 </div>
             </div>
-            <div className="card text-white bg-primary mb-0 d-flex justify-content-around">
-                <div className="card-body">
-                    <div className="row">
-                        <img
-                            className="d-block user-select-none col-md-4"
-                            src="https://images.unsplash.com/photo-1573165067541-4cd6d9837902?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            width="50%"
-                            height="auto"
-                        ></img>
-                        <div className="col-md-8 text-end">
+            <div className="row">
+                <div className="col">
+                    <div className="card text-white bg-primary mb-3 d-flex justify-content-around">
+                        <div
+                            className="card-body"
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <img
+                                className="d-block user-select-none"
+                                src="https://images.unsplash.com/photo-1573165067541-4cd6d9837902?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                width="63.2%"
+                                height="auto"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="col">
+                    <div
+                        className="card text-white bg-primary mb-0"
+                        style={{ padding: '30px' }}
+                    >
+                        <div className="card-body">
                             <h1 className="card-title ">GitGirls</h1>
-                            <h6 className="card-subtitle mb-2 text-muted"></h6>
                             <p className="card-text">
                                 Targeted Opportunities: GitGirl curates jobs,
                                 internships, and apprenticeships with employers
@@ -133,12 +136,14 @@ function Home() {
                     </div>
                 </div>
             </div>
-            <div className="card text-white bg-secondary mb-0 d-flex justify-content-around">
-                <div className="card-body">
-                    <div className="row">
-                        <div className="col-md-8">
+            <div className="row">
+                <div className="col">
+                    <div
+                        className="card text-white bg-secondary mb-3 d-flex justify-content-around"
+                        style={{ padding: '50px' }}
+                    >
+                        <div className="card-body">
                             <h1 className="card-title">Employers</h1>
-                            <h6 className="card-subtitle mb-2 text-muted"></h6>
                             <p className="card-text">
                                 Untapped Potential: GitGirl gives employers
                                 access to a pool of highly qualified women and
@@ -159,13 +164,24 @@ function Home() {
                                 attract top talent who value inclusivity.
                             </p>
                         </div>
-                        <div className="col-md-4">
+                    </div>
+                </div>
+                <div className="col">
+                    <div className="card text-white bg-secondary mb-0">
+                        <div
+                            className="card-body"
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
                             <img
-                                className="d-block shadow-sm user-select-none"
+                                className="d-block user-select-none"
                                 src="https://images.unsplash.com/photo-1573165265437-f5e267bb3db6?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                width="100%"
+                                width="60.9%"
                                 height="auto"
-                            ></img>
+                            />
                         </div>
                     </div>
                 </div>
