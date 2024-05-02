@@ -136,3 +136,16 @@ class TestJobs(unittest.TestCase):
         assert res.status_code == 200
         assert data["id"] == 3
         assert data["company_name"] == "Apple"
+
+    def test_delete_job(self):
+        # Arrange the data that is going to be used in the test
+        app.dependency_overrides[JobQueries]
+
+        # Act is where the function/method that is to be tested will be called
+        res = client.get("/api/jobs/1")
+        data = res.json()
+
+        # Assert is where the expected result will be checked
+        assert res.status_code == 200
+        assert data["id"] == 1
+        assert data["company_name"] == "Google"
