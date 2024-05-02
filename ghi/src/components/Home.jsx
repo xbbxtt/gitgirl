@@ -5,7 +5,8 @@ import banner_3 from '/src/banner_3.jpg'
 function Home() {
     return (
         <div>
-            <div className="card mb-3 d-flex justify-content-around"
+            <div
+                className="card mb-3 d-flex justify-content-around"
                 style={{
                     border: 'none',
                 }}
@@ -151,25 +152,26 @@ function Home() {
                                 className="card-text"
                                 style={{ marginBottom: '25px' }}
                             >
-                                Targeted Opportunities: GitGirl curates jobs,
-                                internships, and apprenticeships with employers
-                                who are committed to diversity and inclusion.
-                                This eliminates the need to sift through job
-                                listings that might not be as welcoming or
-                                supportive.
+                                <strong>Targeted Opportunities:</strong> GitGirl
+                                curates jobs, internships, and apprenticeships
+                                with employers who are committed to diversity
+                                and inclusion. This eliminates the need to sift
+                                through job listings that might not be as
+                                welcoming or supportive.
                             </p>
                             <p style={{ marginBottom: '25px' }}>
-                                Increased Visibility: By creating a profile on
-                                GitGirl, you enhance your visibility to
-                                inclusive employers actively looking to
-                                diversify their tech teams.
+                                <strong>Increased Visibility:</strong> By
+                                creating a profile on GitGirl, you enhance your
+                                visibility to inclusive employers actively
+                                looking to diversify their tech teams.
                             </p>
                             <p style={{ marginBottom: '50px' }}>
-                                Addressing the Gender Gap: GitGirl works towards
-                                bridging the gender gap in tech by creating a
-                                space where women and femme-presenting
-                                individuals are at the forefront and providing a
-                                more equitable access to opportunities.
+                                <strong>Addressing the Gender Gap: </strong>
+                                GitGirl works towards bridging the gender gap in
+                                tech by creating a space where women and
+                                femme-presenting individuals are at the
+                                forefront and providing a more equitable access
+                                to opportunities.
                             </p>
                             <div className="d-flex justify-content-end">
                                 <Link
@@ -223,23 +225,25 @@ function Home() {
                                 className="card-text"
                                 style={{ marginBottom: '25px' }}
                             >
-                                Untapped Potential: GitGirl gives employers
-                                access to a pool of highly qualified women and
-                                femme-presenting individuals in tech who might
-                                be overlooked on traditional job boards.
+                                <strong>Untapped Potential:</strong> GitGirl
+                                gives employers access to a pool of highly
+                                qualified women and femme-presenting individuals
+                                in tech who might be overlooked on traditional
+                                job boards.
                             </p>
                             <p style={{ marginBottom: '25px' }}>
-                                Diverse Talent: Employers can diversify their
-                                tech teams by connecting with candidates from
-                                underrepresented groups in tech.
+                                <strong>Diverse Talent:</strong> Employers can
+                                diversify their tech teams by connecting with
+                                candidates from underrepresented groups in tech.
                             </p>
                             <p style={{ marginBottom: '50px' }}>
-                                Positive Brand Image: Using GitGirl signals to
-                                potential candidates and the broader tech
-                                community that your company is actively
-                                committed to creating a diverse and inclusive
-                                workplace. This can boost employer branding and
-                                attract top talent who value inclusiveness.
+                                <strong>Positive Brand Image:</strong> Using
+                                GitGirl signals to potential candidates and the
+                                broader tech community that your company is
+                                actively committed to creating a diverse and
+                                inclusive workplace. This can boost employer
+                                branding and attract top talent who value
+                                inclusiveness.
                             </p>
                             <div className="d-flex">
                                 <Link
