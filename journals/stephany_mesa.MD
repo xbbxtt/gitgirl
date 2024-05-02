@@ -1,6 +1,6 @@
-# Date
+# 5.2.24
 
-Today, we worked on:
+Today, we worked on: My friends are mad. 
 
 - TBD
 
