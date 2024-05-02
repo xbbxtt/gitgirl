@@ -26,10 +26,6 @@ const Footer = () => {
                             </a>
                             &nbsp; | &nbsp;
                             <a href="/" className="text-light">
-                                Events
-                            </a>
-                            &nbsp; | &nbsp;
-                            <a href="/" className="text-light">
                                 For Employers
                             </a>
                         </p>

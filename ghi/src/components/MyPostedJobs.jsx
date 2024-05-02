@@ -34,11 +34,15 @@ const MyPostedJobs = () => {
     const currentJobs = myJobs.slice(indexOfFirstJob, indexOfLastJob);
 
     const handleJobDetail = (jobId) => {
-        // Add logic to see job detail
+        // we can remove with component when Taylor pushes
     };
 
     const handleDeleteJob = (jobId) => {
-        // Add logic to delete the job
+        // we can remove with component when Taylor pushes
+    };
+
+    const handleViewApplicants = (jobId) => {
+        // we can remove with component when Taylor pushes - this won't stay & isn't right
     };
 
     const formatDate = (dateString) => {
@@ -65,6 +69,7 @@ const MyPostedJobs = () => {
                                     <th scope="col">Position</th>
                                     <th scope="col">Posted Date</th>
                                     <th scope="col">Remind Me</th>
+                                    <th scope="col">Review GitGirls</th>
                                     <th scope="col">Remove Job</th>
                                 </tr>
                             </thead>
@@ -81,6 +86,15 @@ const MyPostedJobs = () => {
                                                 onClick={() => handleJobDetail(job.id)}
                                             >
                                                 Job Detail
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button
+                                                type="button"
+                                                className="btn btn-outline-primary"
+                                                onClick={() => handleViewApplicants(job.id)}
+                                            >
+                                                View Applicants
                                             </button>
                                         </td>
                                         <td>
