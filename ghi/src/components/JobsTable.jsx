@@ -143,7 +143,7 @@ const JobsTable = () => {
                                             {(jobIDs.includes(job.id)) ?
                                             <button
                                                 type="button"
-                                                className="btn btn-secondary mr-3"
+                                                className={(user && (user.id === job.creator_id)) ? "btn btn-secondary mr-3 d-none" : "btn btn-secondary mr-3"}
                                                 style={{ backgroundColor: '#493e57' }}
                                                 disabled
                                             >
@@ -151,7 +151,7 @@ const JobsTable = () => {
                                             </button> :
                                             <button
                                                 type="button"
-                                                className="btn btn-secondary mr-3"
+                                                className={(user && (user.id === job.creator_id)) ? "btn btn-secondary mr-3 d-none" : "btn btn-secondary mr-3"}
                                                 style={{ backgroundColor: '#493e57' }}
                                                 onClick={() => handleApply(job.creator_id, job.id)}
                                             >
