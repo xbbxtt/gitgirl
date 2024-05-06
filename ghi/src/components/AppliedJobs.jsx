@@ -41,7 +41,7 @@ const AppliedJobs = () => {
             setAppliedJobs(appListResult.data.applications)
         } else if (appListResult.isError) {
             setModalMessage(appListResult.error.data.detail)
-            setAppliedJobs([])
+            setAppliedJobs([]) // retain this for last app logic to avoid refresh need
             setShowModal(true)
         }
     }, [appListResult]);
