@@ -173,6 +173,7 @@ const CreateJobForm = () => {
                                             onChange={handleChange}
                                             className="form-control"
                                             placeholder="Company Image URL"
+                                            required
                                         />
                                     </div>
                                     <div className="form-group mb-3">
@@ -188,7 +189,7 @@ const CreateJobForm = () => {
                                             onChange={handleChange}
                                             className="form-control"
                                             placeholder="Job Description"
-
+                                            required
                                         />
                                     </div>
                                     <button
