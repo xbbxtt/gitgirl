@@ -12773,11 +12773,12 @@ fieldset:disabled .btn {
         color: #948b9c !important;
     }
 
-    .pink-svg {
-        fill: #dda3a6;
-    }
+.pink-svg {
+    fill: #dda3a6;
+}
 
-    .jobs-table-card-container {
-        border-color: #e07171 !important;
-    }
+.jobs-table-card-container {
+    border-color: #e07171 !important;
+}
+
 }

@@ -4,9 +4,6 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
-
-import ListAllJobs from './components/ListAllJobsReference'
-import JobDetails from './components/JobDetailsReference'
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import UserProfile from './components/UserProfile'
@@ -16,7 +13,7 @@ import CreateJobForm from './components/CreateJobForm'
 import App from './App'
 import './index.css'
 import JobsTable from './components/JobsTable'
-import JobDetail from './components/JobDetail'
+
 
 const BASE_URL = import.meta.env.BASE_URL
 if (!BASE_URL) {
@@ -56,10 +53,6 @@ const router = createBrowserRouter(
                 {
                     path: 'createjob',
                     element: <CreateJobForm />,
-                },
-                {
-                    path: 'jobdetail/:jobId',
-                    element: <JobDetail />,
                 },
             ],
         },

@@ -5,12 +5,9 @@ import { useEffect } from 'react';
 
 const Navigation = () => {
     const navigate = useNavigate()
-    const { data: user, isLoading } = useAuthenticateQuery()
-    console.log({user, isLoading})
 
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
     const [ signout, signoutStatus ] = useSignoutMutation()
-
-    console.log({signoutStatus})
 
     useEffect(() => {
         if (signoutStatus.isSuccess) navigate('/')
@@ -19,6 +16,7 @@ const Navigation = () => {
     const onSignoutClick = (e) => (
         signout()
     )
+
     return (
         <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#302939' }} data-bs-theme="dark">
             <div className="container-fluid">
