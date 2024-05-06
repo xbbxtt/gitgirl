@@ -1,48 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserNavigation from './UserNavigation';
-import DeleteAppButton from './DeleteAppButton';
 import JobDetailForApp from './JobDetailForApp';
 import {
     useAuthenticateQuery,
-    useLazyListAllAppsForJobseekerQuery
+    useLazyListAllAppsForJobseekerQuery,
+    useDeleteAppMutation
 } from '../app/apiSlice'
 
 const AppliedJobs = () => {
     const navigate = useNavigate();
-    const [ appliedJobs, setAppliedJobs ] = useState([]);
-    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
-    const [ trigger, result ] = useLazyListAllAppsForJobseekerQuery();
-    const [errorMessage, setErrorMessage] = useState('');
-    const [showModal, setShowModal] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const jobsPerPage = 4;
 
+    const [ deleteID, setDeleteID ] = useState('');
+    const [ modalMessage, setModalMessage ] = useState('');
+    const [ appliedJobs, setAppliedJobs ] = useState([]);
+    const [ showModal, setShowModal ] = useState(false);
+    const [ deleteModal, setDeleteModal ] = useState(false);
+    const [ currentPage, setCurrentPage ] = useState(1);
+    // redux hooks
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
+    const [ appListTrigger, appListResult ] = useLazyListAllAppsForJobseekerQuery();
+    const [ deleteApp, deleteAppStatus ] = useDeleteAppMutation();
+
+    const jobsPerPage = 8;
+
+    // if no user, navigate to signin form...
+    // if there is a user, trigger useLazyListAllAppsForJobseekerQuery() redux hook
     useEffect(() => {
         if (!user && !isLoadingUser) {
             navigate('/signin')
         } else if (user) {
-            trigger()
+            appListTrigger()
         }
-    }, [user, isLoadingUser, navigate, trigger])
+    }, [user, isLoadingUser, navigate, appListTrigger]);
 
-    console.log({result})
-
+    // if app list result loads successfully, setAppliedJobs on line 16
+    // else, show error modal and set applied jobs to empty array
     useEffect(() => {
-        if (result.isSuccess) {
-            setAppliedJobs(result.data.applications)
-        } else if (result.isError) {
-            setErrorMessage(result.error.data.detail)
+        if (appListResult.isSuccess) {
+            setAppliedJobs(appListResult.data.applications)
+        } else if (appListResult.isError) {
+            setModalMessage(appListResult.error.data.detail)
             setAppliedJobs([])
             setShowModal(true)
         }
-    }, [result])
+    }, [appListResult]);
 
-    if (result.isLoading) return <div>Loading your applications...</div>
-
-
-    const handleRemind = (jobId) => {
-        // Add logic to see job detail
+    if (appListResult.isLoading) {
+        return (
+        <div>Loading your applications...</div>
+        )
     };
 
     const formatDate = (dateString) => {
@@ -59,10 +66,30 @@ const AppliedJobs = () => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    //stores job id you want to delete in state...
+    // delete modal state shows yes/no buttons in modal instead of close button
+    const handleDelete = (appID) => {
+        setDeleteID(appID);
+        setShowModal(true);
+        setModalMessage('Are you sure you want to delete this application?');
+        setDeleteModal(true);
+    };
+
+    // deleteJob takes delete id stored in state
+    // and executes useDeleteJobMutation() function
+    const confirmDelete = (e) => {
+        deleteApp(deleteID);
+        setDeleteID('');
+        setShowModal(false);
+        setModalMessage('');
+        setDeleteModal(false);
+    };
+
     const closeModal = () => {
         setShowModal(false);
-        setErrorMessage('');
-    }
+        setDeleteModal(false)
+        setModalMessage('');
+    };
 
     return (
         <>
@@ -81,15 +108,17 @@ const AppliedJobs = () => {
                                 </div>
                             </div>
                             <div className="modal-body" style={{ padding: '10px' }}>
-                                <p>{errorMessage}</p>
+                                <p>{modalMessage}</p>
                             </div>
-                            <div className="modal-footer" style={{ backgroundColor: 'white', borderTop: 'none', padding: '10px' }}>
-                                <button type="button" className="btn btn-secondary" onClick={closeModal} style={{ borderRadius: '0' }}>Close</button>
+                            <div className="modal-footer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', borderTop: 'none', padding: '10px' }}>
+                                {deleteModal && <button type="button" className="btn btn-secondary" onClick={confirmDelete} style={{ borderRadius: '0' }}>Yes</button>}
+                                {deleteModal &&<button type="button" className="btn btn-secondary" onClick={closeModal} style={{ borderRadius: '0' }}>No</button>}
+                                {!deleteModal &&<button type="button" className="btn btn-secondary" onClick={closeModal} style={{ borderRadius: '0' }}>Close</button>}
                             </div>
                         </div>
                     </div>
                 </div>
-                )}
+            )}
             <div className="container-fluid" style={{ minHeight: '80vh' }}>
                 <div className="row">
                     <UserNavigation />
@@ -115,13 +144,19 @@ const AppliedJobs = () => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-primary me-2"
-                                                    onClick={() => handleRemind(app.id)}
+                                                    onClick={() => navigate(`/jobs/${app.job_id}`)}
                                                 >
                                                     Job Detail
                                                 </button>
                                             </td>
                                             <td>
-                                                <DeleteAppButton appID={app.id} />
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-primary"
+                                                    onClick={() => handleDelete(app.id)}
+                                                >
+                                                    Delete Application
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}

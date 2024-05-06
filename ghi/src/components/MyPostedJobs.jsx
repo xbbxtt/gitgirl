@@ -1,54 +1,55 @@
-//@ts-check
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     useAuthenticateQuery,
-    useLazyListAllJobsByPosterQuery
+    useLazyListAllJobsByPosterQuery,
+    useDeleteJobMutation
 } from '../app/apiSlice'
 import UserNavigation from './UserNavigation';
-import DeleteJobButton from './DeleteJobButton';
 
 const MyPostedJobs = () => {
-    const navigate = useNavigate()
-    const [ myJobs, setMyJobs ] = useState([])
-    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
-    const [ trigger, result ] = useLazyListAllJobsByPosterQuery()
-    const [errorMessage, setErrorMessage] = useState('');
-    const [showModal, setShowModal] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const jobsPerPage = 4;
+    const navigate = useNavigate();
 
+    const [ deleteID, setDeleteID ] = useState('');
+    const [ myJobs, setMyJobs ] = useState([]);
+    const [ modalMessage, setModalMessage ] = useState('');
+    const [ showModal, setShowModal ] = useState(false);
+    const [ deleteModal, setDeleteModal ] = useState(false);
+
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
+    const [ listJobsTrigger, listJobsResult ] = useLazyListAllJobsByPosterQuery();
+    const [ deleteJob, deleteJobStatus ] = useDeleteJobMutation();
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const jobsPerPage = 8;
+
+    // if no user, navigate to signin form...
+    // if there is a user, trigger useLazyListAllJobsByPosterQuery() redux hook
     useEffect(() => {
         if (!user && !isLoadingUser) {
             navigate('/signin')
         } else if (user) {
-            trigger()
+            listJobsTrigger()
         }
-    }, [user, isLoadingUser, navigate, trigger])
+    }, [user, isLoadingUser, navigate, listJobsTrigger])
 
+    // if job list result loads successfully, setMyJobs on line 15
+    //  else.. if job list is error... show modal with error message
     useEffect(() => {
-        if (result.isSuccess) {
-            setMyJobs(result.data.jobs)
-        } else if (result.isError) {
-            setErrorMessage(result.error.data.detail)
-            setMyJobs([])
-            setShowModal(true)
+        if (listJobsResult.isSuccess) {
+            setMyJobs(listJobsResult.data.jobs)
+        } else if (listJobsResult.isError) {
+            setModalMessage(listJobsResult.error.data.detail);
+            setMyJobs([]);
+            setShowModal(true);
         }
-    }, [result])
+    }, [listJobsResult]);
 
-    if (result.isLoading) return <div>Loading Jobs You've Posted...</div>
+    if (listJobsResult.isLoading) return <div>Loading Jobs You've Posted...</div>
 
     const indexOfLastJob = currentPage * jobsPerPage;
     const indexOfFirstJob = indexOfLastJob - jobsPerPage;
     const currentJobs = myJobs.slice(indexOfFirstJob, indexOfLastJob);
-
-    const handleJobDetail = (jobId) => {
-        // Add logic to see job detail
-    };
-
-    const handleDeleteJob = (jobId) => {
-        // Add logic to delete the job
-    };
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -60,37 +61,58 @@ const MyPostedJobs = () => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    //stores job id you want to delete in state...
+    // delete modal state shows yes/no buttons in modal instead of close button
+    const handleDelete = (jobID) => {
+        setDeleteID(jobID);
+        setShowModal(true);
+        setModalMessage('Are you sure you want to delete this job posting?');
+        setDeleteModal(true);
+    };
+    // deleteJob takes delete id stored in state
+    // and executes useDeleteJobMutation() function
+    const confirmDelete = (e) => {
+        deleteJob(deleteID);
+        setDeleteID('');
+        setShowModal(false);
+        setModalMessage('');
+        setDeleteModal(false);
+    };
+
     const closeModal = () => {
         setShowModal(false);
-        setErrorMessage('');
-    }
+        setModalMessage('');
+        setDeleteModal(false)
+    };
 
     return (
         <>
             {showModal && (
-                    <div className="modal" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header" style={{ backgroundColor: '#e99b9b', textAlign: 'center', position: 'relative' }}>
-                                    <button type="button" className="btn-close" onClick={closeModal} style={{ position: 'absolute', top: '10px', right: '10px', color: '#fff', fontSize: '1.25rem' }} aria-label="Close"></button>
-                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" className="bi bi-exclamation-triangle" viewBox="0 0 16 16" style={{ marginRight: '5px' }}>
-                                            <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z"/>
-                                            <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
-                                        </svg>
-                                        <h3 style={{ margin: '0', color: 'black' }}>Uh-oh!</h3>
-                                    </div>
+                <div className="modal" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header" style={{ backgroundColor: '#e99b9b', textAlign: 'center', position: 'relative' }}>
+                                <button type="button" className="btn-close" onClick={closeModal} style={{ position: 'absolute', top: '10px', right: '10px', color: '#fff', fontSize: '1.25rem' }} aria-label="Close"></button>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" className="bi bi-exclamation-triangle" viewBox="0 0 16 16" style={{ marginRight: '5px' }}>
+                                        <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z"/>
+                                        <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+                                    </svg>
+                                    <h3 style={{ margin: '0', color: 'black' }}>Uh-oh!</h3>
                                 </div>
-                                <div className="modal-body" style={{ padding: '10px' }}>
-                                    <p>{errorMessage}</p>
-                                </div>
-                                <div className="modal-footer" style={{ backgroundColor: 'white', borderTop: 'none', padding: '10px' }}>
-                                    <button type="button" className="btn btn-secondary" onClick={closeModal} style={{ borderRadius: '0' }}>Close</button>
-                                </div>
+                            </div>
+                            <div className="modal-body" style={{ padding: '10px' }}>
+                                <p>{modalMessage}</p>
+                            </div>
+                            <div className="modal-footer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', borderTop: 'none', padding: '10px' }}>
+                                {deleteModal && <button type="button" className="btn btn-secondary" onClick={confirmDelete} style={{ borderRadius: '0' }}>Yes</button>}
+                                {deleteModal &&<button type="button" className="btn btn-secondary" onClick={closeModal} style={{ borderRadius: '0' }}>No</button>}
+                                {!deleteModal &&<button type="button" className="btn btn-secondary" onClick={closeModal} style={{ borderRadius: '0' }}>Close</button>}
                             </div>
                         </div>
                     </div>
-                    )}
+                </div>
+                )}
             <div className="container-fluid" style={{ minHeight: '80vh' }}>
                 <div className="row">
                     <UserNavigation />
@@ -117,13 +139,19 @@ const MyPostedJobs = () => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-primary me-2"
-                                                    onClick={() => handleJobDetail(job.id)}
+                                                    onClick={() => navigate(`/jobs/${job.id}`)}
                                                 >
                                                     Job Detail
                                                 </button>
                                             </td>
                                             <td>
-                                                <DeleteJobButton jobID={job.id} />
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-primary"
+                                                    onClick={() => handleDelete(job.id)}
+                                                >
+                                                    Delete Job
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}

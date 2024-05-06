@@ -15,7 +15,8 @@ export const gitGirlApi = createApi({
         listAllJobsByPoster: builder.query({
             query: () => ({
                 url: `/api/jobs/mine`
-            })
+            }),
+            providesTags: [{type: 'Jobs', id: 'mine' }]
         }),
         jobDetails: builder.query({
             query: (jobID) => ({
@@ -33,12 +34,14 @@ export const gitGirlApi = createApi({
             query: (jobID) => ({
                 url: `/api/jobs/${jobID}`,
                 method: 'DELETE'
-            })
+            }),
+            invalidatesTags: [{type: 'Jobs', id: 'mine' }]
         }),
         listAllAppsForJobseeker: builder.query({
             query: () => ({
                 url: `/api/applications/mine`
-            })
+            }),
+            providesTags: [{type: 'Applications', id: 'mine' }]
         }),
         listAllAppsForPosterByJob: builder.query({
             query: (jobID) => ({
@@ -47,15 +50,17 @@ export const gitGirlApi = createApi({
         }),
         createApp: builder.mutation({
             query: (jobID) => ({
-                url: `/api/${jobID}/applications`,
+                url: `/api/jobs/${jobID}/applications`,
                 method: 'POST'
-            })
+            }),
+            invalidatesTags: [{type: 'Applications', id: 'mine'}]
         }),
         deleteApp: builder.mutation({
             query: (appID) => ({
                 url: `/api/applications/${appID}`,
                 method: 'DELETE'
-            })
+            }),
+            invalidatesTags: [{type: 'Applications', id: 'mine' }]
         }),
         authenticate: builder.query({
             query: () => ({
@@ -96,6 +101,7 @@ export const {
     useListAllJobsByPosterQuery,
     useLazyListAllJobsByPosterQuery,
     useJobDetailsQuery,
+    useLazyJobDetailsQuery,
     useCreateJobMutation,
     useDeleteJobMutation,
     useListAllAppsForJobseekerQuery,

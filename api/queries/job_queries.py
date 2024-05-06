@@ -75,7 +75,11 @@ class JobQueries:
                             creator_id=record[7]
                         )
                         result.append(job)
-                    return JobList(jobs=result)
+
+                    if not result:
+                        return None
+                    else:
+                        return JobList(jobs=result)
         except Exception as e:
             print(e)
             return {"message": "Could not get all jobs"}

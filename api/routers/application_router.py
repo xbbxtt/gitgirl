@@ -13,6 +13,7 @@ from models.jobs import JobIn, JobOut, JobList
 from models.applications import (
     ApplicationOut,
     ApplicationList,
+    ApplicationListForPoster
 )
 from models.users import UserResponse
 from utils.exceptions import UserDatabaseException
@@ -73,7 +74,7 @@ def delete_app_by_id(
     #  Get a list of applications by job for that job's poster
 @router.get(
         "/jobs/{job_id}/applications",
-        response_model=ApplicationList
+        response_model=ApplicationListForPoster
 )
 def get_all_apps_for_poster_by_job(
     job_id: int,

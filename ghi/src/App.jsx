@@ -10,6 +10,7 @@ import UserProfile from './components/UserProfile';
 import AppliedJobs from './components/AppliedJobs';
 import MyPostedJobs from './components/MyPostedJobs';
 import JobsTable from './components/JobsTable';
+import JobDetail from './components/JobDetail';
 import CreateJobForm from './components/CreateJobForm'
 import './App.css';
 
@@ -61,9 +62,10 @@ function App() {
                     <Route path="/signup" element={<SignUpForm />} />
                     <Route path="/signin" element={<SignInForm />} />
                     <Route path="/profile" element={<UserProfile />} />
-                    {/* <Route path="/applications" element={<AppliedJobs appliedJobs={appliedJobs} />} /> */}
+                    <Route path="/applications" element={<AppliedJobs />} />
                     <Route path="/mypostedjobs" element={<MyPostedJobs />} />
-                    <Route path="/jobs" element={<JobsTable />} />
+                    <Route path="/jobs" element={<JobsTable/>} />
+                    <Route path="/jobs/:jobID" element={<JobDetail />} />
                     <Route path="/createjob" element={<CreateJobForm />} />
                 </Routes>
             </main>

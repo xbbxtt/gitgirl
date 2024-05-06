@@ -6,7 +6,7 @@ import {
 
 const JobDetailForApp = (props) => {
     const { data: jobDetail, isLoading } = useJobDetailsQuery(props.jobID)
-    console.log(jobDetail)
+
     if (isLoading) return (
         <>
             <td>Loading..</td>

@@ -7,6 +7,7 @@ from models.jobs import JobOut, JobIn, JobList
 from models.applications import (
     ApplicationOut,
     ApplicationList,
+    ApplicationListForPoster
 )
 from models.users import UserWithPw
 from utils.exceptions import UserDatabaseException
@@ -78,24 +79,82 @@ class ApplicationQueries:
 
 
     # Gets a list of applications by job for job poster
+    # def list_apps_for_poster_by_job(
+    #                         self,
+    #                         creator_id: int,
+    #                         job_id: int
+    #                         ) -> ApplicationList:
+    #     try:
+    #         with pool.connection() as conn:
+    #             with conn.cursor() as db:
+    #                 db.execute(
+    #                     """
+    #                     SELECT
+    #                       a.id, a.job_id, a.applicant_id, a.applied_at
+    #                     FROM jobs j
+    #                     JOIN applications a ON(j.id=a.job_id)
+    #                     WHERE j.creator_id = %s
+    #                     AND j.id = %s
+    #                     GROUP BY
+    #                       a.id, a.job_id, a.applicant_id, a.applied_at
+    #                     ORDER BY a.applied_at
+    #                     """,
+    #                     [
+    #                         creator_id,
+    #                         job_id
+    #                     ]
+    #                 )
+
+    #                 applications = []
+    #                 rows = db.fetchall()
+
+    #                 for row in rows:
+    #                     application = None
+    #                     if row is not None:
+    #                         application = {}
+    #                         application_fields = [
+    #                             "id",
+    #                             "job_id",
+    #                             "applicant_id",
+    #                             "applied_at",
+    #                         ]
+    #                         for i, column in enumerate(db.description):
+    #                             if column.name in application_fields:
+    #                                 application[column.name] = row[i]
+    #                     applications.append(application)
+
+    #                 if not applications:
+    #                     return None
+    #                 else:
+    #                     return ApplicationList(applications=applications)
+
+    #     except Exception as e:
+    #         print(e)
+    #         return {
+    #             "message": "Could not get all applications for your job posts"
+    #             }
+
     def list_apps_for_poster_by_job(
                             self,
                             creator_id: int,
                             job_id: int
-                            ) -> ApplicationList:
+                            ) -> ApplicationListForPoster:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
                         SELECT
-                          a.id, a.job_id, a.applicant_id, a.applied_at
+                          a.id, a.job_id, u.full_name,
+                          u.email, u.linkedin_url, a.applied_at
                         FROM jobs j
                         JOIN applications a ON(j.id=a.job_id)
+                        JOIN users u ON(a.applicant_id=u.id)
                         WHERE j.creator_id = %s
                         AND j.id = %s
                         GROUP BY
-                          a.id, a.job_id, a.applicant_id, a.applied_at
+                          a.id, a.job_id, u.full_name, u.email,
+                          u.linkedin_url, a.applied_at
                         ORDER BY a.applied_at
                         """,
                         [
@@ -114,7 +173,9 @@ class ApplicationQueries:
                             application_fields = [
                                 "id",
                                 "job_id",
-                                "applicant_id",
+                                "full_name",
+                                "email",
+                                "linkedin_url",
                                 "applied_at",
                             ]
                             for i, column in enumerate(db.description):
@@ -125,7 +186,7 @@ class ApplicationQueries:
                     if not applications:
                         return None
                     else:
-                        return ApplicationList(applications=applications)
+                        return ApplicationListForPoster(applications=applications)
 
         except Exception as e:
             print(e)
