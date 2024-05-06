@@ -22,7 +22,10 @@ class FakeApplicationsQueries:
                     applied_at=datetime.now(),
                 ),
                 ApplicationOut(
-                    id=2, job_id=2, applicant_id=2, applied_at=datetime.now()
+                    id=2,
+                    job_id=2,
+                    applicant_id=2,
+                    applied_at=datetime.now(),
                 ),
             ]
         }
@@ -38,7 +41,11 @@ class FakeApplicationsQueries:
                     creator_id=creator_id,
                 ),
                 ApplicationOut(
-                    id=2, job_id=2, applicant_id=2, applied_at=datetime.now()
+                    id=2,
+                    job_id=2,
+                    applicant_id=2,
+                    applied_at=datetime.now(),
+                    creator_id=creator_id,
                 ),
             ]
         }
