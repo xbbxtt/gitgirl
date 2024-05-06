@@ -138,7 +138,8 @@ const JobsTable = () => {
                                             <p className="card-text">{formatDate(job.posted_date)}</p>
                                         </div>
                                         <h5 className="card-"><strong>{job.position_title}</strong> | {job.location}</h5>
-                                        <p className="card-text" style={{ width: '75%' }}>Job Description: {job.id}</p>
+                                            <p className="card-text" style={{ width: '75%' }}>
+                                                {job.job_description.length > 500 ? `${job.job_description.substring(0, 500)}...` : job.job_description} </p>
                                         <div className="d-flex align-items-center justify-content-end">
                                             {(jobIDs.includes(job.id)) ?
                                             <button
