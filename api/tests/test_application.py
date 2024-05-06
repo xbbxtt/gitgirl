@@ -2,7 +2,7 @@ from fastapi.testclient import TestClient
 import unittest
 from datetime import datetime
 from queries.application_queries import ApplicationQueries
-from models.applications import ApplicationOut
+from models.applications import ApplicationOut, ApplicationOutForPoster
 from models.users import UserResponse
 from utils.authentication import try_get_jwt_user_data
 from main import app
@@ -33,19 +33,21 @@ class FakeApplicationsQueries:
     def list_apps_for_poster_by_job(self, creator_id: int, job_id: int):
         return {
             "applications": [
-                ApplicationOut(
+                ApplicationOutForPoster(
                     id=1,
                     job_id=1,
-                    applicant_id=1,
+                    full_name="John Doe",
+                    email="john@example.com",
+                    linkedin_url="https://www.linkedin.com/in/johndoe",
                     applied_at=datetime.now(),
-                    creator_id=creator_id,
                 ),
-                ApplicationOut(
+                ApplicationOutForPoster(
                     id=2,
                     job_id=2,
-                    applicant_id=2,
+                    full_name="Jane Doe",
+                    email="jane@example.com",
+                    linkedin_url="https://www.linkedin.com/in/janedoe",
                     applied_at=datetime.now(),
-                    creator_id=creator_id,
                 ),
             ]
         }
