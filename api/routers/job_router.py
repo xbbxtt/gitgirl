@@ -24,24 +24,34 @@ router = APIRouter(tags=["Jobs"], prefix="/api/jobs")
 
 @router.get("", response_model=JobList)
 def get_all_jobs(
-    repo: JobQueries = Depends(),
+    job_queries: JobQueries = Depends(),
     user: UserResponse = Depends(try_get_jwt_user_data)
 ):
     if user is None:
         raise HTTPException(status_code=401, detail="You must be logged in")
 
-    return repo.get_all_jobs()
+    jobs = job_queries.get_all_jobs()
+
+    return jobs
 
 
 @router.get("/mine", response_model=JobList)
 def get_all_jobs_by_poster(
-    repo: JobQueries = Depends(),
+    job_queries: JobQueries = Depends(),
     user: UserResponse = Depends(try_get_jwt_user_data)
 ):
     if user is None:
         raise HTTPException(status_code=401, detail="You must be logged in")
 
-    return repo.get_all_jobs_by_poster(creator_id=user.id)
+    jobs = job_queries.get_all_jobs_by_poster(creator_id=user.id)
+
+    if jobs is not None:
+        return jobs
+    else:
+        raise HTTPException(
+                status_code=404,
+                detail="You have no jobs posted"
+            )
 
 
 @router.get("/{job_id}", response_model=JobOut)

@@ -1,8 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import UserNavigation from './UserNavigation';
+import { useAuthenticateQuery } from '../app/apiSlice';
 
-const UserProfile = ({ fullName, email, linkedInUrl }) => {
+const UserProfile = () => {
+    const navigate = useNavigate()
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
+
+    useEffect(() => {
+        if (!user && !isLoadingUser) {
+            navigate('/signin')
+        }
+    }, [user, isLoadingUser, navigate])
+
+    if (isLoadingUser) return <div>Loading...</div>
+
     return (
         <div className="container-fluid" style={{ minHeight: '80vh' }}>
             <div className="row">
@@ -16,7 +28,7 @@ const UserProfile = ({ fullName, email, linkedInUrl }) => {
                                     <div className="form-group">
                                         <label>Full Name:</label>
                                         <div>
-                                            <input type="text" className="form-control" value={fullName} disabled />
+                                            <input type="text" className="form-control" value={user.full_name} disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -24,7 +36,7 @@ const UserProfile = ({ fullName, email, linkedInUrl }) => {
                                     <div className="form-group">
                                         <label>Email:</label>
                                         <div>
-                                            <input type="email" className="form-control" value={email} disabled />
+                                            <input type="email" className="form-control" value={user.email} disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -32,7 +44,7 @@ const UserProfile = ({ fullName, email, linkedInUrl }) => {
                                     <div className="form-group">
                                         <label>LinkedIn:</label>
                                         <div>
-                                            <input type="url" className="form-control" value={linkedInUrl} disabled />
+                                            <input type="url" className="form-control" value={user.linkedin_url} disabled />
                                         </div>
                                     </div>
                                 </div>
