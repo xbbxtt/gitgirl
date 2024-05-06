@@ -131,12 +131,37 @@ const CreateJobForm = () => {
                                         <input type="text" name="location" value={formData.location} onChange={handleChange} className="form-control" placeholder="Location" required />
                                     </div>
                                     <div className="form-group mb-3">
-                                        <label htmlFor="image_url" className="form-label">Company Image URL</label>
-                                        <input type="text" name="image_url" value={formData.image_url} onChange={handleChange} className="form-control" placeholder="Company Image URL" required />
+                                        <label
+                                            htmlFor="image_url"
+                                            className="form-label"
+                                        >
+                                            Company Image URL
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="image_url"
+                                            value={formData.image_url}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="Company Image URL"
+                                            required
+                                        />
                                     </div>
                                     <div className="form-group mb-3">
-                                        <label htmlFor="job_description" className="form-label">Job Description</label>
-                                        <textarea name="job_description" value={formData.job_description} onChange={handleChange} className="form-control" placeholder="Job Description" required />
+                                        <label
+                                            htmlFor="job_description"
+                                            className="form-label"
+                                        >
+                                            Job Description
+                                        </label>
+                                        <textarea
+                                            name="job_description"
+                                            value={formData.job_description}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="Job Description"
+                                            required
+                                        />
                                     </div>
                                     <button type="submit" className="btn btn-primary me-2">Create</button>
                                 </form>
