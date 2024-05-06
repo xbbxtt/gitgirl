@@ -52,7 +52,7 @@ async def signup(
             )
     except UserDatabaseException as e:
         print(e)
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+        raise HTTPException(status_code=401, detail="Username or Email already exists in our database")
 
     # Generate a JWT token
     token = generate_jwt(user)
