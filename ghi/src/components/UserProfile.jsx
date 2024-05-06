@@ -28,7 +28,7 @@ const UserProfile = () => {
                                     <div className="form-group">
                                         <label>Full Name:</label>
                                         <div>
-                                            <input type="text" className="form-control" value={user.full_name} disabled />
+                                            {user && <input type="text" className="form-control" value={user.full_name} disabled />}
                                         </div>
                                     </div>
                                 </div>
@@ -36,7 +36,7 @@ const UserProfile = () => {
                                     <div className="form-group">
                                         <label>Email:</label>
                                         <div>
-                                            <input type="email" className="form-control" value={user.email} disabled />
+                                            {user && <input type="email" className="form-control" value={user.email} disabled />}
                                         </div>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@ const UserProfile = () => {
                                     <div className="form-group">
                                         <label>LinkedIn:</label>
                                         <div>
-                                            <input type="url" className="form-control" value={user.linkedin_url} disabled />
+                                            {user && <input type="url" className="form-control" value={user.linkedin_url} disabled />}
                                         </div>
                                     </div>
                                 </div>

@@ -10,11 +10,11 @@ import {
 const JobsTable = () => {
     const navigate = useNavigate();
 
-    const [errorMessage, setErrorMessage] = useState('');
+    const [ errorMessage, setErrorMessage ] = useState('');
     const [ jobs, setJobs ] = useState([]);
     const [ jobIDs, setJobIDs ] = useState([]);
-    const [showModal, setShowModal] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [ showModal, setShowModal ] = useState(false);
+    const [ currentPage, setCurrentPage ] = useState(1);
     // redux hooks
     const { data :user, isLoading: isLoadingUser } = useAuthenticateQuery();
     const [ listAppsTrigger, listAppsResult ] = useLazyListAllAppsForJobseekerQuery();
@@ -46,7 +46,7 @@ const JobsTable = () => {
         } else if (listAppsResult.isError) {
             setJobIDs([]);
         };
-    }, [listAppsResult]);
+    }, [listAppsResult, setJobIDs]);
 
     // if job list result loads successfully, setJobs on line 14
     // else, set error message and show modal
@@ -57,7 +57,7 @@ const JobsTable = () => {
             setErrorMessage(listJobsResult.error.data.detail);
             setShowModal(true);
         };
-    }, [listJobsResult]);
+    }, [listJobsResult, setErrorMessage, setShowModal]);
 
     if (listJobsResult.isLoading ||
         listAppsResult.isLoading ||
