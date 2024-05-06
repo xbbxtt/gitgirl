@@ -126,7 +126,8 @@ const MyPostedJobs = () => {
                                         <th scope="col">Position</th>
                                         <th scope="col">Posted Date</th>
                                         <th scope="col">Remind Me</th>
-                                        <th scope="col">Remove Job</th>
+                                        <th scope="col">Review GitGirls</th>
+                                    <th scope="col">Remove Job</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -145,6 +146,15 @@ const MyPostedJobs = () => {
                                                 </button>
                                             </td>
                                             <td>
+                                            <button
+                                                type="button"
+                                                className="btn btn-outline-primary"
+                                                onClick={() => handleViewApplicants(job.id)}
+                                            >
+                                                View Applicants
+                                            </button>
+                                        </td>
+                                        <td>
                                                 <button
                                                     type="button"
                                                     className="btn btn-outline-primary"

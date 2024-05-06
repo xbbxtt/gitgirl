@@ -5,7 +5,12 @@ import banner_3 from '/src/banner_3.jpg'
 function Home() {
     return (
         <div>
-            <div className="card mb-3 d-flex justify-content-around">
+            <div
+                className="card mb-3 d-flex justify-content-around"
+                style={{
+                    border: 'none',
+                }}
+            >
                 <h1 className="card-title text-center">
                     <img
                         className="d-block user-select-none "
@@ -82,38 +87,73 @@ function Home() {
                     </div>
                 </div>
             </div>
-            <div className="card text-white bg-primary mb-0 d-flex justify-content-around">
-                <div className="card-body">
-                    <div className="row">
-                        <img
-                            className="d-block user-select-none col-md-4"
-                            src="https://images.unsplash.com/photo-1573165067541-4cd6d9837902?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            width="50%"
-                            height="auto"
-                        ></img>
-                        <div className="col-md-8 text-end">
-                            <h1 className="card-title ">GitGirls</h1>
-                            <h6 className="card-subtitle mb-2 text-muted"></h6>
-                            <p className="card-text">
-                                Targeted Opportunities: GitGirl curates jobs,
-                                internships, and apprenticeships with employers
-                                who are committed to diversity and inclusion.
-                                This eliminates the need to sift through job
-                                listings that might not be as welcoming or
-                                supportive.
+            <div className="row">
+                <div className="col-md-4" style={{ paddingRight: '0' }}>
+                    <div
+                        className="card mb-3 d-flex justify-content-around"
+                        style={{
+                            border: 'none',
+                            backgroundColor: 'transparent',
+                        }}
+                    >
+                        <div
+                            className="card-body"
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                padding: '0',
+                            }}
+                        >
+                            <img
+                                className="d-block user-select-none img-fluid"
+                                src="https://images.unsplash.com/photo-1573165067541-4cd6d9837902?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Sample"
+                                style={{ borderRadius: '8px' }}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-8">
+                    <div
+                        className="card mb-0"
+                        style={{
+                            padding: '25px',
+                            color: '#302939',
+                            backgroundColor: '#F2C5C5',
+                        }}
+                    >
+                        <div className="card-body">
+                            <h1
+                                className="card-title"
+                                style={{ marginBottom: '35px' }}
+                            >
+                                GitGirls
+                            </h1>
+                            <p
+                                className="card-text"
+                                style={{ marginBottom: '25px' }}
+                            >
+                                <strong>Targeted Opportunities:</strong> GitGirl
+                                curates jobs, internships, and apprenticeships
+                                with employers who are committed to diversity
+                                and inclusion. This eliminates the need to sift
+                                through job listings that might not be as
+                                welcoming or supportive.
                             </p>
-                            <p>
-                                Increased Visibility: By creating a profile on
-                                GitGirl, you enhance your visibility to
-                                inclusive employers actively looking to
-                                diversify their tech teams.
+                            <p style={{ marginBottom: '25px' }}>
+                                <strong>Increased Visibility:</strong> By
+                                creating a profile on GitGirl, you enhance your
+                                visibility to inclusive employers actively
+                                looking to diversify their tech teams.
                             </p>
-                            <p>
-                                Addressing the Gender Gap: GitGirl works towards
-                                bridging the gender gap in tech by creating a
-                                space where women and femme-presenting
-                                individuals are at the forefront and providing a
-                                more equitable access to opportunities.
+                            <p style={{ marginBottom: '50px' }}>
+                                <strong>Addressing the Gender Gap: </strong>
+                                GitGirl works towards bridging the gender gap in
+                                tech by creating a space where women and
+                                femme-presenting individuals are at the
+                                forefront and providing a more equitable access
+                                to opportunities.
                             </p>
                             <p className="col-md-18 text-end">
                                 <button
@@ -133,31 +173,74 @@ function Home() {
                     </div>
                 </div>
             </div>
-            <div className="card text-white bg-secondary mb-0 d-flex justify-content-around">
-                <div className="card-body">
-                    <div className="row">
-                        <div className="col-md-8">
-                            <h1 className="card-title">Employers</h1>
-                            <h6 className="card-subtitle mb-2 text-muted"></h6>
-                            <p className="card-text">
-                                Untapped Potential: GitGirl gives employers
-                                access to a pool of highly qualified women and
-                                femme-presenting individuals in tech who might
-                                be overlooked on traditional job boards.
+            <div className="row">
+                <div className="col-md-8" style={{ paddingRight: '0' }}>
+                    <div
+                        className="card mb-0"
+                        style={{
+                            padding: '25px',
+                            color: '#302939',
+                            backgroundColor: '#ffffff',
+                            border: 'none',
+                        }}
+                    >
+                        <div className="card-body">
+                            <h1
+                                className="card-title"
+                                style={{ marginBottom: '35px' }}
+                            >
+                                Employers
+                            </h1>
+                            <p
+                                className="card-text"
+                                style={{ marginBottom: '25px' }}
+                            >
+                                <strong>Untapped Potential:</strong> GitGirl
+                                gives employers access to a pool of highly
+                                qualified women and femme-presenting individuals
+                                in tech who might be overlooked on traditional
+                                job boards.
                             </p>
-                            <p>
-                                Diverse Talent: Employers can diversify their
-                                tech teams by connecting with candidates from
-                                underrepresented groups in tech.
+                            <p style={{ marginBottom: '25px' }}>
+                                <strong>Diverse Talent:</strong> Employers can
+                                diversify their tech teams by connecting with
+                                candidates from underrepresented groups in tech.
                             </p>
-                            <p>
-                                Positive Brand Image: Using GitGirl signals to
-                                potential candidates and the broader tech
-                                community that your company is actively
-                                committed to creating a diverse and inclusive
-                                workplace. This can boost employer branding and
-                                attract top talent who value inclusivity.
+                            <p style={{ marginBottom: '50px' }}>
+                                <strong>Positive Brand Image:</strong> Using
+                                GitGirl signals to potential candidates and the
+                                broader tech community that your company is
+                                actively committed to creating a diverse and
+                                inclusive workplace. This can boost employer
+                                branding and attract top talent who value
+                                inclusiveness.
                             </p>
+                            <div className="d-flex">
+                                <Link
+                                    to="/signin"
+                                    type="button"
+                                    className="btn me-4"
+                                    style={{
+                                        backgroundColor: '#302939',
+                                        color: 'white',
+                                        border: 'none',
+                                    }}
+                                >
+                                    Sign In
+                                </Link>
+                                <Link
+                                    to="/signup"
+                                    type="button"
+                                    className="btn"
+                                    style={{
+                                        backgroundColor: '#302939',
+                                        color: 'white',
+                                        border: 'none',
+                                    }}
+                                >
+                                    Join Network
+                                </Link>
+                            </div>
                         </div>
                         <div className="col-md-4">
                             <img

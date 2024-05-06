@@ -1,10 +1,12 @@
 from fastapi.testclient import TestClient
 import unittest
+from datetime import datetime
 from queries.job_queries import JobQueries
 from models.jobs import JobList, JobOut, JobIn
 from models.users import UserResponse
 from utils.authentication import try_get_jwt_user_data
 from main import app
+
 
 client = TestClient(app)
 
@@ -21,13 +23,16 @@ def fake_try_get_jwt_user_data():
 
 class FakeJobQueries:
     def get_all_jobs(self):
-        return [
+        return {"jobs": [
+
             JobOut(
                 id=1,
                 image_url="https://via.placeholder.com/150",
                 position_title="Software Engineer",
                 company_name="Google",
+                location="Mountain View, CA",
                 job_description="Software Engineer at Google",
+                posted_date=datetime.now(),
                 creator_id=1
             ),
             JobOut(
@@ -35,20 +40,24 @@ class FakeJobQueries:
                 image_url="https://via.placeholder.com/150",
                 position_title="Software Engineer",
                 company_name="Facebook",
+                location="Menlo Park, CA",
                 job_description="Software Engineer at Facebook",
+                posted_date=datetime.now(),
                 creator_id=1
             )
         ]
-        return JobList(jobs=jobs)
+        }
 
     def get_all_jobs_by_poster(self, creator_id: int):
-        return [
+        return {"jobs": [
             JobOut(
                 id=1,
                 image_url="https://via.placeholder.com/150",
                 position_title="Software Engineer",
                 company_name="Google",
+                location="Mountain View, CA",
                 job_description="Software Engineer at Google",
+                posted_date=datetime.now(),
                 creator_id=creator_id
             ),
             JobOut(
@@ -56,12 +65,13 @@ class FakeJobQueries:
                 image_url="https://via.placeholder.com/150",
                 position_title="Software Engineer",
                 company_name="Facebook",
+                location="Menlo Park, CA",
                 job_description="Software Engineer at Facebook",
+                posted_date=datetime.now(),
                 creator_id=creator_id
             )
         ]
-        return jobs
-
+        }
 
     def get_job_by_id(self, job_id: int):
         return JobOut(
@@ -69,7 +79,9 @@ class FakeJobQueries:
             image_url="https://via.placeholder.com/150",
             position_title="Software Engineer",
             company_name="Google",
+            location="Mountain View, CA",
             job_description="Software Engineer at Google",
+            posted_date=datetime.now(),
             creator_id=1
         )
 
@@ -79,7 +91,9 @@ class FakeJobQueries:
             image_url=job.image_url,
             position_title=job.position_title,
             company_name=job.company_name,
+            location=job.location,
             job_description=job.job_description,
+            posted_date=datetime.now(),
             creator_id=creator_id
         )
 
@@ -127,7 +141,9 @@ class TestJobs(unittest.TestCase):
             "image_url": "https://via.placeholder.com/150",
             "position_title": "Software Engineer",
             "company_name": "Apple",
-            "job_description": "Software Engineer at Apple"
+            "location": "Cupertino, CA",
+            "job_description": "Software Engineer at Apple",
+            "posted_date": "2021-07-01T00:00:00.000Z",
         }
 
         res = client.post("/api/jobs", json=job_data)
@@ -136,3 +152,16 @@ class TestJobs(unittest.TestCase):
         assert res.status_code == 200
         assert data["id"] == 3
         assert data["company_name"] == "Apple"
+
+    def test_delete_job(self):
+        # Arrange the data that is going to be used in the test
+        app.dependency_overrides[JobQueries]
+
+        # Act is where the function/method that is to be tested will be called
+        res = client.get("/api/jobs/1")
+        data = res.json()
+
+        # Assert is where the expected result will be checked
+        assert res.status_code == 200
+        assert data["id"] == 1
+        assert data["company_name"] == "Google"
