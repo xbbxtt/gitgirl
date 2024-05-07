@@ -10,7 +10,7 @@
 ## Target Market 
 GitGirl is a job board intended to support and promote women and femme presenting individuals searching for jobs in the Tech sector.  
 ## Design
-- [Model Data](https://gitlab.com/adas-allies/gitgirl/-/blob/44-read-me-journal/docs/data-model.md?ref_type=heads)
+- [Model Data](https://gitlab.com/adas-allies/gitgirl/-/blob/65-read/docs/data-model.md)
 - [Wireframe](https://gitlab.com/adas-allies/gitgirl/-/blob/65-read/docs/wireframe.md)
 - FastApi documentation can be found once project initlized by using URL: http://localhost:8000/docs#/
 
