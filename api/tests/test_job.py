@@ -97,6 +97,18 @@ class FakeJobQueries:
             creator_id=creator_id
         )
 
+    def delete_job(self, job_id: int):
+            return JobOut(
+                id=job_id,
+                image_url="https://via.placeholder.com/150",
+                position_title="Software Engineer",
+                company_name="Google",
+                location="Mountain View, CA",
+                job_description="Software Engineer at Google",
+                posted_date=datetime.now(),
+                creator_id=1
+            )
+
 
 class TestJobs(unittest.TestCase):
     def fake_job_queries(self):
@@ -153,15 +165,12 @@ class TestJobs(unittest.TestCase):
         assert data["id"] == 3
         assert data["company_name"] == "Apple"
 
+    def setUp(self):
+        self.fake_job_queries = FakeJobQueries()
+        app.dependency_overrides[JobQueries] = lambda: self.fake_job_queries
+        app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+
     def test_delete_job(self):
-        # Arrange the data that is going to be used in the test
-        app.dependency_overrides[JobQueries]
-
-        # Act is where the function/method that is to be tested will be called
-        res = client.get("/api/jobs/1")
-        data = res.json()
-
-        # Assert is where the expected result will be checked
-        assert res.status_code == 200
-        assert data["id"] == 1
-        assert data["company_name"] == "Google"
+        job_id_to_delete = 1
+        res = client.delete(f"/api/jobs/{job_id_to_delete}")
+        self.assertEqual(res.status_code, 204)
