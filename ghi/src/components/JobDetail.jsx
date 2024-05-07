@@ -245,7 +245,7 @@ const JobDetail = () => {
                                             style={{
                                                 marginTop: '50px',
                                                 width: '80%',
-                                                height: '90%',
+                                                height: '95%',
                                                 float: 'left',
                                                 backgroundColor: '#F5F5F5',
                                             }}
@@ -254,10 +254,10 @@ const JobDetail = () => {
                                                 <img
                                                     className="company_url"
                                                     src={job.image_url}
-                                                    width="90%"
-                                                    height="auto"
                                                     style={{
-                                                        marginBottom: '50px',
+                                                        maxWidth: '250px',
+                                                        maxHeight: '100px',
+                                                        marginBottom: '40px',
                                                         marginTop: '40px',
                                                     }}
                                                 />
