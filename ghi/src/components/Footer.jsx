@@ -20,24 +20,21 @@ const Footer = () => {
                             <a href="/" className="text-light">
                                 Home
                             </a>
-                            &nbsp; | &nbsp;
-                            <a href="/" className="text-light">
-                                About Us
-                            </a>
-                            &nbsp; | &nbsp;
-                            <a href="/" className="text-light">
-                                For Employers
-                            </a>
                         </p>
                     </div>
                     <div className="contact">
                         <div className="col-md-1 mb-2 text-md-justify text-light">
                             Email
                             <p className="text-light mb-0">
-                                <a href="/">press@gitgirl.com</a>
-                            </p>
-                            <p className="text-light mb-0">
-                                <a href="/">sales@gitgirl.com</a>
+                                <a
+                                    href="mailto:gitgirl.co@gmail.com"
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        window.open(e.target.href, '_blank')
+                                    }}
+                                >
+                                    gitgirl.co@gmail.com
+                                </a>
                             </p>
                         </div>
                         <div className="links text-end text-light mb-2">
@@ -87,20 +84,16 @@ const Footer = () => {
                         </div>
                         <div className="extras">
                             <div className="col-md-12 mb-6 text-md-end">
-                                <span className="text-light small-text me-3">
-                                    <a href="/" className="text-light">
-                                        GitGirl Code of Conduct
-                                    </a>
+                                <span className="text-grey small-text">
+                                    GitGirl Code of Conduct
                                 </span>
-                                <span className="text-light small-text me-3">
-                                    <a href="/" className="text-light">
-                                        Privacy Policy
-                                    </a>
+                                &nbsp; | &nbsp;
+                                <span className="text-grey small-text">
+                                    Privacy Policy
                                 </span>
-                                <span className="text-light small-text me-0">
-                                    <a href="/" className="text-light">
-                                        Terms of Use
-                                    </a>
+                                &nbsp; | &nbsp;
+                                <span className="text-grey small-text">
+                                    Terms of Use
                                 </span>
                             </div>
                         </div>
