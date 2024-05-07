@@ -2,8 +2,6 @@
 - Stephany Mesa
 - Taylor Shockley
 - Alyson Golden
-- Lauren Smith 
-- Glen Padilla 
 - Lauren Smith
 - Glenn Padilla
 
