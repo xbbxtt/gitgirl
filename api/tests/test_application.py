@@ -52,6 +52,10 @@ class FakeApplicationsQueries:
             ]
         }
 
+    @app.delete("/api/jobs/{job_id}/applications")
+    async def delete_application(job_id: int):
+        return {"message": "Application deleted"}
+
 
 def fake_try_get_jwt_user_data():
     return UserResponse(
@@ -90,3 +94,8 @@ class TestApplications(unittest.TestCase):
 
         assert res.status_code == 200
         assert len(data["applications"]) == 2
+
+    def test_delete_application(self):
+        app_id_to_delete = 1
+        res = client.delete(f"/api/jobs/{app_id_to_delete}/applications")
+        self.assertEqual(res.status_code, 200)
