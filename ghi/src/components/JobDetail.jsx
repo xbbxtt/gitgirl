@@ -73,7 +73,7 @@ const JobDetail = () => {
     const handleApply = (creatorID, jobID) => {
         if (user.id === creatorID) {
             setShowModal(true)
-            setModalMessage("You can't apply to your own job posting")
+            setModalMessage("You can't apply to your own job posting.")
         } else {
             apply(jobID)
         }
@@ -121,14 +121,19 @@ const JobDetail = () => {
                         bottom: 0,
                     }}
                 >
-                    <div className="modal-dialog" role="document">
+                    <div
+                        className="modal-dialog"
+                        role="document"
+                        style={{ width: '30%', textAlign: 'center' }}
+                    >
                         <div className="modal-content">
                             <div
                                 className="modal-header"
                                 style={{
-                                    backgroundColor: '#e99b9b',
+                                    backgroundColor: '#dda3a6',
                                     textAlign: 'center',
                                     position: 'relative',
+                                    height: '60px',
                                 }}
                             >
                                 <button
@@ -140,7 +145,7 @@ const JobDetail = () => {
                                         top: '10px',
                                         right: '10px',
                                         color: '#fff',
-                                        fontSize: '1.25rem',
+                                        fontSize: '0.8rem',
                                     }}
                                     aria-label="Close"
                                 ></button>
@@ -153,8 +158,8 @@ const JobDetail = () => {
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="64"
-                                        height="64"
+                                        width="35"
+                                        height="35"
                                         fill="currentColor"
                                         className="bi bi-exclamation-triangle"
                                         viewBox="0 0 16 16"
@@ -170,7 +175,10 @@ const JobDetail = () => {
                             </div>
                             <div
                                 className="modal-body"
-                                style={{ padding: '10px' }}
+                                style={{
+                                    paddingTop: '12px',
+                                    paddingBottom: '0px',
+                                }}
                             >
                                 <p>{modalMessage}</p>
                             </div>
@@ -182,13 +190,14 @@ const JobDetail = () => {
                                     justifyContent: 'center',
                                     backgroundColor: 'white',
                                     borderTop: 'none',
-                                    padding: '10px',
+                                    paddingBottom: '10px',
+                                    paddingTop: '0px',
                                 }}
                             >
                                 {deleteModal && (
                                     <button
                                         type="button"
-                                        className="btn btn-secondary"
+                                        className="btn btn-primary"
                                         onClick={confirmDelete}
                                         style={{ borderRadius: '0' }}
                                     >

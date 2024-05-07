@@ -85,7 +85,7 @@ const JobsTable = () => {
     const handleApply = (creatorID, jobID) => {
         if (user.id === creatorID) {
             setShowModal(true)
-            setErrorMessage("You can't apply to your own job posting")
+            setErrorMessage("You can't apply to your own job posting.")
         } else {
             apply(jobID)
         }
@@ -120,9 +120,10 @@ const JobsTable = () => {
                             <div
                                 className="modal-header"
                                 style={{
-                                    backgroundColor: '#e99b9b',
+                                    backgroundColor: '#dda3a6',
                                     textAlign: 'center',
                                     position: 'relative',
+                                    height: '60px',
                                 }}
                             >
                                 <button
@@ -134,7 +135,7 @@ const JobsTable = () => {
                                         top: '10px',
                                         right: '10px',
                                         color: '#fff',
-                                        fontSize: '1.25rem',
+                                        fontSize: '0.8rem',
                                     }}
                                     aria-label="Close"
                                 ></button>
@@ -147,8 +148,8 @@ const JobsTable = () => {
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        width="64"
-                                        height="64"
+                                        width="35"
+                                        height="35"
                                         fill="currentColor"
                                         className="bi bi-exclamation-triangle"
                                         viewBox="0 0 16 16"
@@ -164,7 +165,10 @@ const JobsTable = () => {
                             </div>
                             <div
                                 className="modal-body"
-                                style={{ padding: '10px' }}
+                                style={{
+                                    paddingTop: '12px',
+                                    paddingBottom: '0px',
+                                }}
                             >
                                 <p>{errorMessage}</p>
                             </div>
@@ -176,7 +180,8 @@ const JobsTable = () => {
                                     justifyContent: 'center',
                                     backgroundColor: 'white',
                                     borderTop: 'none',
-                                    padding: '10px',
+                                    paddingBottom: '10px',
+                                    paddingTop: '0px',
                                 }}
                             >
                                 <button
