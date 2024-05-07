@@ -17,6 +17,8 @@ GitGirl is a job board intended to support and promote women and femme presentin
 ## Target Market
 GitGirl is a job board intended to support and promote women and femme presenting individuals searching for jobs in the Tech sector.
 
+
+## Functionality
 **Home Page**
 - Visitors can browse the Home page to learn more about the GitGirl mission 
 - Sign Up to become a GitGirl 
