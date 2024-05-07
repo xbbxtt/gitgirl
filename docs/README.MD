@@ -23,13 +23,10 @@ GitGirl is a job board intended to support and promote women and femme presentin
 - Visitors can browse the Home page to learn more about the GitGirl mission 
 - Sign Up to become a GitGirl 
 - Sign into Git Girl account 
-- Visitors can browse the Home page to learn more about the GitGirl mission
-- Sign Up to become a GitGirl
-- Sign into Git Girl account
+
 
 **Sign Up Page**
 - Vistors can Sign Up to become a GitGirl by creating a profile  
-- Vistors can Sign Up to become a GitGirl by creating a profile
 
 **Sign In Page**
 - Returning users can sign into their existing accounts
@@ -38,9 +35,7 @@ GitGirl is a job board intended to support and promote women and femme presentin
 - Authenticated users can view jobs that have been posted by other users 
 - Authenticated users can view full job details 
 - Authenticated users can apply to job postings 
-- Authenticated users can view jobs that have been posted by other users
-- Authenticated users can view full job details
-- Authenticated users can apply to job postings
+
 
 **Profile Page**
 - Authenticated users can view & update their associated email and/or linkedin url 
