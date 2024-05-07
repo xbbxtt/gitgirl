@@ -25,30 +25,7 @@ const JobDetail = () => {
     const [ listAppsTrigger, appListResult ] = useLazyListAllAppsForJobseekerQuery()
     const [ deleteJob, deleteJobStatus ] = useDeleteJobMutation()
 
-    // ______________________________________________________________
-    // Hardcoded job data
-    // const postedJobsDetail = [
-    //     {
-    //         id: '4',
-    //         creator_id: '1',
-    //         company_name: 'Company F',
-    //         position_title: 'Position A',
-    //         location: 'New York, NY',
-    //         posted_date: '2024-04-25',
-    //         image_url:
-    //             'https://www.edigitalagency.com.au/wp-content/uploads/Linkedin-logo-png.png',
-    //         job_desc: `Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.
 
-    // Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. Fusce id velit ut tortor. Iaculis urna id volutpat lacus laoreet non curabitur. In iaculis nunc sed augue lacus viverra. Aliquet porttitor lacus luctus accumsan tortor posuere. Lectus urna duis convallis convallis. Convallis convallis tellus id interdum velit laoreet id. Porttitor leo a diam sollicitudin tempor id eu nisl nunc. Tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada. Consectetur libero id faucibus nisl tincidunt. Congue eu consequat ac felis donec. Tincidunt id aliquet risus feugiat in ante metus. Mi proin sed libero enim sed faucibus turpis in. Imperdiet nulla malesuada pellentesque elit eget gravida cum sociis natoque.
-
-    // Sem fringilla ut morbi tincidunt augue interdum velit. Pellentesque pulvinar pellentesque habitant morbi tristique. Sed libero enim sed faucibus turpis in eu. Risus in hendrerit gravida rutrum quisque non tellus orci ac. Purus semper eget duis at tellus at urna. Cras tincidunt lobortis feugiat vivamus at augue eget. Sapien pellentesque habitant morbi tristique senectus et netus et malesuada. Adipiscing bibendum est ultricies integer. Habitasse platea dictumst vestibulum rhoncus est. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.`,
-    //     },
-    // ]
-
-    // const job = postedJobsDetail[0]
-    // ______________________________________________________________
-
-    // if no user, navigate to signin form...
     // if there is a user, trigger redux hooks
     useEffect(() => {
         if (!user && !isLoadingUser) {
@@ -234,7 +211,7 @@ const JobDetail = () => {
                                                     {(jobIDs.includes(job.id)) ?
                                                     <button
                                                         type="button"
-                                                        className="btn btn-secondary mr-3"
+                                                        className={(user && (user.id === job.creator_id)) ? "btn btn-secondary mr-3 d-none" : "btn btn-secondary mr-3"}
                                                         style={{ backgroundColor: '#493e57' }}
                                                         disabled
                                                     >
@@ -242,13 +219,13 @@ const JobDetail = () => {
                                                     </button> :
                                                     <button
                                                         type="button"
-                                                        className="btn btn-secondary mr-3"
+                                                        className={(user && (user.id === job.creator_id)) ? "btn btn-secondary mr-3 d-none" : "btn btn-secondary mr-3"}
                                                         style={{ backgroundColor: '#493e57' }}
                                                         onClick={() => handleApply(job.creator_id, job.id)}
                                                     >
                                                         Apply
                                                     </button>}
-                                                    {(user.id === job.creator_id) && <button
+                                                    {(user && (user.id === job.creator_id)) && <button
                                                         type="button"
                                                         className="btn btn-outline-primary"
                                                         onClick={() => handleDelete(job.id)}

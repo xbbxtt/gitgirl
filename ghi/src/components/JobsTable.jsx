@@ -10,11 +10,11 @@ import {
 const JobsTable = () => {
     const navigate = useNavigate();
 
-    const [errorMessage, setErrorMessage] = useState('');
+    const [ errorMessage, setErrorMessage ] = useState('');
     const [ jobs, setJobs ] = useState([]);
     const [ jobIDs, setJobIDs ] = useState([]);
-    const [showModal, setShowModal] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [ showModal, setShowModal ] = useState(false);
+    const [ currentPage, setCurrentPage ] = useState(1);
     // redux hooks
     const { data :user, isLoading: isLoadingUser } = useAuthenticateQuery();
     const [ listAppsTrigger, listAppsResult ] = useLazyListAllAppsForJobseekerQuery();
@@ -46,7 +46,7 @@ const JobsTable = () => {
         } else if (listAppsResult.isError) {
             setJobIDs([]);
         };
-    }, [listAppsResult]);
+    }, [listAppsResult, setJobIDs]);
 
     // if job list result loads successfully, setJobs on line 14
     // else, set error message and show modal
@@ -57,7 +57,7 @@ const JobsTable = () => {
             setErrorMessage(listJobsResult.error.data.detail);
             setShowModal(true);
         };
-    }, [listJobsResult]);
+    }, [listJobsResult, setErrorMessage, setShowModal]);
 
     if (listJobsResult.isLoading ||
         listAppsResult.isLoading ||
@@ -138,12 +138,13 @@ const JobsTable = () => {
                                             <p className="card-text">{formatDate(job.posted_date)}</p>
                                         </div>
                                         <h5 className="card-"><strong>{job.position_title}</strong> | {job.location}</h5>
-                                        <p className="card-text" style={{ width: '75%' }}>Job Description: {job.id}</p>
+                                            <p className="card-text" style={{ width: '75%' }}>
+                                                {job.job_description.length > 500 ? `${job.job_description.substring(0, 500)}...` : job.job_description} </p>
                                         <div className="d-flex align-items-center justify-content-end">
                                             {(jobIDs.includes(job.id)) ?
                                             <button
                                                 type="button"
-                                                className="btn btn-secondary mr-3"
+                                                className={(user && (user.id === job.creator_id)) ? "btn btn-secondary mr-3 d-none" : "btn btn-secondary mr-3"}
                                                 style={{ backgroundColor: '#493e57' }}
                                                 disabled
                                             >
@@ -151,7 +152,7 @@ const JobsTable = () => {
                                             </button> :
                                             <button
                                                 type="button"
-                                                className="btn btn-secondary mr-3"
+                                                className={(user && (user.id === job.creator_id)) ? "btn btn-secondary mr-3 d-none" : "btn btn-secondary mr-3"}
                                                 style={{ backgroundColor: '#493e57' }}
                                                 onClick={() => handleApply(job.creator_id, job.id)}
                                             >
