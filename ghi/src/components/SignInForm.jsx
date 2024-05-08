@@ -10,10 +10,10 @@ const BounceAnimation = keyframes`${bounce}`;
 const BouncingText = styled.h1`
   animation: 3s ${BounceAnimation} infinite;
   color: #e99b9b;
-  font-size: 70px;
+  font-size: 60px;
   font-weight: bold;
   text-align: center;
-  margin-top: -50px
+  margin-top: -60px
 `;
 
 export default function SignInForm() {
