@@ -8,7 +8,7 @@ import { bounce } from 'react-animations';
 const BounceAnimation = keyframes`${bounce}`;
 
 const BouncingText = styled.h1`
-  animation: 3s ${BounceAnimation} infinite;
+  animation: 4s ${BounceAnimation} infinite;
   color: #e99b9b;
   font-size: 60px;
   font-weight: bold;
