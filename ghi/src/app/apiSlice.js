@@ -90,8 +90,15 @@ export const gitGirlApi = createApi({
                 body
             }),
             invalidatesTags: ['User']
-        })
-
+        }),
+        updateUser: builder.mutation({
+            query: (body) => ({
+                url: `/api/auth/update`,
+                method: 'PUT',
+                body
+            }),
+            invalidatesTags: ['User']
+        }),
     })
 })
 
@@ -113,5 +120,6 @@ export const {
     useAuthenticateQuery,
     useSignoutMutation,
     useSigninMutation,
-    useSignupMutation
+    useSignupMutation,
+    useUpdateUserMutation
 } = gitGirlApi

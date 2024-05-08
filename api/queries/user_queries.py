@@ -6,7 +6,7 @@ import psycopg
 from psycopg_pool import ConnectionPool
 from psycopg.rows import class_row
 from typing import Optional
-from models.users import UserWithPw
+from models.users import UserWithPw, UserUpdate, UserResponse
 from utils.exceptions import UserDatabaseException
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
@@ -126,3 +126,32 @@ class UserQueries:
                 f"Could not create user with username {username}"
             )
         return user
+
+
+    def update_user(self, user_id: int, user: UserUpdate) -> UserResponse:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE users
+                        SET username = %s,
+                            full_name = %s,
+                            email = %s,
+                            linkedin_url = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            user.username,
+                            user.full_name,
+                            user.email,
+                            user.linkedin_url,
+                            user_id
+                        ]
+                    )
+                    old_data = user.dict()
+                    return UserResponse(id=user_id, **old_data)
+        except psycopg.Error:
+            raise UserDatabaseException(
+                f"Could not create user with username {user.username}"
+            )

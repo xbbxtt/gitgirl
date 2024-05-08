@@ -48,3 +48,10 @@ class UserWithPw(BaseModel):
     full_name: str
     email: str
     linkedin_url: str
+
+
+class UserUpdate(BaseModel):
+    username: str
+    full_name: str
+    email: str
+    linkedin_url: str
