@@ -15,7 +15,7 @@ from queries.user_queries import (
 )
 
 from utils.exceptions import UserDatabaseException
-from models.users import UserRequestSignIn, UserRequestSignUp, UserResponse
+from models.users import UserRequestSignIn, UserRequestSignUp, UserResponse, UserUpdate
 
 from utils.authentication import (
     try_get_jwt_user_data,
@@ -94,14 +94,16 @@ async def signin(
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Sorry, we couldn't find an account with those credentials.",
+            detail="Sorry, we couldn't find an account with those \
+                    credentials.",
         )
 
     # Verify the user's password
     if not verify_password(user_request.password, user.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Sorry, we couldn't find an account with those credentials.",
+            detail="Sorry, we couldn't find an account with those \
+                    credentials.",
         )
 
     # Generate a JWT token
@@ -167,3 +169,46 @@ async def signout(
     # All that has to happen is the cookie header must come back
     # Which causes the browser to delete the cookie
     return
+
+@router.put("/update", response_model=UserResponse)
+async def update_user(
+    user_data: UserUpdate,
+    request: Request,
+    response: Response,
+    user_queries: UserQueries = Depends(),
+    user: UserResponse = Depends(try_get_jwt_user_data),
+):
+    try:
+        updated_user = user_queries.update_user(user_id=user.id, user=user_data)
+
+    except UserDatabaseException as e:
+        print(e)
+        raise HTTPException(
+            status_code=401,
+            detail="Username or Email already exists in our database.",
+        )
+
+    updated_user = user_queries.get_by_id(user.id)
+
+    # Generate a JWT token
+    token = generate_jwt(updated_user)
+
+    # Secure cookies only if running on something besides localhost
+    secure = True if request.headers.get("origin") == "localhost" else False
+
+    # Set a cookie with the token in it
+    response.set_cookie(
+        key="fast_api_token",
+        value=token,
+        httponly=True,
+        samesite="lax",
+        secure=secure,
+    )
+
+    return UserResponse(
+        id=user.id,
+        username=updated_user.username,
+        full_name=updated_user.full_name,
+        email=updated_user.email,
+        linkedin_url=updated_user.linkedin_url
+        )
