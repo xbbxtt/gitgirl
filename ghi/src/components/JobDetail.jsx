@@ -365,6 +365,27 @@ const JobDetail = () => {
                                                                 Delete Job
                                                             </button>
                                                         )}
+                                                    {user &&
+                                                        user.id ===
+                                                            job.creator_id && (
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-outline-primary"
+                                                                style={{
+                                                                    color: '#332B3B',
+                                                                    marginLeft:
+                                                                        '10px',
+                                                                    borderColor: '#332B3B',
+                                                                }}
+                                                                onClick={() =>
+                                                                    navigate(
+                                                                        `/jobs/${job.id}/applications`
+                                                                    )
+                                                                }
+                                                            >
+                                                                View Applicants
+                                                            </button>
+                                                        )}
                                                 </div>
                                             </div>
                                         </div>
