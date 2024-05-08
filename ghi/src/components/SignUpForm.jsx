@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSignupMutation } from '../app/apiSlice';
-import workingwoman from '/src/workingwoman.mp4';
-import HeroImage from './HeroImage';
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSignupMutation } from '../app/apiSlice'
+import workingwoman from '/src/workingwoman.mp4'
+import HeroImage from './HeroImage'
 
 export default function SignUpForm() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
         username: '',
@@ -13,41 +13,40 @@ export default function SignUpForm() {
         full_name: '',
         email: '',
         linkedin_url: '',
-    });
-    const [errorMessage, setErrorMessage] = useState('');
-    const [showModal, setShowModal] = useState(false);
-    const [signup, signupStatus] = useSignupMutation();
-    const [touchedFields, setTouchedFields] = useState({});
+    })
+    const [errorMessage, setErrorMessage] = useState('')
+    const [showModal, setShowModal] = useState(false)
+    const [signup, signupStatus] = useSignupMutation()
 
     useEffect(() => {
         if (signupStatus.isSuccess) {
-            navigate('/');
+            navigate('/')
         } else if (signupStatus.isError) {
-            setErrorMessage(signupStatus.error.data.detail);
-            setShowModal(true);
+            setErrorMessage(signupStatus.error.data.detail)
+            setShowModal(true)
         }
-    }, [signupStatus, navigate, setErrorMessage, setShowModal]);
+    }, [signupStatus, navigate, setErrorMessage, setShowModal])
 
     const handleFormSubmit = (e) => {
-        e.preventDefault();
-        if (!isValidForm()) {
-            setErrorMessage('Please fill out all required fields correctly.');
+        e.preventDefault()
+        if (!formData.username || !formData.password || !formData.email || !formData.linkedin_url) {
+            setErrorMessage('Please fill out all required fields.');
             setShowModal(true);
             return;
         }
-        signup(formData);
-    };
+        signup(formData)
+    }
 
     const closeModal = () => {
-        setShowModal(false);
-        setErrorMessage('');
-    };
+        setShowModal(false)
+        setErrorMessage('')
+    }
 
-    const [openAccordionItem, setOpenAccordionItem] = useState(null);
+    const [openAccordionItem, setOpenAccordionItem] = useState(null)
 
     const toggleAccordionItem = (index) => {
-        setOpenAccordionItem(openAccordionItem === index ? null : index);
-    };
+        setOpenAccordionItem(openAccordionItem === index ? null : index)
+    }
 
     const accordionItems = [
         {
@@ -62,38 +61,7 @@ export default function SignUpForm() {
             title: 'Can I post Jobs?',
             body: 'Yes, once logged in you can post jobs you want to share with the community.',
         },
-    ];
-
-    const isValid = (fieldName, value, touched) => {
-        switch (fieldName) {
-            case 'username':
-                return touched.username && value.trim() !== '';
-            case 'password':
-            case 'full_name':
-                return touched[fieldName] && !/\d/.test(value); // Check if the value contains numbers
-            case 'email':
-                return touched.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); // Email format validation
-            case 'linkedin_url':
-                return touched.linkedin_url && /^www\.linkedin\.com/.test(value); // Check if the value starts with "www.linkedin.com"
-            default:
-                return true;
-        }
-    };
-
-    const isValidForm = () => {
-        return (
-            isValid('username', formData.username, touchedFields) &&
-            isValid('password', formData.password, touchedFields) &&
-            isValid('full_name', formData.full_name, touchedFields) &&
-            isValid('email', formData.email, touchedFields) &&
-            isValid('linkedin_url', formData.linkedin_url, touchedFields)
-        );
-    };
-
-    const handleInputChange = (fieldName, value) => {
-        setFormData({ ...formData, [fieldName]: value });
-        setTouchedFields({ ...touchedFields, [fieldName]: true });
-    };
+    ]
 
     return (
         <>
@@ -319,26 +287,17 @@ export default function SignUpForm() {
                                     <input
                                         type="text"
                                         id="username"
-                                        className={`form-control ${
-                                            !isValid('username', formData.username, touchedFields)
-                                                ? 'is-invalid'
-                                                : ''
-                                        }`}
+                                        className="form-control"
                                         value={formData.username}
                                         onChange={(e) =>
-                                            handleInputChange(
-                                                'username',
-                                                e.target.value
-                                            )
+                                            setFormData({
+                                                ...formData,
+                                                username: e.target.value,
+                                            })
                                         }
                                         placeholder="Create a GitGirl Username"
                                         required
                                     />
-                                    {touchedFields.username && !isValid('username', formData.username, touchedFields) && (
-                                        <div className="invalid-feedback">
-                                            Please enter a valid username.
-                                        </div>
-                                    )}
                                 </div>
                                 <div className="mb-3">
                                     <label
@@ -350,26 +309,17 @@ export default function SignUpForm() {
                                     <input
                                         type="password"
                                         id="password"
-                                        className={`form-control ${
-                                            !isValid('password', formData.password, touchedFields)
-                                                ? 'is-invalid'
-                                                : ''
-                                        }`}
+                                        className="form-control"
                                         value={formData.password}
                                         onChange={(e) =>
-                                            handleInputChange(
-                                                'password',
-                                                e.target.value
-                                            )
+                                            setFormData({
+                                                ...formData,
+                                                password: e.target.value,
+                                            })
                                         }
                                         placeholder="Enter Password"
                                         required
                                     />
-                                    {touchedFields.password && !isValid('password', formData.password, touchedFields) && (
-                                        <div className="invalid-feedback">
-                                            Password should not contain numbers.
-                                        </div>
-                                    )}
                                 </div>
                                 <div className="mb-3">
                                     <label
@@ -381,25 +331,16 @@ export default function SignUpForm() {
                                     <input
                                         type="text"
                                         id="full_name"
-                                        className={`form-control ${
-                                            !isValid('full_name', formData.full_name, touchedFields)
-                                                ? 'is-invalid'
-                                                : ''
-                                        }`}
+                                        className="form-control"
                                         value={formData.full_name}
                                         onChange={(e) =>
-                                            handleInputChange(
-                                                'full_name',
-                                                e.target.value
-                                            )
+                                            setFormData({
+                                                ...formData,
+                                                full_name: e.target.value,
+                                            })
                                         }
                                         placeholder="Enter Full Name"
                                     />
-                                    {touchedFields.full_name && !isValid('full_name', formData.full_name, touchedFields) && (
-                                        <div className="invalid-feedback">
-                                            Full name should not contain numbers.
-                                        </div>
-                                    )}
                                 </div>
                                 <div className="mb-3">
                                     <label
@@ -411,25 +352,17 @@ export default function SignUpForm() {
                                     <input
                                         type="email"
                                         id="email"
-                                        className={`form-control ${
-                                            touchedFields.email && !isValid('email', formData.email, touchedFields)
-                                                ? 'is-invalid'
-                                                : ''
-                                        }`}
+                                        className="form-control"
                                         value={formData.email}
                                         onChange={(e) =>
-                                            handleInputChange(
-                                                'email',
-                                                e.target.value
-                                            )
+                                            setFormData({
+                                                ...formData,
+                                                email: e.target.value,
+                                            })
                                         }
                                         placeholder="Enter Email"
+                                        required
                                     />
-                                    {touchedFields.email && !isValid('email', formData.email, touchedFields) && (
-                                        <div className="invalid-feedback">
-                                            Please enter a valid email.
-                                        </div>
-                                    )}
                                 </div>
                                 <div className="mb-3">
                                     <label
@@ -441,26 +374,17 @@ export default function SignUpForm() {
                                     <input
                                         type="text"
                                         id="linkedin_url"
-                                        className={`form-control ${
-                                            !isValid('linkedin_url', formData.linkedin_url, touchedFields)
-                                                ? 'is-invalid'
-                                                : ''
-                                        }`}
+                                        className="form-control"
                                         value={formData.linkedin_url}
                                         onChange={(e) =>
-                                            handleInputChange(
-                                                'linkedin_url',
-                                                e.target.value
-                                            )
+                                            setFormData({
+                                                ...formData,
+                                                linkedin_url: e.target.value,
+                                            })
                                         }
-                                        placeholder="www.linkedin.com/username"
+                                        placeholder="Enter LinkedIn URL"
                                         required
                                     />
-                                    {touchedFields.linkedin_url && !isValid('linkedin_url', formData.linkedin_url, touchedFields) && (
-                                        <div className="invalid-feedback">
-                                            Please enter a valid LinkedIn URL.
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                             <div
@@ -486,5 +410,5 @@ export default function SignUpForm() {
                 </div>
             </div>
         </>
-    );
+    )
 }
