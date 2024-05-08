@@ -29,6 +29,11 @@ export default function SignUpForm() {
 
     const handleFormSubmit = (e) => {
         e.preventDefault()
+        if (!formData.username || !formData.password || !formData.email || !formData.linkedin_url) {
+            setErrorMessage('Please fill out all required fields.');
+            setShowModal(true);
+            return;
+        }
         signup(formData)
     }
 
@@ -291,6 +296,7 @@ export default function SignUpForm() {
                                             })
                                         }
                                         placeholder="Create a GitGirl Username"
+                                        required
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -312,6 +318,7 @@ export default function SignUpForm() {
                                             })
                                         }
                                         placeholder="Enter Password"
+                                        required
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -354,6 +361,7 @@ export default function SignUpForm() {
                                             })
                                         }
                                         placeholder="Enter Email"
+                                        required
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -375,6 +383,7 @@ export default function SignUpForm() {
                                             })
                                         }
                                         placeholder="Enter LinkedIn URL"
+                                        required
                                     />
                                 </div>
                             </div>
@@ -391,6 +400,7 @@ export default function SignUpForm() {
                                         width: '100%',
                                     }}
                                     onClick={handleFormSubmit}
+                                    required
                                 >
                                     Sign Up
                                 </button>
