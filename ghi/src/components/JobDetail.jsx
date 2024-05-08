@@ -124,7 +124,11 @@ const JobDetail = () => {
                     <div
                         className="modal-dialog"
                         role="document"
-                        style={{ width: '30%', textAlign: 'center' }}
+                        style={{
+                            backgroundColor: '#e99b9b',
+                            textAlign: 'center',
+                            position: 'relative',
+                        }}
                     >
                         <div className="modal-content">
                             <div
@@ -370,12 +374,13 @@ const JobDetail = () => {
                                                             job.creator_id && (
                                                             <button
                                                                 type="button"
-                                                                className="btn btn-outline-primary"
+                                                                className="btn btn-primary me-2"
                                                                 style={{
-                                                                    color: '#332B3B',
+                                                                    // color: '#332B3B',
                                                                     marginLeft:
                                                                         '10px',
-                                                                    borderColor: '#332B3B',
+                                                                    // borderColor:
+                                                                    //     '#332B3B',
                                                                 }}
                                                                 onClick={() =>
                                                                     navigate(
