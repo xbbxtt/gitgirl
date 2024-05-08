@@ -115,7 +115,11 @@ const JobsTable = () => {
                         bottom: 0,
                     }}
                 >
-                    <div className="modal-dialog" role="document">
+                    <div
+                        className="modal-dialog"
+                        role="document"
+                        style={{ width: '30%', textAlign: 'center' }}
+                    >
                         <div className="modal-content">
                             <div
                                 className="modal-header"

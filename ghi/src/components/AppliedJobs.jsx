@@ -171,7 +171,7 @@ const AppliedJobs = () => {
                                 {deleteModal && (
                                     <button
                                         type="button"
-                                        className="btn btn-secondary"
+                                        className="btn btn-primary"
                                         onClick={confirmDelete}
                                         style={{ borderRadius: '0' }}
                                     >
