@@ -1,6 +1,7 @@
 """
 User Authentication API Router
 """
+
 from fastapi import (
     Depends,
     Request,
@@ -48,14 +49,13 @@ async def signup(
             hashed_password,
             new_user.full_name,
             new_user.email,
-            new_user.linkedin_url
-            )
+            new_user.linkedin_url,
+        )
     except UserDatabaseException as e:
         print(e)
         raise HTTPException(
             status_code=401,
-            detail="Username or Email already exists in our database.\
-                    Please try again."
+            detail="Username or Email already exists in our database.",
         )
 
     # Generate a JWT token
@@ -127,8 +127,8 @@ async def signin(
         username=user.username,
         full_name=user.full_name,
         email=user.email,
-        linkedin_url=user.linkedin_url
-        )
+        linkedin_url=user.linkedin_url,
+    )
 
 
 @router.get("/authenticate")
@@ -185,8 +185,7 @@ async def update_user(
         print(e)
         raise HTTPException(
             status_code=401,
-            detail="Username or Email already exists in our database.\
-                    Please try again."
+            detail="Username or Email already exists in our database.",
         )
 
     updated_user = user_queries.get_by_id(user.id)
