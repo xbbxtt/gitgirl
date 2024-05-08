@@ -264,8 +264,8 @@ const MyPostedJobs = () => {
                                                     type="button"
                                                     className="btn btn-outline-primary"
                                                     onClick={() =>
-                                                        handleViewApplicants(
-                                                            job.id
+                                                        navigate(
+                                                            `/jobs/${job.id}/applications`
                                                         )
                                                     }
                                                 >

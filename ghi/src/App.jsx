@@ -12,6 +12,7 @@ import MyPostedJobs from './components/MyPostedJobs';
 import JobsTable from './components/JobsTable';
 import JobDetail from './components/JobDetail';
 import CreateJobForm from './components/CreateJobForm'
+import ViewApplicants from './components/ViewApplicants';
 import './App.css';
 
 const API_HOST = import.meta.env.VITE_API_HOST;
@@ -37,6 +38,7 @@ function App() {
                     <Route path="/mypostedjobs" element={<MyPostedJobs />} />
                     <Route path="/jobs" element={<JobsTable/>} />
                     <Route path="/jobs/:jobID" element={<JobDetail />} />
+                    <Route path="/jobs/:jobID/applications" element={<ViewApplicants />} />
                     <Route path="/createjob" element={<CreateJobForm />} />
                 </Routes>
             </main>
