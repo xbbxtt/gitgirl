@@ -52,6 +52,20 @@ class FakeApplicationsQueries:
             ]
         }
 
+
+    def get_application(self, applicant_id: int, job_id: int):
+        return None
+
+
+    def create_application(self, applicant_id: int, job_id: int):
+        return ApplicationOut(
+            id=3,
+            job_id=2,
+            applicant_id=3,
+            applied_at=datetime.now()
+        )
+
+
     @app.delete("/api/jobs/{job_id}/applications")
     async def delete_application(job_id: int):
         return {"message": "Application deleted"}
@@ -99,3 +113,16 @@ class TestApplications(unittest.TestCase):
         app_id_to_delete = 1
         res = client.delete(f"/api/jobs/{app_id_to_delete}/applications")
         self.assertEqual(res.status_code, 200)
+
+
+    def test_create_application(self):
+
+        app.dependency_overrides[ApplicationQueries] = FakeApplicationsQueries
+        app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+
+        res = client.post("/api/jobs/2/applications")
+        data = res.json()
+
+        assert res.status_code == 200
+        assert data["id"] == 3
+        assert data["job_id"] == 2
