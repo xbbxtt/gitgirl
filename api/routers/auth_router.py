@@ -1,7 +1,3 @@
-"""
-User Authentication API Router
-"""
-
 from fastapi import (
     Depends,
     Request,
@@ -13,10 +9,8 @@ from fastapi import (
 from queries.user_queries import (
     UserQueries,
 )
-
 from utils.exceptions import UserDatabaseException
 from models.users import UserRequestSignIn, UserRequestSignUp, UserResponse, UserUpdate
-
 from utils.authentication import (
     try_get_jwt_user_data,
     hash_password,
@@ -24,8 +18,7 @@ from utils.authentication import (
     verify_password,
 )
 
-# Note we are using a prefix here,
-# This saves us typing in all the routes below
+
 router = APIRouter(tags=["Authentication"], prefix="/api/auth")
 
 
@@ -39,10 +32,8 @@ async def signup(
     """
     Creates a new user when someone submits the signup form
     """
-    # Hash the password the user sent us
     hashed_password = hash_password(new_user.password)
 
-    # Create the user in the database
     try:
         user = queries.create_user(
             new_user.username,
@@ -58,16 +49,12 @@ async def signup(
             detail="Username or Email already exists in our database.",
         )
 
-    # Generate a JWT token
     token = generate_jwt(user)
 
-    # Convert the UserWithPW to a UserOut
     user_out = UserResponse(**user.model_dump())
 
-    # Secure cookies only if running on something besides localhost
     secure = True if request.headers.get("origin") == "localhost" else False
 
-    # Set a cookie with the token in it
     response.set_cookie(
         key="fast_api_token",
         value=token,
@@ -88,31 +75,25 @@ async def signin(
     """
     Signs the user in when they use the Sign In form
     """
-
-    # Try to get the user from the database
     user = queries.get_by_username(user_request.username)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Sorry, we couldn't find an account with those \
-                    credentials.",
+            detail=
+            "Sorry, we couldn't find an account with those credentials.",
         )
 
-    # Verify the user's password
     if not verify_password(user_request.password, user.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Sorry, we couldn't find an account with those \
-                    credentials.",
+            detail=
+            "Sorry, we couldn't find an account with those credentials.",
         )
 
-    # Generate a JWT token
     token = generate_jwt(user)
 
-    # Secure cookies only if running on something besides localhost
     secure = True if request.headers.get("origin") == "localhost" else False
 
-    # Set a cookie with the token in it
     response.set_cookie(
         key="fast_api_token",
         value=token,
@@ -121,7 +102,6 @@ async def signin(
         secure=secure,
     )
 
-    # Convert the UserWithPW to a UserOut
     return UserResponse(
         id=user.id,
         username=user.username,
@@ -157,18 +137,14 @@ async def signout(
     """
     Signs the user out by deleting their JWT Cookie
     """
-    # Secure cookies only if running on something besides localhost
     secure = True if request.headers.get("origin") == "localhost" else False
 
-    # Delete the cookie
     response.delete_cookie(
         key="fast_api_token", httponly=True, samesite="lax", secure=secure
     )
 
-    # There's no need to return anything in the response.
-    # All that has to happen is the cookie header must come back
-    # Which causes the browser to delete the cookie
     return
+
 
 @router.put("/update", response_model=UserResponse)
 async def update_user(
@@ -190,13 +166,10 @@ async def update_user(
 
     updated_user = user_queries.get_by_id(user.id)
 
-    # Generate a JWT token
     token = generate_jwt(updated_user)
 
-    # Secure cookies only if running on something besides localhost
     secure = True if request.headers.get("origin") == "localhost" else False
 
-    # Set a cookie with the token in it
     response.set_cookie(
         key="fast_api_token",
         value=token,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
     useLazyListAllAppsForPosterByJobQuery,
@@ -7,13 +7,12 @@ import {
 } from '../app/apiSlice';
 import UserNavigation from './UserNavigation';
 
+
 const ViewApplicants = () => {
     const navigate = useNavigate();
     const params = useParams();
-
     const [apps, setApps] = useState([]);
     const [job, setJob] = useState({});
-
     const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
     const [listAppsTrigger, appListResult] = useLazyListAllAppsForPosterByJobQuery();
     const [jobDetailTrigger, jobDetailResult] = useLazyJobDetailsQuery();

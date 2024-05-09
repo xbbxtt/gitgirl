@@ -1,102 +1,91 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     useLazyListAllJobsQuery,
     useAuthenticateQuery,
     useLazyListAllAppsForJobseekerQuery,
     useCreateAppMutation,
-} from '../app/apiSlice'
+} from '../app/apiSlice';
+
 
 const JobsTable = () => {
-    const navigate = useNavigate()
-
-    const [errorMessage, setErrorMessage] = useState('')
-    const [jobs, setJobs] = useState([])
-    const [jobIDs, setJobIDs] = useState([])
-    const [showModal, setShowModal] = useState(false)
-    const [currentPage, setCurrentPage] = useState(1)
-    // redux hooks
-    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
+    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
+    const [jobs, setJobs] = useState([]);
+    const [jobIDs, setJobIDs] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
     const [listAppsTrigger, listAppsResult] =
-        useLazyListAllAppsForJobseekerQuery()
-    const [listJobsTrigger, listJobsResult] = useLazyListAllJobsQuery()
-    const [apply, applyStatus] = useCreateAppMutation()
+        useLazyListAllAppsForJobseekerQuery();
+    const [listJobsTrigger, listJobsResult] = useLazyListAllJobsQuery();
+    const [apply, applyStatus] = useCreateAppMutation();
 
     const jobsPerPage = 4
 
-    // if no user, navigate to signin form...
-    // if there is a user, trigger useLazyListAllJobsQuery()
-    // and useLazyListAllAppsForJobSeekerQuery() redux hook function
     useEffect(() => {
         if (!user && !isLoadingUser) {
-            navigate('/signin')
+            navigate('/signin');
         } else if (user) {
-            listAppsTrigger()
-            listJobsTrigger()
-        }
-    }, [user, isLoadingUser, navigate, listJobsTrigger, listAppsTrigger])
-
-    // if app list result loads successfully, loop through apps
-    // for their job IDs and setJobIDs on line 15
-    // ..this is the list of jobIDs the user has applied to
-    // and changes the apply button to a disabled applied button
+            listAppsTrigger();
+            listJobsTrigger();
+        };
+    }, [user, isLoadingUser, navigate, listJobsTrigger, listAppsTrigger]);
 
     useEffect(() => {
         if (listAppsResult.isSuccess) {
-            setJobIDs(listAppsResult.data.applications.map((app) => app.job_id))
+            setJobIDs(listAppsResult.data.applications.map((app) => app.job_id));
         } else if (listAppsResult.isError) {
-            setJobIDs([])
-        }
-    }, [listAppsResult, setJobIDs])
+            setJobIDs([]);
+        };
+    }, [listAppsResult, setJobIDs]);
 
-    // if job list result loads successfully, setJobs on line 14
-    // else, set error message and show modal
     useEffect(() => {
         if (listJobsResult.isSuccess) {
-            setJobs(listJobsResult.data.jobs)
+            setJobs(listJobsResult.data.jobs);
         } else if (listJobsResult.isError) {
-            setErrorMessage(listJobsResult.error.data.detail)
-            setShowModal(true)
-        }
-    }, [listJobsResult, setErrorMessage, setShowModal])
+            setErrorMessage(listJobsResult.error.data.detail);
+            setShowModal(true);
+        };
+    }, [listJobsResult, setErrorMessage, setShowModal]);
 
     if (listJobsResult.isLoading || listAppsResult.isLoading || isLoadingUser) {
-        return <div>Loading Jobs...</div>
-    }
+        return (
+            <div>Loading Jobs...</div>
+        );
+    };
 
     const sortedJobs = jobs
         .slice()
-        .sort((a, b) => new Date(b.posted_date) - new Date(a.posted_date))
+        .sort((a, b) => new Date(b.posted_date) - new Date(a.posted_date));
 
-    const indexOfLastJob = currentPage * jobsPerPage
-    const indexOfFirstJob = indexOfLastJob - jobsPerPage
-    const currentJobs = sortedJobs.slice(indexOfFirstJob, indexOfLastJob)
+    const indexOfLastJob = currentPage * jobsPerPage;
+    const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+    const currentJobs = sortedJobs.slice(indexOfFirstJob, indexOfLastJob);
 
     const formatDate = (dateString) => {
-        const date = new Date(dateString)
-        const month = date.toLocaleString('default', { month: 'short' })
-        const day = date.getDate()
-        const year = date.getFullYear()
-        return `${month}-${day}-${year}`
-    }
+        const date = new Date(dateString);
+        const month = date.toLocaleString('default', { month: 'short' });
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month}-${day}-${year}`;
+    };
 
-    // if userID and job creator id matches, don't let them apply
-    // else apply
     const handleApply = (creatorID, jobID) => {
         if (user.id === creatorID) {
-            setShowModal(true)
-            setErrorMessage("You can't apply to your own job posting.")
+            setShowModal(true);
+            setErrorMessage("You can't apply to your own job posting.");
         } else {
-            apply(jobID)
-        }
-    }
+            apply(jobID);
+        };
+    };
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber)
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const closeModal = () => {
-        setShowModal(false)
-        setErrorMessage('')
-    }
+        setShowModal(false);
+        setErrorMessage('');
+    };
 
     return (
         <>
@@ -382,7 +371,7 @@ const JobsTable = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default JobsTable
+export default JobsTable;

@@ -1,52 +1,56 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useSignupMutation } from '../app/apiSlice'
-import workingwoman from '/src/workingwoman.mp4'
-import HeroImage from './HeroImage'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSignupMutation } from '../app/apiSlice';
+import workingwoman from '/src/workingwoman.mp4';
+import HeroImage from './HeroImage';
+
 
 export default function SignUpForm() {
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
         password: '',
         full_name: '',
         email: '',
         linkedin_url: '',
-    })
-    const [errorMessage, setErrorMessage] = useState('')
-    const [showModal, setShowModal] = useState(false)
-    const [signup, signupStatus] = useSignupMutation()
+    });
+    const [errorMessage, setErrorMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [signup, signupStatus] = useSignupMutation();
 
     useEffect(() => {
         if (signupStatus.isSuccess) {
-            navigate('/')
+            navigate('/');
         } else if (signupStatus.isError) {
-            setErrorMessage(signupStatus.error.data.detail)
-            setShowModal(true)
-        }
-    }, [signupStatus, navigate, setErrorMessage, setShowModal])
+            setErrorMessage(signupStatus.error.data.detail);
+            setShowModal(true);
+        };
+    }, [signupStatus, navigate, setErrorMessage, setShowModal]);
 
     const handleFormSubmit = (e) => {
-        e.preventDefault()
-        if (!formData.username || !formData.password || !formData.email || !formData.linkedin_url) {
+        e.preventDefault();
+        if (!formData.username ||
+            !formData.password ||
+            !formData.email ||
+            !formData.linkedin_url ||
+            !formData.full_name) {
             setErrorMessage('Please fill out all required fields.');
             setShowModal(true);
-            return;
-        }
-        signup(formData)
-    }
+        } else {
+            signup(formData);
+        };
+    };
 
     const closeModal = () => {
-        setShowModal(false)
-        setErrorMessage('')
-    }
+        setShowModal(false);
+        setErrorMessage('');
+    };
 
-    const [openAccordionItem, setOpenAccordionItem] = useState(null)
+    const [openAccordionItem, setOpenAccordionItem] = useState(null);
 
     const toggleAccordionItem = (index) => {
-        setOpenAccordionItem(openAccordionItem === index ? null : index)
-    }
+        setOpenAccordionItem(openAccordionItem === index ? null : index);
+    };
 
     const accordionItems = [
         {
@@ -61,7 +65,7 @@ export default function SignUpForm() {
             title: 'Can I post Jobs?',
             body: 'Yes, once logged in you can post jobs you want to share with the community.',
         },
-    ]
+    ];
 
     return (
         <>
@@ -410,5 +414,5 @@ export default function SignUpForm() {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};

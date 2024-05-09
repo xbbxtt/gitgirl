@@ -1,13 +1,19 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuthenticateQuery, useSignoutMutation } from '../app/apiSlice';
 
 const Navigation = () => {
     const navigate = useNavigate();
     const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
-    const [signout, signoutStatus] = useSignoutMutation();
+    const [ signout, signoutStatus ] = useSignoutMutation();
 
-    const onSignoutClick = () => signout();
+    useEffect(() => {
+        if (signoutStatus.isSuccess) navigate('/')
+    }, [signoutStatus]);
+
+    const onSignoutClick = () => {
+        signout();
+    };
 
     return (
         <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#302939' }} data-bs-theme="dark">
@@ -56,6 +62,6 @@ const Navigation = () => {
             </div>
         </nav>
     );
-}
+};
 
 export default Navigation;

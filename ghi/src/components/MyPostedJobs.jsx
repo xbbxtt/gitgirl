@@ -1,90 +1,85 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     useAuthenticateQuery,
     useLazyListAllJobsByPosterQuery,
     useDeleteJobMutation,
-} from '../app/apiSlice'
-import UserNavigation from './UserNavigation'
+} from '../app/apiSlice';
+import UserNavigation from './UserNavigation';
+
 
 const MyPostedJobs = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [deleteID, setDeleteID] = useState('');
+    const [myJobs, setMyJobs] = useState([]);
+    const [modalMessage, setModalMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
+    const [listJobsTrigger, listJobsResult] = useLazyListAllJobsByPosterQuery();
+    const [deleteJob, deleteJobStatus] = useDeleteJobMutation();
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const [deleteID, setDeleteID] = useState('')
-    const [myJobs, setMyJobs] = useState([])
-    const [modalMessage, setModalMessage] = useState('')
-    const [showModal, setShowModal] = useState(false)
-    const [deleteModal, setDeleteModal] = useState(false)
+    const jobsPerPage = 8;
 
-    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
-    const [listJobsTrigger, listJobsResult] = useLazyListAllJobsByPosterQuery()
-    const [deleteJob, deleteJobStatus] = useDeleteJobMutation()
-
-    const [currentPage, setCurrentPage] = useState(1)
-    const jobsPerPage = 8
-
-    // if no user, navigate to signin form...
-    // if there is a user, trigger useLazyListAllJobsByPosterQuery() redux hook
     useEffect(() => {
         if (!user && !isLoadingUser) {
-            navigate('/signin')
+            navigate('/signin');
         } else if (user) {
-            listJobsTrigger()
-        }
-    }, [user, isLoadingUser, navigate, listJobsTrigger])
+            listJobsTrigger();
+        };
+    }, [user, isLoadingUser, navigate, listJobsTrigger]);
 
-    // if job list result loads successfully, setMyJobs on line 15
-    //  else.. if job list is error... show modal with error message
     useEffect(() => {
         if (listJobsResult.isSuccess) {
-            setMyJobs(listJobsResult.data.jobs)
+            setMyJobs(listJobsResult.data.jobs);
         } else if (listJobsResult.isError) {
-            setModalMessage(listJobsResult.error.data.detail)
-            setMyJobs([])
-            setShowModal(true)
-        }
-    }, [listJobsResult])
+            setModalMessage(listJobsResult.error.data.detail);
+            setMyJobs([]);
+            setShowModal(true);
+        };
+    }, [listJobsResult]);
 
-    if (listJobsResult.isLoading)
-        return <div>Loading Jobs You've Posted...</div>
+    if (listJobsResult.isLoading) {
+        return (
+        <div>Loading Jobs You've Posted...</div>
+        );
+    };
 
-    const indexOfLastJob = currentPage * jobsPerPage
-    const indexOfFirstJob = indexOfLastJob - jobsPerPage
-    const currentJobs = myJobs.slice(indexOfFirstJob, indexOfLastJob)
+    const indexOfLastJob = currentPage * jobsPerPage;
+    const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+    const currentJobs = myJobs.slice(indexOfFirstJob, indexOfLastJob);
 
     const formatDate = (dateString) => {
-        const date = new Date(dateString)
-        const month = date.toLocaleString('default', { month: 'short' })
-        const day = date.getDate()
-        const year = date.getFullYear()
-        return `${month}-${day}-${year}`
-    }
+        const date = new Date(dateString);
+        const month = date.toLocaleString('default', { month: 'short' });
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month}-${day}-${year}`;
+    };
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber)
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    //stores job id you want to delete in state...
-    // delete modal state shows yes/no buttons in modal instead of close button
     const handleDelete = (jobID) => {
-        setDeleteID(jobID)
-        setShowModal(true)
-        setModalMessage('Are you sure you want to delete this job posting?')
-        setDeleteModal(true)
-    }
-    // deleteJob takes delete id stored in state
-    // and executes useDeleteJobMutation() function
-    const confirmDelete = (e) => {
-        deleteJob(deleteID)
-        setDeleteID('')
-        setShowModal(false)
-        setModalMessage('')
-        setDeleteModal(false)
-    }
+        setDeleteID(jobID);
+        setShowModal(true);
+        setModalMessage('Are you sure you want to delete this job posting?');
+        setDeleteModal(true);
+    };
+
+    const confirmDelete = () => {
+        deleteJob(deleteID);
+        setDeleteID('');
+        setShowModal(false);
+        setModalMessage('');
+        setDeleteModal(false);
+    };
 
     const closeModal = () => {
-        setShowModal(false)
-        setModalMessage('')
-        setDeleteModal(false)
-    }
+        setShowModal(false);
+        setModalMessage('');
+        setDeleteModal(false);
+    };
 
     return (
         <>
@@ -362,7 +357,7 @@ const MyPostedJobs = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default MyPostedJobs

@@ -1,18 +1,18 @@
-// @ts-check
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import banner_3 from '/src/banner_3.jpg'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import banner_3 from '/src/banner_3.jpg';
+
 
 function Home() {
-    const [activeIndex, setActiveIndex] = useState(0)
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const handlePrev = () => {
-        setActiveIndex(activeIndex === 0 ? reviews.length - 1 : activeIndex - 1)
-    }
+        setActiveIndex(activeIndex === 0 ? reviews.length - 1 : activeIndex - 1);
+    };
 
     const handleNext = () => {
-        setActiveIndex(activeIndex === reviews.length - 1 ? 0 : activeIndex + 1)
-    }
+        setActiveIndex(activeIndex === reviews.length - 1 ? 0 : activeIndex + 1);
+    };
 
     const reviews = [
         {
@@ -41,8 +41,8 @@ function Home() {
             image: '/src/bb.png',
             testimonial:
                 'GitGirl has been an incredible platform for me to find opportunities in tech. The supportive community and the focus on diversity make it stand out.',
-        },
-    ]
+        }
+    ];
 
     return (
         <div>
@@ -538,7 +538,7 @@ function Home() {
                 </button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

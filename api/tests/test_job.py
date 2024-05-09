@@ -10,7 +10,6 @@ from main import app
 
 client = TestClient(app)
 
-
 def fake_try_get_jwt_user_data():
     return UserResponse(
         id=1,
@@ -19,7 +18,6 @@ def fake_try_get_jwt_user_data():
         linkedin_url="https://www.linkedin.com/in/crazy",
         username="crazy_man"
     )
-
 
 class FakeJobQueries:
     def get_all_jobs(self):
@@ -116,31 +114,28 @@ class TestJobs(unittest.TestCase):
 
     def test_get_all_jobs(self):
         app.dependency_overrides[JobQueries] = FakeJobQueries
-        app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
-
+        app.dependency_overrides[try_get_jwt_user_data] = (
+            fake_try_get_jwt_user_data
+        )
         res = client.get("/api/jobs")
         data = res.json()
-
         assert res.status_code == 200
         assert len(data["jobs"]) == 2
 
     def test_get_all_jobs_by_poster(self):
-
         app.dependency_overrides[JobQueries] = FakeJobQueries
-        app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
-
+        app.dependency_overrides[try_get_jwt_user_data] = (
+            fake_try_get_jwt_user_data
+        )
         res = client.get("/api/jobs/mine")
         data = res.json()
-
         assert res.status_code == 200
         assert len(data["jobs"]) == 2
 
     def test_get_job_by_id(self):
         app.dependency_overrides[JobQueries] = FakeJobQueries
-
         res = client.get("/api/jobs/1")
         data = res.json()
-
         assert res.status_code == 200
         assert data["id"] == 1
         assert data["company_name"] == "Google"
@@ -148,7 +143,9 @@ class TestJobs(unittest.TestCase):
     def test_create_job(self):
 
         app.dependency_overrides[JobQueries] = FakeJobQueries
-        app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+        app.dependency_overrides[try_get_jwt_user_data] = (
+            fake_try_get_jwt_user_data
+        )
         job_data = {
             "image_url": "https://via.placeholder.com/150",
             "position_title": "Software Engineer",
@@ -157,10 +154,8 @@ class TestJobs(unittest.TestCase):
             "job_description": "Software Engineer at Apple",
             "posted_date": "2021-07-01T00:00:00.000Z",
         }
-
         res = client.post("/api/jobs", json=job_data)
         data = res.json()
-
         assert res.status_code == 200
         assert data["id"] == 3
         assert data["company_name"] == "Apple"
@@ -168,7 +163,9 @@ class TestJobs(unittest.TestCase):
     def setUp(self):
         self.fake_job_queries = FakeJobQueries()
         app.dependency_overrides[JobQueries] = lambda: self.fake_job_queries
-        app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+        app.dependency_overrides[try_get_jwt_user_data] = (
+            fake_try_get_jwt_user_data
+        )
 
     def test_delete_job(self):
         job_id_to_delete = 1

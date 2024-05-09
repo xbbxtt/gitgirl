@@ -1,108 +1,96 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
     useLazyJobDetailsQuery,
     useAuthenticateQuery,
     useLazyListAllAppsForJobseekerQuery,
     useDeleteJobMutation,
     useCreateAppMutation,
-} from '../app/apiSlice'
+} from '../app/apiSlice';
+
 
 const JobDetail = () => {
-    const navigate = useNavigate()
-    const params = useParams()
-
-    const [deleteID, setDeleteID] = useState('')
-    const [jobIDs, setJobIDs] = useState([])
-    const [job, setJob] = useState({})
-    const [modalMessage, setModalMessage] = useState('')
-    const [showModal, setShowModal] = useState(false)
-    const [deleteModal, setDeleteModal] = useState(false)
-
-    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
-    const [jobDetailTrigger, jobDetailResult] = useLazyJobDetailsQuery()
-    const [apply, applyStatus] = useCreateAppMutation()
+    const navigate = useNavigate();
+    const params = useParams();
+    const [deleteID, setDeleteID] = useState('');
+    const [jobIDs, setJobIDs] = useState([]);
+    const [job, setJob] = useState({});
+    const [modalMessage, setModalMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
+    const [jobDetailTrigger, jobDetailResult] = useLazyJobDetailsQuery();
+    const [apply, applyStatus] = useCreateAppMutation();
     const [listAppsTrigger, appListResult] =
-        useLazyListAllAppsForJobseekerQuery()
-    const [deleteJob, deleteJobStatus] = useDeleteJobMutation()
+        useLazyListAllAppsForJobseekerQuery();
+    const [deleteJob, deleteJobStatus] = useDeleteJobMutation();
 
-    // if there is a user, trigger redux hooks
     useEffect(() => {
         if (!user && !isLoadingUser) {
-            navigate('/signin')
+            navigate('/signin');
         } else if (user) {
-            jobDetailTrigger(params.jobID)
-            listAppsTrigger()
+            jobDetailTrigger(params.jobID);
+            listAppsTrigger();
         }
-    }, [user, isLoadingUser, navigate, jobDetailTrigger, listAppsTrigger])
+    }, [user, isLoadingUser, navigate, jobDetailTrigger, listAppsTrigger]);
 
-    // if app list result loads successfully, loop through apps
-    // for their job IDs and setJobIDs on line 16
-    // ..this is the list of jobIDs the user has applied to
-    // and changes the apply button to a disabled applied button
     useEffect(() => {
         if (appListResult.isSuccess) {
-            setJobIDs(appListResult.data.applications.map((app) => app.job_id))
+            setJobIDs(appListResult.data.applications.map((app) => app.job_id));
         } else if (appListResult.isError) {
-            setJobIDs([])
-        }
-    }, [appListResult])
+            setJobIDs([]);
+        };
+    }, [appListResult]);
 
-    // if job detail result loads successfully, setJob on line 17
-    // else, set error message and show modal
     useEffect(() => {
         if (jobDetailResult.isSuccess) {
-            setJob(jobDetailResult.data)
+            setJob(jobDetailResult.data);
         }
-    }, [jobDetailResult, setJob])
+    }, [jobDetailResult, setJob]);
 
     if (jobDetailResult.isLoading || appListResult.isLoading || isLoadingUser) {
-        return <div>Loading Job Details...</div>
-    }
+        return (
+        <div>Loading Job Details...</div>
+        );
+    };
 
     const formatDate = (dateString) => {
-        const date = new Date(dateString)
-        const month = date.toLocaleString('default', { month: 'short' })
-        const day = date.getDate()
-        const year = date.getFullYear()
-        return `${month}-${day}-${year}`
-    }
+        const date = new Date(dateString);
+        const month = date.toLocaleString('default', { month: 'short' });
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month}-${day}-${year}`;
+    };
 
-    // if userID and job creator id matches, don't let them apply...
-    // else apply
     const handleApply = (creatorID, jobID) => {
         if (user.id === creatorID) {
-            setShowModal(true)
-            setModalMessage("You can't apply to your own job posting.")
+            setShowModal(true);
+            setModalMessage("You can't apply to your own job posting.");
         } else {
-            apply(jobID)
-        }
-    }
+            apply(jobID);
+        };
+    };
 
-    //stores job id you want to delete in state...
-    // delete modal state shows yes/no buttons in modal instead of close button
     const handleDelete = (jobID) => {
-        setDeleteID(jobID)
-        setShowModal(true)
-        setModalMessage('Are you sure you want to delete this job posting?')
-        setDeleteModal(true)
-    }
+        setDeleteID(jobID);
+        setShowModal(true);
+        setModalMessage('Are you sure you want to delete this job posting?');
+        setDeleteModal(true);
+    };
 
-    // deleteJob takes delete id stored in state
-    // and executes useDeleteJobMutation() function
-    const confirmDelete = (e) => {
-        deleteJob(deleteID)
-        setDeleteID('')
-        setShowModal(false)
-        setModalMessage('')
-        setDeleteModal(false)
-        navigate('/mypostedjobs')
-    }
+    const confirmDelete = () => {
+        deleteJob(deleteID);
+        setDeleteID('');
+        setShowModal(false);
+        setModalMessage('');
+        setDeleteModal(false);
+        navigate('/mypostedjobs');
+    };
 
     const closeModal = () => {
-        setShowModal(false)
-        setModalMessage('')
-    }
+        setShowModal(false);
+        setModalMessage('');
+    };
 
     return (
         <>
@@ -448,7 +436,7 @@ const JobDetail = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default JobDetail
+export default JobDetail;

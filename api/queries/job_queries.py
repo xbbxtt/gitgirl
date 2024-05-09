@@ -30,6 +30,7 @@ class JobQueries:
                         """
                     )
                     result = []
+
                     for record in db:
                         job = JobOut(
                             id=record[0],
@@ -42,9 +43,10 @@ class JobQueries:
                             creator_id=record[7]
                         )
                         result.append(job)
+
                     return JobList(jobs=result)
-        except Exception as e:
-            print(e)
+
+        except:
             return {"message": "Could not get all jobs"}
 
     def get_all_jobs_by_poster(self, creator_id: int) -> JobList:
@@ -62,6 +64,7 @@ class JobQueries:
                             creator_id
                         ]
                     )
+
                     result = []
                     for record in db:
                         job = JobOut(
@@ -80,10 +83,9 @@ class JobQueries:
                         return None
                     else:
                         return JobList(jobs=result)
-        except Exception as e:
-            print(e)
-            return {"message": "Could not get all jobs"}
 
+        except:
+            return {"message": "Could not get all jobs"}
 
     def get_job_by_id(self, job_id: int):
         try:
@@ -98,6 +100,7 @@ class JobQueries:
                         """,
                         [job_id],
                     )
+
                     record = db.fetchone()
                     if record:
                         return JobOut(
@@ -112,8 +115,8 @@ class JobQueries:
                         )
                     else:
                         return None
-        except Exception as e:
-            print(e)
+                    
+        except:
             return None
 
     def create_job(self, job: JobIn, creator_id: int) -> JobOut:
@@ -147,8 +150,7 @@ class JobQueries:
 
                     return self.job_in_to_out(id, posted_date, job, creator_id)
 
-        except Exception as e:
-            print(e)
+        except:
             return {"message": "Creation did not work"}
 
     def delete_job(self, job_id: int):
@@ -163,8 +165,7 @@ class JobQueries:
                         [job_id],
                     )
                     return db.rowcount > 0
-        except Exception as e:
-            print(e)
+        except:
             return False
 
     def job_in_to_out(self, id: int, posted_date: datetime, job: JobIn, creator_id: int):

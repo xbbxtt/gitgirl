@@ -1,21 +1,15 @@
 from fastapi import (
     Depends,
-    Request,
     Response,
     HTTPException,
     status,
-    APIRouter,
+    APIRouter
 )
-from queries.user_queries import UserQueries
 from queries.job_queries import JobQueries
 from models.jobs import JobIn, JobOut, JobList
 from models.users import UserResponse
-from utils.exceptions import UserDatabaseException
 from utils.authentication import (
-    try_get_jwt_user_data,
-    hash_password,
-    generate_jwt,
-    verify_password,
+    try_get_jwt_user_data
 )
 
 

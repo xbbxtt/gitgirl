@@ -1,94 +1,86 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import UserNavigation from './UserNavigation'
-import JobDetailForApp from './JobDetailForApp'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import UserNavigation from './UserNavigation';
+import JobDetailForApp from './JobDetailForApp';
 import {
     useAuthenticateQuery,
     useLazyListAllAppsForJobseekerQuery,
     useDeleteAppMutation,
-} from '../app/apiSlice'
+} from '../app/apiSlice';
 
 const AppliedJobs = () => {
-    const navigate = useNavigate()
-
-    const [deleteID, setDeleteID] = useState('')
-    const [modalMessage, setModalMessage] = useState('')
-    const [appliedJobs, setAppliedJobs] = useState([])
-    const [showModal, setShowModal] = useState(false)
-    const [deleteModal, setDeleteModal] = useState(false)
-    const [currentPage, setCurrentPage] = useState(1)
-    // redux hooks
-    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
+    const navigate = useNavigate();
+    const [deleteID, setDeleteID] = useState('');
+    const [modalMessage, setModalMessage] = useState('');
+    const [appliedJobs, setAppliedJobs] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
     const [appListTrigger, appListResult] =
-        useLazyListAllAppsForJobseekerQuery()
-    const [deleteApp, deleteAppStatus] = useDeleteAppMutation()
+        useLazyListAllAppsForJobseekerQuery();
+    const [deleteApp, deleteAppStatus] = useDeleteAppMutation();
 
     const jobsPerPage = 8
 
-    // if no user, navigate to signin form...
-    // if there is a user, trigger useLazyListAllAppsForJobseekerQuery() redux hook
     useEffect(() => {
         if (!user && !isLoadingUser) {
-            navigate('/signin')
+            navigate('/signin');
         } else if (user) {
-            appListTrigger()
-        }
-    }, [user, isLoadingUser, navigate, appListTrigger])
+            appListTrigger();
+        };
+    }, [user, isLoadingUser, navigate, appListTrigger]);
 
-    // if app list result loads successfully, setAppliedJobs on line 16
-    // else, show error modal and set applied jobs to empty array
     useEffect(() => {
         if (appListResult.isSuccess) {
-            setAppliedJobs(appListResult.data.applications)
+            setAppliedJobs(appListResult.data.applications);
         } else if (appListResult.isError) {
-            setModalMessage(appListResult.error.data.detail)
-            setAppliedJobs([]) // retain this for last app logic to avoid refresh need
-            setShowModal(true)
-        }
-    }, [appListResult])
+            setModalMessage(appListResult.error.data.detail);
+            setAppliedJobs([]);
+            setShowModal(true);
+        };
+    }, [appListResult, setModalMessage, setAppliedJobs, setShowModal]);
 
     if (appListResult.isLoading) {
-        return <div>Loading your applications...</div>
-    }
+        return (
+        <div>Loading your applications...</div>
+        );
+    };
 
     const formatDate = (dateString) => {
-        const date = new Date(dateString)
-        const month = date.toLocaleString('default', { month: 'short' })
-        const day = date.getDate()
-        const year = date.getFullYear()
-        return `${month}-${day}-${year}`
-    }
+        const date = new Date(dateString);
+        const month = date.toLocaleString('default', { month: 'short' });
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month}-${day}-${year}`;
+    };
 
-    const indexOfLastJob = currentPage * jobsPerPage
-    const indexOfFirstJob = indexOfLastJob - jobsPerPage
-    const currentJobs = appliedJobs.slice(indexOfFirstJob, indexOfLastJob)
+    const indexOfLastJob = currentPage * jobsPerPage;
+    const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+    const currentJobs = appliedJobs.slice(indexOfFirstJob, indexOfLastJob);
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber)
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    //stores job id you want to delete in state...
-    // delete modal state shows yes/no buttons in modal instead of close button
     const handleDelete = (appID) => {
-        setDeleteID(appID)
-        setShowModal(true)
-        setModalMessage('Are you sure you want to delete this application?')
-        setDeleteModal(true)
-    }
+        setDeleteID(appID);
+        setShowModal(true);
+        setModalMessage('Are you sure you want to delete this application?');
+        setDeleteModal(true);
+    };
 
-    // deleteJob takes delete id stored in state
-    // and executes useDeleteJobMutation() function
-    const confirmDelete = (e) => {
-        deleteApp(deleteID)
-        setDeleteID('')
-        setShowModal(false)
-        setModalMessage('')
-        setDeleteModal(false)
-    }
+    const confirmDelete = () => {
+        deleteApp(deleteID);
+        setDeleteID('');
+        setShowModal(false);
+        setModalMessage('');
+        setDeleteModal(false);
+    };
 
     const closeModal = () => {
-        setShowModal(false)
-        setDeleteModal(false)
-        setModalMessage('')
-    }
+        setShowModal(false);
+        setDeleteModal(false);
+        setModalMessage('');
+    };
 
     return (
         <>
@@ -338,7 +330,7 @@ const AppliedJobs = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default AppliedJobs
+export default AppliedJobs;
