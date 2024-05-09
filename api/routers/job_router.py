@@ -1,16 +1,8 @@
-from fastapi import (
-    Depends,
-    Response,
-    HTTPException,
-    status,
-    APIRouter
-)
+from fastapi import Depends, Response, HTTPException, status, APIRouter
 from queries.job_queries import JobQueries
 from models.jobs import JobIn, JobOut, JobList
 from models.users import UserResponse
-from utils.authentication import (
-    try_get_jwt_user_data
-)
+from utils.authentication import try_get_jwt_user_data
 
 
 router = APIRouter(tags=["Jobs"], prefix="/api/jobs")

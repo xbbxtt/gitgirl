@@ -55,11 +55,11 @@ export default function SignUpForm() {
     const accordionItems = [
         {
             title: 'What is GitGirl?',
-            body: 'A job board serving women and femme presenting individuals to get jobs in Tech.',
+            body: 'A job board serving women and femme identifying individuals to get jobs in Tech.',
         },
         {
-            title: 'Who does GitGit Serve?',
-            body: 'Women and Femme presenting individuals.',
+            title: 'Who does GitGirl Serve?',
+            body: 'Women and Femme identifying individuals.',
         },
         {
             title: 'Can I post Jobs?',

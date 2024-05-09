@@ -13,6 +13,6 @@ steps = [
         DROP COLUMN full_name,
         DROP COLUMN email,
         DROP COLUMN linkedin_url;
-        """
+        """,
     ],
 ]

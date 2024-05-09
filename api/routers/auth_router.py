@@ -10,7 +10,12 @@ from queries.user_queries import (
     UserQueries,
 )
 from utils.exceptions import UserDatabaseException
-from models.users import UserRequestSignIn, UserRequestSignUp, UserResponse, UserUpdate
+from models.users import (
+    UserRequestSignIn,
+    UserRequestSignUp,
+    UserResponse,
+    UserUpdate,
+)
 from utils.authentication import (
     try_get_jwt_user_data,
     hash_password,
@@ -79,15 +84,13 @@ async def signin(
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=
-            "Sorry, we couldn't find an account with those credentials.",
+            detail="Sorry, we couldn't find an account with those credentials."
         )
 
     if not verify_password(user_request.password, user.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=
-            "Sorry, we couldn't find an account with those credentials.",
+            detail="Sorry, we couldn't find an account with those credentials."
         )
 
     token = generate_jwt(user)
@@ -155,7 +158,9 @@ async def update_user(
     user: UserResponse = Depends(try_get_jwt_user_data),
 ):
     try:
-        updated_user = user_queries.update_user(user_id=user.id, user=user_data)
+        updated_user = user_queries.update_user(
+            user_id=user.id, user=user_data
+        )
 
     except UserDatabaseException as e:
         print(e)
@@ -183,5 +188,5 @@ async def update_user(
         username=updated_user.username,
         full_name=updated_user.full_name,
         email=updated_user.email,
-        linkedin_url=updated_user.linkedin_url
-        )
+        linkedin_url=updated_user.linkedin_url,
+    )
