@@ -27,23 +27,36 @@ const Navigation = () => {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
-                        {user && <li className="nav-item">
-                            <NavLink className="nav-link" to="/jobs">Jobs</NavLink>
-                        </li>}
+                        {user && (
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/jobs">Jobs</NavLink>
+                            </li>
+                        )}
                     </ul>
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                        {!user && <li className="nav-item">
-                            <NavLink className="nav-link" to="/signup">Sign Up</NavLink>
-                        </li>}
-                        {!user && <li className="nav-item">
-                            <NavLink className="nav-link" to="/signin">Sign In</NavLink>
-                        </li>}
-                        {user && <li className="nav-item">
-                            <NavLink className="nav-link" to="/profile">Profile</NavLink>
-                        </li>}
-                        {user && <li className="nav-item">
-                            <NavLink className="nav-link" onClick={onSignoutClick}>Sign Out</NavLink>
-                        </li>}
+                        {!isLoadingUser && user ? (
+                            <>
+                                <li className="nav-item">
+                                    <span className="nav-link" style={{ color: '#e99b9b' }}> Logged in as, {user.username}</span>
+                                </li>
+                                <li className="nav-item">                                       </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/profile">Profile</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" onClick={onSignoutClick}>Sign Out</NavLink>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/signup">Sign Up</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/signin">Sign In</NavLink>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
             </div>
