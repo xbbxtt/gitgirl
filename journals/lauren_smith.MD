@@ -1,8 +1,10 @@
 # May 09, 2024 // Thursday
 
+In my merge today I worked on the home page UI. We are submitting the project today as well.
+
 # May 08, 2024 // Wednesday
 
-Today
+Today I made a few merges relating to footer changes, minor UI adjustments across the board.
 
 # May 07, 2024 // Tuesday
 
@@ -40,19 +42,19 @@ In my second merge - I made changes to the footer.jsx, app.css, and the index.ht
 
 # Apr 24, 2024 // Wednesday
 
-(No journal entry)
+Worked on tailwind research.
 
 # Apr 23, 2024 // Tuesday
 
-(No journal entry)
+Worked on tailwind research.
 
 # Apr 22, 2024 // Monday
 
-(No journal entry)
+The team worked on queries and models.
 
 # Apr 19, 2024 // Friday
 
-(No journal entry)
+The team worked on migration files.
 
 # Apr 18, 2024 // Thursday
 
@@ -60,11 +62,11 @@ I added the 'DELETE' and 'GET by ID' to the job_queries.py & job_router.py files
 
 # Apr 17, 2024 // Wednesday
 
-(No journal entry)
+The team worked on migration files.
 
 # Apr 16, 2024 // Tuesday
 
-(No journal entry)
+Mob was lead by a teammate to update the User table. Created all the docker containers.
 
 # Apr 15, 2024 // Monday
 
@@ -72,12 +74,12 @@ Began working on the project. Started coding our tables.
 
 # Apr 10, 2024 // Wednesday UNTIL Apr 12, 2024 // Friday
 
-We began our wireframing
+We began our wireframing.
 
 # Apr 09, 2024 // Tuesday
 
-The team and I started brainstorming and pitching ideas. We voted on GitGirl. We signed our team agreement forms and made a gameplan on how to handle obstacles.
+The team and I started brainstorming and pitching ideas. We voted on GitGirl. We signed our team agreement forms and made a game plan on how to handle obstacles.
 
-# Apr 09, 2024 // Monday
+# Apr 08, 2024 // Monday
 
 The team was assigned, and we began learning about the project.
