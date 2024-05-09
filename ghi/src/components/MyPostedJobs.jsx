@@ -226,8 +226,8 @@ const MyPostedJobs = () => {
                                         <th scope="col">Company</th>
                                         <th scope="col">Position</th>
                                         <th scope="col">Posted Date</th>
-                                        <th scope="col">Remind Me</th>
                                         <th scope="col">Review GitGirls</th>
+                                        <th scope="col">Remind Me</th>
                                         <th scope="col">Remove Job</th>
                                     </tr>
                                 </thead>
@@ -252,11 +252,11 @@ const MyPostedJobs = () => {
                                                     className="btn btn-primary me-2"
                                                     onClick={() =>
                                                         navigate(
-                                                            `/jobs/${job.id}`
+                                                            `/jobs/${job.id}/applications`
                                                         )
                                                     }
                                                 >
-                                                    Job Detail
+                                                    View Applicants
                                                 </button>
                                             </td>
                                             <td>
@@ -264,18 +264,17 @@ const MyPostedJobs = () => {
                                                     type="button"
                                                     className="btn btn-outline-primary"
                                                     style={{
-                                                                    color: '#332B3B',
-                                                                    marginLeft:
-                                                                        '10px',
-                                                                    borderColor: '#332B3B',
-                                                                }}
+                                                        color: '#332B3B',
+                                                        marginLeft: '10px',
+                                                        borderColor: '#332B3B',
+                                                    }}
                                                     onClick={() =>
                                                         navigate(
-                                                            `/jobs/${job.id}/applications`
+                                                            `/jobs/${job.id}`
                                                         )
                                                     }
                                                 >
-                                                    View Applicants
+                                                    Job Detail
                                                 </button>
                                             </td>
                                             <td>
