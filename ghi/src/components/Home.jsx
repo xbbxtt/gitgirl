@@ -58,7 +58,7 @@ function Home() {
                             className="d-block user-select-none "
                             src={banner_3}
                             width="100%"
-                            height="50%"
+                            height="30%"
                             alt="Banner"
                         />
                     </h1>
@@ -66,25 +66,65 @@ function Home() {
             </div>
             <div className="container">
                 <div className="row justify-content-center">
-                    <div className="col-md-6">
+                    <div className="col-md-5">
                         <div className="grid-container">
                             <div
                                 className="grid-box"
                                 style={{
-                                    marginTop: '100px',
-                                    marginBottom: '40px',
+                                    marginTop: '110px',
+                                    marginBottom: '30px',
                                 }}
                             >
-                                <img
-                                    className="d-block user-select-none img-fluid"
-                                    src="https://images.unsplash.com/photo-1573165265437-f5e267bb3db6?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                    alt="Sample"
+                                <h1
                                     style={{
-                                        borderRadius: '8px',
-                                        height: '100%',
-                                        width: '90%',
+                                        marginBottom: '30px',
+                                        fontSize: '60px',
                                     }}
-                                />
+                                >
+                                    Welcome to GitGirl
+                                </h1>
+                                <div
+                                    className="vr"
+                                    style={{
+                                        paddingLeft: '3px',
+                                        height: '80px',
+                                    }}
+                                >
+                                    <p
+                                        className="mb-9"
+                                        style={{
+                                            marginLeft: '10px',
+                                            display: 'inline-block',
+                                            width: '400px',
+                                            color: 'black',
+                                        }}
+                                    >
+                                        Join our network and level up your job
+                                        search with a diverse pool of highly
+                                        qualified women and femme-presenting
+                                        individuals in tech through GitGirl.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex justify-content-between mt-3">
+                            <div className="col">
+                                <Link
+                                    to="/signin"
+                                    type="button"
+                                    className="btn btn-block"
+                                    style={{
+                                        backgroundColor: '#302939',
+                                        color: 'white',
+                                        border: 'none',
+                                        textAlign: 'center',
+                                        width: '100px',
+                                        marginLeft: '150px',
+                                        marginTop: '20px',
+                                    }}
+                                >
+                                    Sign In
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -93,83 +133,21 @@ function Home() {
                             <div
                                 className="grid-box"
                                 style={{
-                                    marginTop: '100px',
-                                    marginBottom: '40px',
+                                    marginBottom: '150px',
+                                    marginTop: '150px',
                                 }}
                             >
-                                <div className="d-flex align-items-center">
-                                    <div
-                                        className="vr"
-                                        style={{
-                                            paddingLeft: '3px',
-                                            height: '100px',
-                                        }}
-                                    >
-                                        <h1
-                                            className="mb-2"
-                                            style={{ marginLeft: '10px' }}
-                                        >
-                                            For Individuals
-                                        </h1>
-                                    </div>
-                                    <div>
-                                        <p style={{ marginTop: '100px' }}>
-                                            GitGirl offers employers access to a
-                                            diverse pool of highly qualified
-                                            women and femme-presenting
-                                            individuals in tech, fostering
-                                            inclusivity and enriching their
-                                            talent pipelines. By leveraging
-                                            GitGirl, employers can not only
-                                            diversify their tech teams but also
-                                            enhance their brand image by
-                                            showcasing a commitment to creating
-                                            an inclusive workplace, ultimately
-                                            attracting top talent and fostering
-                                            a positive company culture.
-                                        </p>
-                                        <div className="d-flex justify-content-between mt-3">
-                                            <div className="col">
-                                                <Link
-                                                    to="/signin"
-                                                    type="button"
-                                                    className="btn btn-block"
-                                                    style={{
-                                                        backgroundColor:
-                                                            '#302939',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        textAlign: 'center',
-                                                        width: '100px',
-                                                        marginLeft: '80px',
-                                                        marginTop: '20px',
-                                                    }}
-                                                >
-                                                    Sign In
-                                                </Link>
-                                            </div>
-                                            <div className="col">
-                                                <Link
-                                                    to="/signup"
-                                                    type="button"
-                                                    className="btn btn-block"
-                                                    style={{
-                                                        backgroundColor:
-                                                            '#302939',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        textAlign: 'center',
-                                                        width: '130px',
-                                                        marginRight: '30px',
-                                                        marginTop: '20px',
-                                                    }}
-                                                >
-                                                    Sign Up
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <img
+                                    className="d-block user-select-none img-fluid"
+                                    src="/src/logo.jpg"
+                                    alt="Sample"
+                                    style={{
+                                        borderRadius: '8px',
+                                        // height: '100%',
+                                        // width: '90%',
+                                        marginLeft: '20px',
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
@@ -412,11 +390,15 @@ function Home() {
                                 <div className="d-flex align-items-center">
                                     <div
                                         className="vr"
-                                        style={{ paddingLeft: '3px' }}
+                                        style={{
+                                            paddingLeft: '3px',
+                                        }}
                                     >
                                         <h1
                                             className="mb-2"
-                                            style={{ marginLeft: '10px' }}
+                                            style={{
+                                                marginLeft: '10px',
+                                            }}
                                         >
                                             For Employers
                                         </h1>
