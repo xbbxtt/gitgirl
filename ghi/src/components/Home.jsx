@@ -58,7 +58,7 @@ function Home() {
                             className="d-block user-select-none "
                             src={banner_3}
                             width="100%"
-                            height="30%"
+                            height="300px"
                             alt="Banner"
                         />
                     </h1>
@@ -71,7 +71,7 @@ function Home() {
                             <div
                                 className="grid-box"
                                 style={{
-                                    marginTop: '110px',
+                                    marginTop: '160px',
                                     marginBottom: '30px',
                                 }}
                             >
@@ -120,7 +120,7 @@ function Home() {
                                         textAlign: 'center',
                                         width: '100px',
                                         marginLeft: '150px',
-                                        marginTop: '20px',
+                                        marginTop: '10px',
                                     }}
                                 >
                                     Sign In
@@ -133,19 +133,18 @@ function Home() {
                             <div
                                 className="grid-box"
                                 style={{
-                                    marginBottom: '150px',
+                                    marginBottom: '140px',
                                     marginTop: '150px',
                                 }}
                             >
                                 <img
                                     className="d-block user-select-none img-fluid"
-                                    src="/src/logo.jpg"
+                                    src="https://images.unsplash.com/photo-1580894908361-967195033215?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8d29tZW4lMjBpbiUyMHRlY2h8ZW58MHx8MHx8fDI%3D"
                                     alt="Sample"
                                     style={{
                                         borderRadius: '8px',
-                                        // height: '100%',
-                                        // width: '90%',
-                                        marginLeft: '20px',
+
+                                        marginLeft: '30px',
                                     }}
                                 />
                             </div>
