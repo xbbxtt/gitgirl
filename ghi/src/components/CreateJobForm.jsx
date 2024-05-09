@@ -1,82 +1,80 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
-import UserNavigation from './UserNavigation'
-import { useAuthenticateQuery, useCreateJobMutation } from '../app/apiSlice'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import UserNavigation from './UserNavigation';
+import { useAuthenticateQuery, useCreateJobMutation } from '../app/apiSlice';
+
 
 const CreateJobForm = () => {
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         image_url: '',
         position_title: '',
         location: '',
         company_name: '',
         job_description: '',
-    })
-    const [showModal, setShowModal] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
-
-    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
-    const [createJob, createJobStatus] = useCreateJobMutation()
+    });
+    const [showModal, setShowModal] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
+    const [createJob, createJobStatus] = useCreateJobMutation();
 
     useEffect(() => {
         if (!user && !isLoadingUser) {
             navigate('/signin')
-        }
-    }, [user, isLoadingUser, navigate])
+        };
+    }, [user, isLoadingUser, navigate]);
 
     useEffect(() => {
         if (createJobStatus.isSuccess) {
-            setErrorMessage('Job posted successfully!')
-            setShowModal(true)
-        }
+            setErrorMessage('Job posted successfully!');
+            setShowModal(true);
+        };
         if (createJobStatus.isError) {
-            setErrorMessage(createJobStatus.error.data.detail)
-            setShowModal(true)
-        }
-    }, [createJobStatus, navigate])
+            setErrorMessage(createJobStatus.error.data.detail);
+            setShowModal(true);
+        };
+    }, [createJobStatus, navigate]);
 
     const handleChange = (e) => {
-        const value = e.target.value
-        const inputName = e.target.name
+        const value = e.target.value;
+        const inputName = e.target.name;
         setFormData({
             ...formData,
             [inputName]: value,
-        })
-    }
+        });
+    };
 
     const handleFormSubmit = (e) => {
-        e.preventDefault()
-        createJob(formData)
+        e.preventDefault();
+        createJob(formData);
         setFormData({
             image_url: '',
             position_title: '',
             location: '',
             company_name: '',
             job_description: '',
-        })
-    }
+        });
+    };
 
     const closeModal = () => {
-        setShowModal(false)
-        setErrorMessage('')
-    }
+        setShowModal(false);
+        setErrorMessage('');
+    };
 
     const addMoreJobs = () => {
-        closeModal()
+        closeModal();
         setFormData({
             image_url: '',
             position_title: '',
             location: '',
             company_name: '',
             job_description: '',
-        })
-    }
+        });
+    };
 
     const viewMyPostedJobs = () => {
-        navigate('/mypostedjobs')
-    }
+        navigate('/mypostedjobs');
+    };
 
     return (
         <>
@@ -304,7 +302,7 @@ const CreateJobForm = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default CreateJobForm
+export default CreateJobForm;

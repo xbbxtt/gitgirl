@@ -1,88 +1,89 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import UserNavigation from './UserNavigation'
-import { useAuthenticateQuery, useUpdateUserMutation } from '../app/apiSlice'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import UserNavigation from './UserNavigation';
+import { useAuthenticateQuery, useUpdateUserMutation } from '../app/apiSlice';
+
 
 const UserProfile = () => {
-    const navigate = useNavigate()
-
-    const [update, setUpdate] = useState(false)
-    const [error, setError] = useState(false)
+    const navigate = useNavigate();
+    const [update, setUpdate] = useState(false);
+    const [error, setError] = useState(false);
     const [formData, setFormData] = useState({
         username: '',
         full_name: '',
         email: '',
         linkedin_url: '',
-    })
-    const [showModal, setShowModal] = useState(false)
-    const [modalMessage, setModalMessage] = useState('')
-
-    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
-    const [updateUser, updateUserStatus] = useUpdateUserMutation()
+    });
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
+    const [updateUser, updateUserStatus] = useUpdateUserMutation();
 
     useEffect(() => {
         if (!user && !isLoadingUser) {
             navigate('/signin')
-        }
-    }, [user, isLoadingUser, navigate])
+        };
+    }, [user, isLoadingUser, navigate]);
 
     useEffect(() => {
         if (updateUserStatus.isSuccess) {
-            setModalMessage('Profile updated successfully!')
-            setShowModal(true)
-            setUpdate(false)
+            setModalMessage('Profile updated successfully!');
+            setShowModal(true);
+            setUpdate(false);
         } else if (updateUserStatus.isError) {
-            setModalMessage(updateUserStatus.error.data.detail)
-            setShowModal(true)
-            setError(true)
-        }
-    }, [updateUserStatus, setModalMessage, setShowModal])
+            setModalMessage(updateUserStatus.error.data.detail);
+            setShowModal(true);
+            setError(true);
+        };
+    }, [updateUserStatus, setModalMessage, setShowModal]);
 
     if (isLoadingUser || updateUserStatus.isLoading) {
-        return <div>Loading...</div>
-    }
+        return (
+        <div>Loading...</div>
+        )
+    };
 
     const handleChange = (e) => {
-        const value = e.target.value
-        const inputName = e.target.name
+        const value = e.target.value;
+        const inputName = e.target.name;
         setFormData({
             ...formData,
             [inputName]: value,
-        })
-    }
+        });
+    };
 
     const handleFormSubmit = (e) => {
         if (formData.username === '') {
-            formData.username = `${user.username}`
-        }
+            formData.username = `${user.username}`;
+        };
         if (formData.full_name === '') {
-            formData.full_name = `${user.full_name}`
-        }
+            formData.full_name = `${user.full_name}`;
+        };
         if (formData.email === '') {
-            formData.email = `${user.email}`
-        }
+            formData.email = `${user.email}`;
+        };
         if (formData.linkedin_url === '') {
-            formData.linkedin_url = `${user.linkedin_url}`
-        }
+            formData.linkedin_url = `${user.linkedin_url}`;
+        };
         setShowModal(true)
         setModalMessage(
             'Are you sure you want to make these changes to your profile?'
-        )
-    }
+        );
+    };
 
     const handleConfirm = (e) => {
-        e.preventDefault()
-        updateUser(formData)
+        e.preventDefault();
+        updateUser(formData);
         setFormData({
             username: '',
             full_name: '',
             email: '',
             linkedin_url: '',
-        })
-        setUpdate(false)
-        setShowModal(false)
-        setModalMessage('')
-    }
+        });
+        setUpdate(false);
+        setShowModal(false);
+        setModalMessage('');
+    };
 
     const handleCancel = (e) => {
         setUpdate(false)
@@ -91,14 +92,14 @@ const UserProfile = () => {
             full_name: '',
             email: '',
             linkedin_url: '',
-        })
-    }
+        });
+    };
 
     const closeModal = () => {
-        setShowModal(false)
-        setError(false)
-        setModalMessage('')
-    }
+        setShowModal(false);
+        setError(false);
+        setModalMessage('');
+    };
 
     return (
         <>
@@ -410,7 +411,7 @@ const UserProfile = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default UserProfile
+export default UserProfile;

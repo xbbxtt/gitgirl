@@ -1,6 +1,4 @@
 from pydantic import BaseModel
-from models.jobs import JobOut
-from models.users import UserResponse
 from datetime import datetime
 from typing import List
 

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function HeroImage() {
   return (
     <header style={{ paddingLeft: 0 }}>
@@ -23,4 +21,4 @@ export default function HeroImage() {
       </div>
     </header>
   );
-}
+};

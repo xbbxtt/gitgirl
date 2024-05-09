@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSigninMutation } from '../app/apiSlice';
-import styled, { keyframes } from 'styled-components';
+import { styled, keyframes } from 'styled-components';
 import { bounce } from 'react-animations';
 
 
@@ -27,11 +27,11 @@ export default function SignInForm() {
     useEffect(() => {
         if (signinStatus.isSuccess) {
             navigate('/');
-        }
+        };
         if (signinStatus.isError) {
             setErrorMessage(signinStatus.error.data.detail);
             setShowModal(true);
-        }
+        };
     }, [signinStatus, navigate]);
 
     const handleFormSubmit = (e) => {
@@ -137,5 +137,5 @@ export default function SignInForm() {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
