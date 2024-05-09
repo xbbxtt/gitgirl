@@ -51,9 +51,6 @@
 [Docker-url]: https://www.docker.com
 
 
-## Target Market 
-GitGirl is a job board intended to support and promote women and femme presenting individuals searching for jobs in the Tech sector.  
-
 ## Design
 - [Model Data](https://gitlab.com/adas-allies/gitgirl/-/blob/65-read/docs/data-model.md)
 - [Wireframe](https://gitlab.com/adas-allies/gitgirl/-/blob/65-read/docs/wireframe.md)
