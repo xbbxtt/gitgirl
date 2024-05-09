@@ -1,6 +1,8 @@
-# Date
+# May 09, 2024 // Thursday
 
-# Date
+# May 08, 2024 // Wednesday
+
+Today
 
 # May 07, 2024 // Tuesday
 
@@ -36,6 +38,54 @@ I worked on the footer.jsx again. I made minor adjustments. This was done in the
 In my first merge - I created the footer.jsx file. Adjusted app.css & app.jsx to reflect footer addition.
 In my second merge - I made changes to the footer.jsx, app.css, and the index.html page as well.
 
+# Apr 24, 2024 // Wednesday
+
+(No journal entry)
+
+# Apr 23, 2024 // Tuesday
+
+(No journal entry)
+
+# Apr 22, 2024 // Monday
+
+(No journal entry)
+
+# Apr 19, 2024 // Friday
+
+(No journal entry)
+
 # Apr 18, 2024 // Thursday
 
 I added the 'DELETE' and 'GET by ID' to the job_queries.py & job_router.py files.
+
+# Apr 17, 2024 // Wednesday
+
+(No journal entry)
+
+# Apr 16, 2024 // Tuesday
+
+(No journal entry)
+
+# Apr 15, 2024 // Monday
+
+(No journal entry)
+
+# Apr 12, 2024 // Friday
+
+(No journal entry)
+
+# Apr 11, 2024 // Thursday
+
+(No journal entry)
+
+# Apr 10, 2024 // Wednesday
+
+(No journal entry)
+
+# Apr 09, 2024 // Tuesday
+
+(No journal entry)
+
+# Apr 09, 2024 // Monday
+
+The team was assigned, and we began our wireframing.
