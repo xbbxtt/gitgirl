@@ -1,8 +1,4 @@
-from fastapi import (
-    Depends,
-    HTTPException,
-    APIRouter
-)
+from fastapi import Depends, HTTPException, APIRouter
 from queries.application_queries import ApplicationQueries
 from models.applications import (
     ApplicationOut,
@@ -10,9 +6,7 @@ from models.applications import (
     ApplicationListForPoster,
 )
 from models.users import UserResponse
-from utils.authentication import (
-    try_get_jwt_user_data
-)
+from utils.authentication import try_get_jwt_user_data
 
 
 router = APIRouter(tags=["Applications"], prefix="/api")

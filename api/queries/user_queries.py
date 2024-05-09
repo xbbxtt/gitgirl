@@ -60,13 +60,13 @@ class UserQueries:
         return user
 
     def create_user(
-            self,
-            username: str,
-            hashed_password: str,
-            full_name: str,
-            email: str,
-            linkedin_url: str
-            ) -> UserWithPw:
+        self,
+        username: str,
+        hashed_password: str,
+        full_name: str,
+        email: str,
+        linkedin_url: str,
+    ) -> UserWithPw:
         try:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
@@ -88,7 +88,7 @@ class UserQueries:
                             hashed_password,
                             full_name,
                             email,
-                            linkedin_url
+                            linkedin_url,
                         ],
                     )
                     user = cur.fetchone()
@@ -121,8 +121,8 @@ class UserQueries:
                             user.full_name,
                             user.email,
                             user.linkedin_url,
-                            user_id
-                        ]
+                            user_id,
+                        ],
                     )
                     old_data = user.dict()
                     return UserResponse(id=user_id, **old_data)

@@ -10,6 +10,7 @@ from main import app
 
 client = TestClient(app)
 
+
 def fake_try_get_jwt_user_data():
     return UserResponse(
         id=1,
@@ -18,6 +19,7 @@ def fake_try_get_jwt_user_data():
         linkedin_url="https://www.linkedin.com/in/crazy",
         username="crazy_man",
     )
+
 
 class FakeApplicationsQueries:
     def list_apps_for_job_seeker(self, user_id: int):
@@ -65,10 +67,7 @@ class FakeApplicationsQueries:
 
     def create_application(self, applicant_id: int, job_id: int):
         return ApplicationOut(
-            id=3,
-            job_id=2,
-            applicant_id=3,
-            applied_at=datetime.now()
+            id=3, job_id=2, applicant_id=3, applied_at=datetime.now()
         )
 
     @app.delete("/api/jobs/{job_id}/applications")
@@ -82,9 +81,9 @@ class TestApplications(unittest.TestCase):
 
     def test_list_apps_for_job_seeker(self):
         app.dependency_overrides[ApplicationQueries] = FakeApplicationsQueries
-        app.dependency_overrides[try_get_jwt_user_data] = (
-            fake_try_get_jwt_user_data
-        )
+        app.dependency_overrides[
+            try_get_jwt_user_data
+        ] = fake_try_get_jwt_user_data
         res = client.get("/api/applications/mine")
         data = res.json()
         assert res.status_code == 200
@@ -92,9 +91,9 @@ class TestApplications(unittest.TestCase):
 
     def test_list_apps_for_poster_by_job(self):
         app.dependency_overrides[ApplicationQueries] = FakeApplicationsQueries
-        app.dependency_overrides[try_get_jwt_user_data] = (
-            fake_try_get_jwt_user_data
-        )
+        app.dependency_overrides[
+            try_get_jwt_user_data
+        ] = fake_try_get_jwt_user_data
         res = client.get("/api/jobs/123/applications")
         data = res.json()
         assert res.status_code == 200
@@ -107,7 +106,9 @@ class TestApplications(unittest.TestCase):
 
     def test_create_application(self):
         app.dependency_overrides[ApplicationQueries] = FakeApplicationsQueries
-        app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+        app.dependency_overrides[
+            try_get_jwt_user_data
+        ] = fake_try_get_jwt_user_data
         res = client.post("/api/jobs/2/applications")
         data = res.json()
         assert res.status_code == 200

@@ -58,7 +58,7 @@ function Home() {
                             className="d-block user-select-none "
                             src={banner_3}
                             width="100%"
-                            height="300px"
+                            height="500px"
                             alt="Banner"
                         />
                     </h1>

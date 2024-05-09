@@ -3,7 +3,7 @@ from psycopg_pool import ConnectionPool
 from models.applications import (
     ApplicationOut,
     ApplicationList,
-    ApplicationListForPoster
+    ApplicationListForPoster,
 )
 
 
@@ -17,9 +17,9 @@ pool = ConnectionPool(DATABASE_URL)
 
 class ApplicationQueries:
     def list_apps_for_job_seeker(
-                            self,
-                            user_id: int,
-                            ) -> ApplicationList:
+        self,
+        user_id: int,
+    ) -> ApplicationList:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -33,9 +33,7 @@ class ApplicationQueries:
                           a.id, a.job_id, a.applicant_id, a.applied_at
                         ORDER BY a.applied_at
                         """,
-                        [
-                            user_id
-                        ]
+                        [user_id],
                     )
 
                     applications = []
@@ -65,13 +63,11 @@ class ApplicationQueries:
         except Exception:
             return {
                 "message": "Could not get all applications for your job posts"
-                }
+            }
 
     def list_apps_for_poster_by_job(
-                            self,
-                            creator_id: int,
-                            job_id: int
-                            ) -> ApplicationListForPoster:
+        self, creator_id: int, job_id: int
+    ) -> ApplicationListForPoster:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -90,10 +86,7 @@ class ApplicationQueries:
                           u.linkedin_url, a.applied_at
                         ORDER BY a.applied_at
                         """,
-                        [
-                            creator_id,
-                            job_id
-                        ]
+                        [creator_id, job_id],
                     )
 
                     applications = []
@@ -119,14 +112,18 @@ class ApplicationQueries:
                     if not applications:
                         return None
                     else:
-                        return ApplicationListForPoster(applications=applications)
+                        return ApplicationListForPoster(
+                            applications=applications
+                        )
 
         except Exception:
             return {
                 "message": "Could not get all applications for your job posts"
-                }
+            }
 
-    def get_application(self, applicant_id: int, job_id: int) -> ApplicationOut:
+    def get_application(
+        self, applicant_id: int, job_id: int
+    ) -> ApplicationOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -155,7 +152,9 @@ class ApplicationQueries:
         except Exception:
             return None
 
-    def create_application(self, applicant_id: int, job_id: int) -> ApplicationOut:
+    def create_application(
+        self, applicant_id: int, job_id: int
+    ) -> ApplicationOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -170,7 +169,7 @@ class ApplicationQueries:
                         [
                             applicant_id,
                             job_id,
-                        ]
+                        ],
                     )
                     application_info = result.fetchone()
                     print(application_info)
@@ -182,7 +181,7 @@ class ApplicationQueries:
                         id=id,
                         applied_at=applied_at,
                         applicant_id=applicant_id,
-                        job_id=job_id
+                        job_id=job_id,
                     )
 
         except Exception as e:
