@@ -223,15 +223,14 @@ const JobsTable = () => {
                                 >
                                     <div
                                         className="card-header"
-                                        style={{ backgroundColor: '#f2c5c5' }}
+                                        style={{
+                                            backgroundColor: '#f2c5c5', }}
                                     >
                                         <strong>{job.company_name}</strong>
-                                    </div>
-                                    <div className="card-body d-flex flex-column">
                                         <div
                                             style={{
                                                 position: 'absolute',
-                                                top: '0',
+                                                top: '8px',
                                                 right: '20px',
                                             }}
                                         >
@@ -239,6 +238,8 @@ const JobsTable = () => {
                                                 {formatDate(job.posted_date)}
                                             </p>
                                         </div>
+                                    </div>
+                                    <div className="card-body d-flex flex-column">
                                         <h5 className="card-">
                                             <strong>
                                                 {job.position_title}
