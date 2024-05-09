@@ -1,17 +1,10 @@
 import os
-import psycopg
 from psycopg_pool import ConnectionPool
-from psycopg.rows import class_row
-from typing import Optional, List, Dict
-from models.jobs import JobOut, JobIn, JobList
 from models.applications import (
     ApplicationOut,
     ApplicationList,
-    ApplicationListForPoster
+    ApplicationListForPoster,
 )
-from models.users import UserWithPw
-from utils.exceptions import UserDatabaseException
-from datetime import datetime
 
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
@@ -23,12 +16,10 @@ pool = ConnectionPool(DATABASE_URL)
 
 
 class ApplicationQueries:
-
-    # Get a list of applications for job seeker
     def list_apps_for_job_seeker(
-                            self,
-                            user_id: int,
-                            ) -> ApplicationList:
+        self,
+        user_id: int,
+    ) -> ApplicationList:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -42,9 +33,7 @@ class ApplicationQueries:
                           a.id, a.job_id, a.applicant_id, a.applied_at
                         ORDER BY a.applied_at
                         """,
-                        [
-                            user_id
-                        ]
+                        [user_id],
                     )
 
                     applications = []
@@ -71,74 +60,14 @@ class ApplicationQueries:
                     else:
                         return ApplicationList(applications=applications)
 
-        except Exception as e:
-            print(e)
+        except Exception:
             return {
                 "message": "Could not get all applications for your job posts"
-                }
-
-
-    # Gets a list of applications by job for job poster
-    # def list_apps_for_poster_by_job(
-    #                         self,
-    #                         creator_id: int,
-    #                         job_id: int
-    #                         ) -> ApplicationList:
-    #     try:
-    #         with pool.connection() as conn:
-    #             with conn.cursor() as db:
-    #                 db.execute(
-    #                     """
-    #                     SELECT
-    #                       a.id, a.job_id, a.applicant_id, a.applied_at
-    #                     FROM jobs j
-    #                     JOIN applications a ON(j.id=a.job_id)
-    #                     WHERE j.creator_id = %s
-    #                     AND j.id = %s
-    #                     GROUP BY
-    #                       a.id, a.job_id, a.applicant_id, a.applied_at
-    #                     ORDER BY a.applied_at
-    #                     """,
-    #                     [
-    #                         creator_id,
-    #                         job_id
-    #                     ]
-    #                 )
-
-    #                 applications = []
-    #                 rows = db.fetchall()
-
-    #                 for row in rows:
-    #                     application = None
-    #                     if row is not None:
-    #                         application = {}
-    #                         application_fields = [
-    #                             "id",
-    #                             "job_id",
-    #                             "applicant_id",
-    #                             "applied_at",
-    #                         ]
-    #                         for i, column in enumerate(db.description):
-    #                             if column.name in application_fields:
-    #                                 application[column.name] = row[i]
-    #                     applications.append(application)
-
-    #                 if not applications:
-    #                     return None
-    #                 else:
-    #                     return ApplicationList(applications=applications)
-
-    #     except Exception as e:
-    #         print(e)
-    #         return {
-    #             "message": "Could not get all applications for your job posts"
-    #             }
+            }
 
     def list_apps_for_poster_by_job(
-                            self,
-                            creator_id: int,
-                            job_id: int
-                            ) -> ApplicationListForPoster:
+        self, creator_id: int, job_id: int
+    ) -> ApplicationListForPoster:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -157,10 +86,7 @@ class ApplicationQueries:
                           u.linkedin_url, a.applied_at
                         ORDER BY a.applied_at
                         """,
-                        [
-                            creator_id,
-                            job_id
-                        ]
+                        [creator_id, job_id],
                     )
 
                     applications = []
@@ -186,17 +112,18 @@ class ApplicationQueries:
                     if not applications:
                         return None
                     else:
-                        return ApplicationListForPoster(applications=applications)
+                        return ApplicationListForPoster(
+                            applications=applications
+                        )
 
-        except Exception as e:
-            print(e)
+        except Exception:
             return {
                 "message": "Could not get all applications for your job posts"
-                }
+            }
 
-
-    # Gets an instance of an application for job seeker
-    def get_application(self, applicant_id: int, job_id: int) -> ApplicationOut:
+    def get_application(
+        self, applicant_id: int, job_id: int
+    ) -> ApplicationOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -222,13 +149,12 @@ class ApplicationQueries:
                         )
                     else:
                         return None
-        except Exception as e:
-            print(e)
+        except Exception:
             return None
 
-
-    # Creates an instance of an application for job seeker
-    def create_application(self, applicant_id: int, job_id: int) -> ApplicationOut:
+    def create_application(
+        self, applicant_id: int, job_id: int
+    ) -> ApplicationOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -243,7 +169,7 @@ class ApplicationQueries:
                         [
                             applicant_id,
                             job_id,
-                        ]
+                        ],
                     )
                     application_info = result.fetchone()
                     print(application_info)
@@ -255,15 +181,13 @@ class ApplicationQueries:
                         id=id,
                         applied_at=applied_at,
                         applicant_id=applicant_id,
-                        job_id=job_id
+                        job_id=job_id,
                     )
 
         except Exception as e:
             print(e)
             return {"message": "Application did not post"}
 
-
-    # Deletes an application by the application's ID
     def delete_application(self, app_id: int) -> bool:
         try:
             with pool.connection() as conn:
@@ -276,6 +200,7 @@ class ApplicationQueries:
                         [app_id],
                     )
                     return db.rowcount > 0
+
         except Exception as e:
             print(e)
             return False

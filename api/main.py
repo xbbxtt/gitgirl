@@ -1,13 +1,6 @@
-"""
-Entry point for the FastAPI Application
-"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import (
-    auth_router,
-    job_router,
-    application_router
-)
+from routers import auth_router, job_router, application_router
 import os
 
 app = FastAPI()
@@ -23,16 +16,3 @@ app.add_middleware(
 app.include_router(auth_router.router)
 app.include_router(job_router.router)
 app.include_router(application_router.router)
-
-
-@app.get("/api/launch-details")
-def launch_details():
-    return {
-        "launch_details": {
-            "module": 3,
-            "week": 17,
-            "day": 5,
-            "hour": 19,
-            "min": "00"
-        }
-    }

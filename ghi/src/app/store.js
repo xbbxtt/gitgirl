@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { gitGirlApi } from './apiSlice'
+import { configureStore } from '@reduxjs/toolkit';
+import { gitGirlApi } from './apiSlice';
 
 
 export const store = configureStore({
@@ -7,5 +7,5 @@ export const store = configureStore({
     [gitGirlApi.reducerPath]: gitGirlApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(gitGirlApi.middleware),
-})
+    getDefaultMiddleware().concat(gitGirlApi.middleware)
+});

@@ -1,11 +1,6 @@
 import os
-import psycopg
 from psycopg_pool import ConnectionPool
-from psycopg.rows import class_row
-from typing import Optional, List
 from models.jobs import JobOut, JobIn, JobList
-from models.users import UserWithPw
-from utils.exceptions import UserDatabaseException
 from datetime import datetime
 
 
@@ -30,6 +25,7 @@ class JobQueries:
                         """
                     )
                     result = []
+
                     for record in db:
                         job = JobOut(
                             id=record[0],
@@ -39,12 +35,13 @@ class JobQueries:
                             location=record[4],
                             job_description=record[5],
                             posted_date=record[6],
-                            creator_id=record[7]
+                            creator_id=record[7],
                         )
                         result.append(job)
+
                     return JobList(jobs=result)
-        except Exception as e:
-            print(e)
+
+        except Exception:
             return {"message": "Could not get all jobs"}
 
     def get_all_jobs_by_poster(self, creator_id: int) -> JobList:
@@ -58,10 +55,9 @@ class JobQueries:
                         FROM jobs
                         WHERE creator_id = %s
                         """,
-                        [
-                            creator_id
-                        ]
+                        [creator_id],
                     )
+
                     result = []
                     for record in db:
                         job = JobOut(
@@ -72,7 +68,7 @@ class JobQueries:
                             location=record[4],
                             job_description=record[5],
                             posted_date=record[6],
-                            creator_id=record[7]
+                            creator_id=record[7],
                         )
                         result.append(job)
 
@@ -80,10 +76,9 @@ class JobQueries:
                         return None
                     else:
                         return JobList(jobs=result)
-        except Exception as e:
-            print(e)
-            return {"message": "Could not get all jobs"}
 
+        except Exception:
+            return {"message": "Could not get all jobs"}
 
     def get_job_by_id(self, job_id: int):
         try:
@@ -98,6 +93,7 @@ class JobQueries:
                         """,
                         [job_id],
                     )
+
                     record = db.fetchone()
                     if record:
                         return JobOut(
@@ -108,12 +104,12 @@ class JobQueries:
                             location=record[4],
                             job_description=record[5],
                             posted_date=record[6],
-                            creator_id=record[7]
+                            creator_id=record[7],
                         )
                     else:
                         return None
-        except Exception as e:
-            print(e)
+
+        except Exception:
             return None
 
     def create_job(self, job: JobIn, creator_id: int) -> JobOut:
@@ -147,8 +143,7 @@ class JobQueries:
 
                     return self.job_in_to_out(id, posted_date, job, creator_id)
 
-        except Exception as e:
-            print(e)
+        except Exception:
             return {"message": "Creation did not work"}
 
     def delete_job(self, job_id: int):
@@ -163,10 +158,13 @@ class JobQueries:
                         [job_id],
                     )
                     return db.rowcount > 0
-        except Exception as e:
-            print(e)
+        except Exception:
             return False
 
-    def job_in_to_out(self, id: int, posted_date: datetime, job: JobIn, creator_id: int):
+    def job_in_to_out(
+        self, id: int, posted_date: datetime, job: JobIn, creator_id: int
+    ):
         old_data = job.dict()
-        return JobOut(id=id, posted_date=posted_date, **old_data, creator_id=creator_id)
+        return JobOut(
+            id=id, posted_date=posted_date, **old_data, creator_id=creator_id
+        )

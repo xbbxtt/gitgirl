@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const gitGirlApi = createApi({
     reducerPath: 'gitGirlApi',
@@ -90,10 +90,17 @@ export const gitGirlApi = createApi({
                 body
             }),
             invalidatesTags: ['User']
+        }),
+        updateUser: builder.mutation({
+            query: (body) => ({
+                url: `/api/auth/update`,
+                method: 'PUT',
+                body
+            }),
+            invalidatesTags: ['User']
         })
-
     })
-})
+});
 
 export const {
     useListAllJobsQuery,
@@ -113,5 +120,6 @@ export const {
     useAuthenticateQuery,
     useSignoutMutation,
     useSigninMutation,
-    useSignupMutation
+    useSignupMutation,
+    useUpdateUserMutation
 } = gitGirlApi

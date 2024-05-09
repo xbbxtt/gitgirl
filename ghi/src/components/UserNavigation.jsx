@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom';
+
 
 const UserNavigation = () => {
-    const location = useLocation()
+    const location = useLocation();
 
     return (
         <nav
@@ -54,7 +54,7 @@ const UserNavigation = () => {
                 </div>
             </div>
         </nav>
-    )
-}
+    );
+};
 
-export default UserNavigation
+export default UserNavigation;
