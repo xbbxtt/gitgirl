@@ -68,24 +68,16 @@ I added the 'DELETE' and 'GET by ID' to the job_queries.py & job_router.py files
 
 # Apr 15, 2024 // Monday
 
-(No journal entry)
+Began working on the project. Started coding our tables.
 
-# Apr 12, 2024 // Friday
+# Apr 10, 2024 // Wednesday UNTIL Apr 12, 2024 // Friday
 
-(No journal entry)
-
-# Apr 11, 2024 // Thursday
-
-(No journal entry)
-
-# Apr 10, 2024 // Wednesday
-
-(No journal entry)
+We began our wireframing
 
 # Apr 09, 2024 // Tuesday
 
-(No journal entry)
+The team and I started brainstorming and pitching ideas. We voted on GitGirl. We signed our team agreement forms and made a gameplan on how to handle obstacles.
 
 # Apr 09, 2024 // Monday
 
-The team was assigned, and we began our wireframing.
+The team was assigned, and we began learning about the project.
