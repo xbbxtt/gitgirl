@@ -1,72 +1,69 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
     useLazyListAllAppsForPosterByJobQuery,
     useAuthenticateQuery,
     useLazyJobDetailsQuery,
-} from '../app/apiSlice'
-import UserNavigation from './UserNavigation'
+} from '../app/apiSlice';
+import UserNavigation from './UserNavigation';
 
 const ViewApplicants = () => {
-    const navigate = useNavigate()
-    const params = useParams()
+    const navigate = useNavigate();
+    const params = useParams();
 
-    const [apps, setApps] = useState([])
-    const [job, setJob] = useState({})
+    const [apps, setApps] = useState([]);
+    const [job, setJob] = useState({});
 
-    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
-    const [listAppsTrigger, appListResult] = useLazyListAllAppsForPosterByJobQuery()
-    const [jobDetailTrigger, jobDetailResult] = useLazyJobDetailsQuery()
-    const [currentPage, setCurrentPage] = useState(1)
-    const jobsPerPage = 8
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
+    const [listAppsTrigger, appListResult] = useLazyListAllAppsForPosterByJobQuery();
+    const [jobDetailTrigger, jobDetailResult] = useLazyJobDetailsQuery();
+    const [currentPage, setCurrentPage] = useState(1);
+    const jobsPerPage = 8;
 
     useEffect(() => {
         if (!user && !isLoadingUser) {
-            navigate('/signin')
+            navigate('/signin');
         } else if (user) {
-            jobDetailTrigger(params.jobID)
-            listAppsTrigger(params.jobID)
+            jobDetailTrigger(params.jobID);
+            listAppsTrigger(params.jobID);
         }
-    }, [user, isLoadingUser, navigate, jobDetailTrigger, listAppsTrigger])
+    }, [user, isLoadingUser, navigate, jobDetailTrigger, listAppsTrigger]);
 
     useEffect(() => {
         if (jobDetailResult.isSuccess) {
-            setJob(jobDetailResult.data)
+            setJob(jobDetailResult.data);
         }
-    }, [jobDetailResult, setJob])
+    }, [jobDetailResult, setJob]);
 
     useEffect(() => {
         if (appListResult.isSuccess) {
-            setApps(appListResult.data.applications)
+            setApps(appListResult.data.applications);
         }
-    }, [appListResult, setApps])
+    }, [appListResult, setApps]);
 
     if (jobDetailResult.isLoading || appListResult.isLoading || isLoadingUser) {
-        return <div>Loading Applicants...</div>
+        return <div>Loading Applicants...</div>;
     }
 
-    const indexOfLastJob = currentPage * jobsPerPage
-    const indexOfFirstJob = indexOfLastJob - jobsPerPage
-    const currentApps = apps.slice(indexOfFirstJob, indexOfLastJob)
+    const indexOfLastJob = currentPage * jobsPerPage;
+    const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+    const currentApps = apps.slice(indexOfFirstJob, indexOfLastJob);
 
     const formatDate = (dateString) => {
-        const date = new Date(dateString)
-        const month = date.toLocaleString('default', { month: 'short' })
-        const day = date.getDate()
-        const year = date.getFullYear()
-        return `${month}-${day}-${year}`
-    }
+        const date = new Date(dateString);
+        const month = date.toLocaleString('default', { month: 'short' });
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month}-${day}-${year}`;
+    };
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber)
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <div className="container-fluid" style={{ minHeight: '80vh' }}>
             <div className="row">
                 <UserNavigation />
-                <main
-                    className="col-md-9 ms-sm-auto col-lg-10 px-md-4"
-                    style={{ marginTop: '20px' }}
-                >
+                <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4" style={{ marginTop: '20px' }}>
                     <div>
                         <h2>Applicants</h2>
                         <table className="table table-hover">
@@ -82,34 +79,40 @@ const ViewApplicants = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {currentApps.map((app, index) => (
-                                    <tr
-                                        key={index}
-                                        className={
-                                            index % 2 === 0
-                                                ? 'table-default'
-                                                : 'table-primary'
-                                        }
-                                    >
-                                        <td>{app.full_name}</td>
-                                        <td>{app.email}</td>
-                                        <td>{app.linkedin_url}</td>
-                                        <td>{job.position_title}</td>
-                                        <td>{job.company_name}</td>
-                                        <td>
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary me-2"
-                                                onClick={() =>
-                                                    navigate(`/jobs/${job.id}`)
-                                                }
-                                            >
-                                                Job Detail
-                                            </button>
-                                        </td>
-                                        <td>{formatDate(app.applied_at)}</td>
+                                {currentApps.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="7">No applicants at this time</td>
                                     </tr>
-                                ))}
+                                ) : (
+                                    currentApps.map((app, index) => (
+                                        <tr
+                                            key={index}
+                                            className={
+                                                index % 2 === 0
+                                                    ? 'table-default'
+                                                    : 'table-primary'
+                                            }
+                                        >
+                                            <td>{app.full_name}</td>
+                                            <td>{app.email}</td>
+                                            <td>{app.linkedin_url}</td>
+                                            <td>{job.position_title}</td>
+                                            <td>{job.company_name}</td>
+                                            <td>
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-primary me-2"
+                                                    onClick={() =>
+                                                        navigate(`/jobs/${job.id}`)
+                                                    }
+                                                >
+                                                    Job Detail
+                                                </button>
+                                            </td>
+                                            <td>{formatDate(app.applied_at)}</td>
+                                        </tr>
+                                    ))
+                                )}
                             </tbody>
                         </table>
                     </div>
@@ -177,8 +180,7 @@ const ViewApplicants = () => {
                 </main>
             </div>
         </div>
-    )
-
-}
+    );
+};
 
 export default ViewApplicants;

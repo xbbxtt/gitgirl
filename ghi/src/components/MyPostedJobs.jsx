@@ -265,7 +265,7 @@ const MyPostedJobs = () => {
                                                     className="btn btn-outline-primary"
                                                     style={{
                                                         color: '#332B3B',
-                                                        marginLeft: '10px',
+                                                        marginLeft: '-30px',
                                                         borderColor: '#332B3B',
                                                     }}
                                                     onClick={() =>
