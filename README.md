@@ -52,8 +52,8 @@
 
 
 ## Design
-- [Model Data](https://gitlab.com/adas-allies/gitgirl/-/blob/65-read/docs/data-model.md)
-- [Wireframe](https://gitlab.com/adas-allies/gitgirl/-/blob/65-read/docs/wireframe.md)
+- [Model Data](https://gitlab.com/adas-allies/gitgirl/-/blob/80-final/docs/data-model.md)
+- [Wireframe](https://gitlab.com/adas-allies/gitgirl/-/blob/80-final/docs/wireframe.md)
 - FastAPI documentation can be found once project initialized by using URL: [http://localhost:8000/docs#/](http://localhost:8000/docs#/)
 
 
