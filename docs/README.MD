@@ -63,10 +63,22 @@ To fully enjoy the GitGirl application on your local machine, please make sure t
 
 1. Clone the repository down to your local machine
 2. CD into the new project directory
-3. Run `docker volume create database_volume`
-4. Run `docker volume create pg-admin`
-5. Run `docker compose build`
-6. Run `docker compose up`
+3. Create an .env file within your IDE. Include the following fields within your .env file:
+
+```
+- POSTGRES_DB="<add database name>"
+- POSTGRES_USER="<username>"
+- POSTGRES_PASSWORD="<password>"
+- SIGNING_KEY="<signing key>"
+- PGADMIN_DEFAULT_EMAIL="<add email>"
+- PGADMIN_DEFAULT_PASSWORD="<add password>"
+```
+
+4. Run `docker volume create database_volume`
+5. Run `docker volume create pg-admin`
+6. Run `docker compose build`
+7. Run `docker compose up`
+8. In the event that one of your containers exits please attempt to restart the container.
 
 
 ## Functionality
@@ -99,6 +111,24 @@ To fully enjoy the GitGirl application on your local machine, please make sure t
 
 ## Testing
 
+### Unit Test Contributions
+
+Alsyon: 
+- get_all_jobs & get_all_jobs_by_poster
+
+Stephany: 
+- get_job_by_id & create_job
+
+Glenn: 
+- delete_job & delete_application
+
+Taylor: 
+- create_application
+
+Lauren: 
+- test_list_apps_for_job_seeker & test_list_apps_for_poster_by_job
+
+
 ### How to Run Unit Tests
 
 1. Ensure all dependencies are installed.
@@ -107,3 +137,5 @@ To fully enjoy the GitGirl application on your local machine, please make sure t
 
 ```sh
 pytest
+
+
