@@ -94,6 +94,7 @@ To fully enjoy the GitGirl application on your local machine, please make sure t
 - Authenticated users can view all the jobs they have posted.
 - Authenticated users can view the job detail for the posted job.
 - Authenticated users can delete the job posting.
+- Authenticated users can update their profile information.
 
 
 ## Testing
