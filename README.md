@@ -66,12 +66,12 @@ To fully enjoy the GitGirl application on your local machine, please make sure t
 3. Create an .env file within your IDE in the top level directory. Include the following fields within your .env file:
 
 ```
-- POSTGRES_DB="<add database name>"
-- POSTGRES_USER="<username>"
-- POSTGRES_PASSWORD="<password>"
-- SIGNING_KEY="<signing key>"
-- PGADMIN_DEFAULT_EMAIL="<add email>"
-- PGADMIN_DEFAULT_PASSWORD="<add password>"
+POSTGRES_DB="<add database name>"
+POSTGRES_USER="<username>"
+POSTGRES_PASSWORD="<password>"
+SIGNING_KEY="<signing key>"
+PGADMIN_DEFAULT_EMAIL="<add email>"
+PGADMIN_DEFAULT_PASSWORD="<add password>"
 ```
 
 4. Run `docker volume create database_volume`
