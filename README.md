@@ -63,7 +63,7 @@ To fully enjoy the GitGirl application on your local machine, please make sure t
 
 1. Clone the repository down to your local machine
 2. CD into the new project directory
-3. Create an .env file within your IDE. Include the following fields within your .env file:
+3. Create an .env file within your IDE in the top level directory. Include the following fields within your .env file:
 
 ```
 - POSTGRES_DB="<add database name>"
