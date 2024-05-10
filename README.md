@@ -1,150 +1,141 @@
-# Module3 Project Gamma
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
 
-## Getting started
+<h1 align="center">GitGirl</h1>
 
-You have a project repository, now what? The next section
-lists all of the deliverables that are due at the end of the
-week. Below is some guidance for getting started on the
-tasks for this week.
+  <p align="center">
+    GitGirl is a job board intended to support and promote women and femme identifying individuals searching for jobs in the Tech sector.
+    <br />
+</div>
 
-## Install Extensions
 
--   Prettier: <https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode>
--   Black Formatter: <https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter>
+##
 
-## Deliverables
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#built-with">Built With</a></li>
+    <li><a href="#target-market">Target Market</a></li>
+    <li><a href="#design">Design</a></li>
+    <li><a href="#project-initialization">Project Initialization</a></li>
+    <li><a href="#functionality">Functionality</a></li>
+    <li><a href="#testing">Testing</a></li>
+  </ol>
+</details>
 
--   [ ] Wire-frame diagrams
--   [ ] API documentation
--   [ ] Project is deployed to Caprover (BE, DB) & GitLab-pages (FE)
--   [ ] GitLab issue board is setup and in use (or project management tool of choice)
--   [ ] Journals
 
-## Project layout
+## Team
+- Stephany Mesa
+- Taylor Shockley
+- Alyson Golden
+- Lauren Smith
+- Glenn Padilla
 
-The layout of the project is just like all of the projects
-you did with `docker-compose` in module #2. You will create
-a directory in the root of the repository for each service
-that you add to your project just like those previous
-projects were setup.
+## Built With
+* [![Bootstrap][Bootstrap-shield]][Bootstrap-url]
+* [![React][React-shield]][React-url]
+* [![FastAPI][FastAPI-shield]][FastAPI-url]
+* [![Docker][Docker-shield]][Docker-url]
 
-### Directories
+[Bootstrap-shield]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[React-shield]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[FastAPI-shield]: https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white
+[Docker-shield]: https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white
 
-Several directories have been added to your project. The
-directories `docs` and `journals` are places for you and
-your team-mates to, respectively, put any documentation
-about your project that you create and to put your
-project-journal entries. See the _README.md_ file in each
-directory for more info.
+[Bootstrap-url]: https://getbootstrap.com
+[React-url]: https://reactjs.org/
+[FastAPI-url]: https://fastapi.tiangolo.com/
+[Docker-url]: https://www.docker.com
 
-The other directories, `ghi` and `api`, are services, that
-you can start building off of.
 
-Inside of `ghi` is a minimal React app that has an "under construction" page.
-This app is written using the [Vite](https://vitejs.dev/) bundler. The example
-code is also using [jsdoc](https://jsdoc.app/) to provide type hints for
-JavaScript. You are not required to use JSDoc yourself, and you will be removing
-these examples and providing your own code for `App.jsx`
+## Design
+- [Model Data](https://gitlab.com/adas-allies/gitgirl/-/blob/65-read/docs/data-model.md)
+- [Wireframe](https://gitlab.com/adas-allies/gitgirl/-/blob/65-read/docs/wireframe.md)
+- FastAPI documentation can be found once project initialized by using URL: [http://localhost:8000/docs#/](http://localhost:8000/docs#/)
 
-Inside of `api` is a minimal FastAPI application.
-"Where are all the files?" you might ask? Well, the
-`main.py` file is the whole thing, and go take look inside
-of it... There's not even much in there..., hmm? That is
-FastAPI, we'll learn more about it in the coming days. Can
-you figure out what this little web-application does even
-though you haven't learned about FastAPI yet?
 
-Also in `api` is a directory for your migrations.
-If you choose to use PostgreSQL, then you'll want to use
-migrations to control your database. Unlike Django, where
-migrations were automatically created for you, you'll write
-yours by hand using DDL. Don't worry about not knowing what
-DDL means; we have you covered. There's a sample migration
-in there that creates two tables so you can see what they
-look like.
+## Project Initialization
 
-The Dockerfile and Dockerfile.dev run your migrations
-for you automatically.
+To fully enjoy the GitGirl application on your local machine, please make sure to follow these steps:
 
-### Other files
+1. Clone the repository down to your local machine
+2. CD into the new project directory
+3. Create an .env file within your IDE. Include the following fields within your .env file:
 
-The following project files have been created as a minimal
-starting point. Please follow the guidance for each one for
-a most successful project.
-
--   `docker-compose.yaml`: there isn't much in here, just a
-    **really** simple UI and FastAPI service. Add services
-    (like a database) to this file as you did with previous
-    projects in module #2.
--   `.gitlab-ci.yml`: This is your "ci/cd" file where you will
-    configure automated unit tests, code quality checks, and
-    the building and deployment of your production system.
-    Currently, all it does is deploy an "under construction"
-    page to your production UI on GitLab and a sample backend
-    to CapRover. We will learn much more about this file.
--   `.gitignore`: This is a file that prevents unwanted files
-    from getting added to your repository, files like
-    `pyc` files, `__pycache__`, etc. We've set it up so that
-    it has a good default configuration for Python projects.
--   `.env.sample`: This file is a template to copy when
-    creating environment variables for your team. Create a
-    copy called `.env` and put your own passwords in here
-    without fear of it being committed to git (see `.env`
-    listed in `.gitignore`). You can also put team related
-    environment variables in here, things like api and signing
-    keys that shouldn't be committed; these should be
-    duplicated in your deployed environments.
-
-### Installing python dependencies locally
-
-In order for VSCode's built in code completion and intelligence to
-work correctly, it needs the dependencies from the requirements.txt file
-installed. We do this inside docker, but not in the workspace.
-
-So we need to create a virtual environment and pip install the requirements.
-
-From inside the `api` folder:
-
-```bash
-python -m venv .venv
+```
+- POSTGRES_DB="<add database name>"
+- POSTGRES_USER="<username>"
+- POSTGRES_PASSWORD="<password>"
+- SIGNING_KEY="<signing key>"
+- PGADMIN_DEFAULT_EMAIL="<add email>"
+- PGADMIN_DEFAULT_PASSWORD="<add password>"
 ```
 
-Then activate the virtual environment
+4. Run `docker volume create database_volume`
+5. Run `docker volume create pg-admin`
+6. Run `docker compose build`
+7. Run `docker compose up`
+8. In the event that one of your containers exits please attempt to restart the container.
 
-```bash
-source .venv/bin/activate
-```
 
-And finally install the dependencies
+## Functionality
+**Home Page**
+- Visitors can browse the Home page to learn more about the GitGirl mission 
+- Sign Up to become a GitGirl 
+- Sign into Git Girl account 
 
-```bash
-pip install -r requirements.txt
-```
+**Sign Up Page**
+- Visitors can Sign Up to become a GitGirl by creating a profile  
 
-Then make sure the venv is selected in VSCode by checking the lower right of the
-VSCode status bar
+**Sign In Page**
+- Returning users can sign into their existing accounts
 
-### Setup GitLab repo/project
+**Jobs Page**
+- Authenticated users can view jobs that have been posted by other users 
+- Authenticated users can view full job details 
+- Authenticated users can apply to job postings 
 
--   make sure this project is in a group. If it isn't, stop
-    now and move it to a GitLab group
--   remove the fork relationship: In GitLab go to:
+**Profile Page**
+- Authenticated users can view & update their associated email and/or LinkedIn URL 
+- Authenticated users can view all the jobs they have applied to.
+- Authenticated users can view the job detail page for the jobs they have applied to. 
+- Authenticated users can delete an application 
+- Authenticated users can view all the jobs they have posted.
+- Authenticated users can view the job detail for the posted job.
+- Authenticated users can delete the job posting.
+- Authenticated users can update their profile information.
 
-    Settings -> General -> Advanced -> Remove fork relationship
 
--   add these GitLab CI/CD variables:
-    -   PUBLIC_URL : this is your gitlab pages URL
-    -   VITE_APP_API_HOST: enter "blank" for now
+## Testing
 
-#### Your GitLab pages URL
+### Unit Test Contributions
 
-You can't find this in GitLab until after you've done a deploy
-but you can figure it out yourself from your GitLab project URL.
+Alsyon: 
+- get_all_jobs & get_all_jobs_by_poster
 
-If this is your project URL
+Stephany: 
+- get_job_by_id & create_job
 
-https://gitlab.com/GROUP_NAME/PROJECT_NAME
+Glenn: 
+- delete_job & delete_application
 
-then your GitLab pages URL will be
+Taylor: 
+- create_application
 
-https://GROUP_NAME.gitlab.io/PROJECT_NAME
+Lauren: 
+- test_list_apps_for_job_seeker & test_list_apps_for_poster_by_job
+
+
+### How to Run Unit Tests
+
+1. Ensure all dependencies are installed.
+2. Navigate to the project directory.
+3. Run the following command to execute the tests:
+
+```sh
+pytest
+
+
