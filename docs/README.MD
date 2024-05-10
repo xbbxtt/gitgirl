@@ -5,7 +5,7 @@
 <h1 align="center">GitGirl</h1>
 
   <p align="center">
-    GitGirl is a job board intended to support and promote women and femme presenting individuals searching for jobs in the Tech sector.
+    GitGirl is a job board intended to support and promote women and femme identifying individuals searching for jobs in the Tech sector.
     <br />
 </div>
 
