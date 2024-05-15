@@ -31,7 +31,7 @@ class ApplicationQueries:
                         WHERE a.applicant_id = %s
                         GROUP BY
                           a.id, a.job_id, a.applicant_id, a.applied_at
-                        ORDER BY a.applied_at
+                        ORDER BY a.applied_at DESC
                         """,
                         [user_id],
                     )
