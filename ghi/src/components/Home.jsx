@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuthenticateQuery } from '../app/apiSlice'
 import banner_3 from '/src/banner_3.jpg'
 
 function Home() {
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
     const [activeIndex, setActiveIndex] = useState(0)
 
     const handlePrev = () => {
@@ -43,21 +45,24 @@ function Home() {
         },
     ]
 
+    if (isLoadingUser) {
+        return <div>Loading...</div>
+    }
+
     return (
         <div>
             <div style={{ margin: '0 auto', maxWidth: '100%' }}>
                 <div
-                    className="card mb-3 d-flex justify-content-center"
-                    style={{
-                        border: 'none',
-                    }}
+                    className="card mb-3 d-flex justify-content-center "
+                    style={{ border: 'none' }}
                 >
                     <h1 className="card-title text-center">
                         <img
-                            className="d-block user-select-none "
+                            className="d-block user-select-none"
                             src={banner_3}
+                            position="fixed"
                             width="100%"
-                            height="300px"
+                            // height="400px"
                             alt="Banner"
                         />
                     </h1>
@@ -88,7 +93,7 @@ function Home() {
                                     style={{
                                         paddingLeft: '3px',
                                         borderLeft: '3px solid #5a414b',
-                                        height: '105px',
+                                        height: '140px',
                                     }}
                                 >
                                     <p
@@ -111,22 +116,39 @@ function Home() {
                         </div>
                         <div className="d-flex justify-content-between mt-3">
                             <div className="col">
-                                <Link
-                                    to="/signin"
-                                    type="button"
-                                    className="btn btn-block"
-                                    style={{
-                                        backgroundColor: '#e99b9b',
-                                        color: 'white',
-                                        border: 'none',
-                                        textAlign: 'center',
-                                        width: '100px',
-                                        marginLeft: '150px',
-                                        marginTop: '10px',
-                                    }}
-                                >
-                                    Sign In
-                                </Link>
+                                {user ? (
+                                    <Link
+                                        to="/jobs"
+                                        className="btn btn-block"
+                                        style={{
+                                            backgroundColor: '#e99b9b',
+                                            color: 'white',
+                                            border: 'none',
+                                            textAlign: 'center',
+                                            width: '100px',
+                                            marginLeft: '150px',
+                                            marginTop: '10px',
+                                        }}
+                                    >
+                                        Jobs
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        to="/signin"
+                                        className="btn btn-block"
+                                        style={{
+                                            backgroundColor: '#e99b9b',
+                                            color: 'white',
+                                            border: 'none',
+                                            textAlign: 'center',
+                                            width: '100px',
+                                            marginLeft: '150px',
+                                            marginTop: '10px',
+                                        }}
+                                    >
+                                        Sign In
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -145,7 +167,6 @@ function Home() {
                                     alt="Sample"
                                     style={{
                                         borderRadius: '8px',
-
                                         marginLeft: '30px',
                                     }}
                                 />
@@ -226,7 +247,6 @@ function Home() {
                                 <p>{''}</p>
                                 <h5>Addressing the Gender Gap</h5>
                                 <p>{''}</p>
-
                                 <p>
                                     GitGirl is committed to bridging the gender
                                     gap in tech by prioritizing women and
@@ -336,40 +356,82 @@ function Home() {
                                     </p>
                                     <div className="d-flex justify-content-between mt-3">
                                         <div className="col">
-                                            <Link
-                                                to="/signin"
-                                                type="button"
-                                                className="btn btn-block"
-                                                style={{
-                                                    backgroundColor: '#5a414b',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    textAlign: 'center',
-                                                    width: '100px',
-                                                    marginLeft: '80px',
-                                                    marginTop: '20px',
-                                                }}
-                                            >
-                                                Sign In
-                                            </Link>
+                                            {user ? (
+                                                <Link
+                                                    to="/profile"
+                                                    type="button"
+                                                    className="btn btn-block"
+                                                    style={{
+                                                        backgroundColor:
+                                                            '#5a414b',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        textAlign: 'center',
+                                                        width: '100px',
+                                                        marginLeft: '80px',
+                                                        marginTop: '20px',
+                                                    }}
+                                                >
+                                                    Profile
+                                                </Link>
+                                            ) : (
+                                                <Link
+                                                    to="/signin"
+                                                    type="button"
+                                                    className="btn btn-block"
+                                                    style={{
+                                                        backgroundColor:
+                                                            '#5a414b',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        textAlign: 'center',
+                                                        width: '100px',
+                                                        marginLeft: '80px',
+                                                        marginTop: '20px',
+                                                    }}
+                                                >
+                                                    Sign In
+                                                </Link>
+                                            )}
                                         </div>
                                         <div className="col">
-                                            <Link
-                                                to="/signup"
-                                                type="button"
-                                                className="btn btn-block"
-                                                style={{
-                                                    backgroundColor: '#5a414b',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    textAlign: 'center',
-                                                    width: '130px',
-                                                    marginRight: '60px',
-                                                    marginTop: '20px',
-                                                }}
-                                            >
-                                                Join Network
-                                            </Link>
+                                            {user ? (
+                                                <Link
+                                                    to="/applications"
+                                                    type="button"
+                                                    className="btn btn-block"
+                                                    style={{
+                                                        backgroundColor:
+                                                            '#5a414b',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        textAlign: 'center',
+                                                        width: '160px',
+                                                        marginRight: '60px',
+                                                        marginTop: '20px',
+                                                    }}
+                                                >
+                                                    My Applications
+                                                </Link>
+                                            ) : (
+                                                <Link
+                                                    to="/signup"
+                                                    type="button"
+                                                    className="btn btn-block"
+                                                    style={{
+                                                        backgroundColor:
+                                                            '#5a414b',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        textAlign: 'center',
+                                                        width: '130px',
+                                                        marginRight: '60px',
+                                                        marginTop: '20px',
+                                                    }}
+                                                >
+                                                    Join Network
+                                                </Link>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -422,42 +484,67 @@ function Home() {
                                     culture.
                                 </p>
                                 <div className="d-flex justify-content-between mt-3">
-                                    <div className="col">
-                                        <Link
-                                            to="/signin"
-                                            type="button"
-                                            className="btn btn-block"
-                                            style={{
-                                                backgroundColor: '#e99b9b',
-                                                color: 'white',
-                                                border: 'none',
-                                                textAlign: 'center',
-                                                width: '100px',
-                                                marginLeft: '80px',
-                                                marginTop: '20px',
-                                            }}
-                                        >
-                                            Sign In
-                                        </Link>
-                                    </div>
-                                    <div className="col">
-                                        <Link
-                                            to="/signup"
-                                            type="button"
-                                            className="btn btn-block"
-                                            style={{
-                                                backgroundColor: '#e99b9b',
-                                                color: 'white',
-                                                border: 'none',
-                                                textAlign: 'center',
-                                                width: '130px',
-                                                marginRight: '60px',
-                                                marginTop: '20px',
-                                            }}
-                                        >
-                                            Join Network
-                                        </Link>
-                                    </div>
+                                    {user ? (
+                                        <div className="col">
+                                            <Link
+                                                to="/createjob"
+                                                type="button"
+                                                className="btn btn-block"
+                                                style={{
+                                                    backgroundColor: '#e99b9b',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    textAlign: 'center',
+                                                    width: '130px',
+                                                    marginLeft: '80px',
+                                                    marginTop: '20px',
+                                                }}
+                                            >
+                                                Post a Job
+                                            </Link>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <div className="col">
+                                                <Link
+                                                    to="/signin"
+                                                    type="button"
+                                                    className="btn btn-block"
+                                                    style={{
+                                                        backgroundColor:
+                                                            '#e99b9b',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        textAlign: 'center',
+                                                        width: '100px',
+                                                        marginLeft: '80px',
+                                                        marginTop: '20px',
+                                                    }}
+                                                >
+                                                    Sign In
+                                                </Link>
+                                            </div>
+                                            <div className="col">
+                                                <Link
+                                                    to="/signup"
+                                                    type="button"
+                                                    className="btn btn-block"
+                                                    style={{
+                                                        backgroundColor:
+                                                            '#e99b9b',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        textAlign: 'center',
+                                                        width: '130px',
+                                                        marginRight: '60px',
+                                                        marginTop: '20px',
+                                                    }}
+                                                >
+                                                    Join Network
+                                                </Link>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
