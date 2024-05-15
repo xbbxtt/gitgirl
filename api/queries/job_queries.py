@@ -54,6 +54,7 @@ class JobQueries:
                         location, job_description, posted_date, creator_id
                         FROM jobs
                         WHERE creator_id = %s
+                        ORDER BY posted_date DESC
                         """,
                         [creator_id],
                     )

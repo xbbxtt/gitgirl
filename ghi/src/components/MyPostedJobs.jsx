@@ -1,85 +1,82 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
     useAuthenticateQuery,
     useLazyListAllJobsByPosterQuery,
     useDeleteJobMutation,
-} from '../app/apiSlice';
-import UserNavigation from './UserNavigation';
-
+} from '../app/apiSlice'
+import UserNavigation from './UserNavigation'
 
 const MyPostedJobs = () => {
-    const navigate = useNavigate();
-    const [deleteID, setDeleteID] = useState('');
-    const [myJobs, setMyJobs] = useState([]);
-    const [modalMessage, setModalMessage] = useState('');
-    const [showModal, setShowModal] = useState(false);
-    const [deleteModal, setDeleteModal] = useState(false);
-    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery();
-    const [listJobsTrigger, listJobsResult] = useLazyListAllJobsByPosterQuery();
-    const [deleteJob, deleteJobStatus] = useDeleteJobMutation();
-    const [currentPage, setCurrentPage] = useState(1);
+    const navigate = useNavigate()
+    const [deleteID, setDeleteID] = useState('')
+    const [myJobs, setMyJobs] = useState([])
+    const [modalMessage, setModalMessage] = useState('')
+    const [showModal, setShowModal] = useState(false)
+    const [deleteModal, setDeleteModal] = useState(false)
+    const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
+    const [listJobsTrigger, listJobsResult] = useLazyListAllJobsByPosterQuery()
+    const [deleteJob, deleteJobStatus] = useDeleteJobMutation()
+    const [currentPage, setCurrentPage] = useState(1)
 
-    const jobsPerPage = 8;
+    const jobsPerPage = 8
 
     useEffect(() => {
         if (!user && !isLoadingUser) {
-            navigate('/signin');
+            navigate('/signin')
         } else if (user) {
-            listJobsTrigger();
-        };
-    }, [user, isLoadingUser, navigate, listJobsTrigger]);
+            listJobsTrigger()
+        }
+    }, [user, isLoadingUser, navigate, listJobsTrigger])
 
     useEffect(() => {
         if (listJobsResult.isSuccess) {
-            setMyJobs(listJobsResult.data.jobs);
+            setMyJobs(listJobsResult.data.jobs)
         } else if (listJobsResult.isError) {
-            setModalMessage(listJobsResult.error.data.detail);
-            setMyJobs([]);
-            setShowModal(true);
-        };
-    }, [listJobsResult]);
+            setModalMessage(listJobsResult.error.data.detail)
+            setMyJobs([])
+            setShowModal(true)
+        }
+    }, [listJobsResult])
 
     if (listJobsResult.isLoading) {
-        return (
-        <div>Loading Jobs You've Posted...</div>
-        );
-    };
+        return <div>Loading Jobs You've Posted...</div>
+    }
 
-    const indexOfLastJob = currentPage * jobsPerPage;
-    const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-    const currentJobs = myJobs.slice(indexOfFirstJob, indexOfLastJob);
+    const indexOfLastJob = currentPage * jobsPerPage
+    const indexOfFirstJob = indexOfLastJob - jobsPerPage
+    const currentJobs = myJobs.slice(indexOfFirstJob, indexOfLastJob)
 
     const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const month = date.toLocaleString('default', { month: 'short' });
-        const day = date.getDate();
-        const year = date.getFullYear();
-        return `${month}-${day}-${year}`;
-    };
+        const date = new Date(dateString)
+        const month = date.toLocaleString('default', { month: 'short' })
+        const day = date.getDate()
+        const year = date.getFullYear()
+        return `${month}-${day}-${year}`
+    }
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
     const handleDelete = (jobID) => {
-        setDeleteID(jobID);
-        setShowModal(true);
-        setModalMessage('Are you sure you want to delete this job posting?');
-        setDeleteModal(true);
-    };
+        setDeleteID(jobID)
+        setShowModal(true)
+        setModalMessage('Are you sure you want to delete this job posting?')
+        setDeleteModal(true)
+    }
 
     const confirmDelete = () => {
-        deleteJob(deleteID);
-        setDeleteID('');
-        setShowModal(false);
-        setModalMessage('');
-        setDeleteModal(false);
-    };
+        deleteJob(deleteID)
+        setDeleteID('')
+        setShowModal(false)
+        setModalMessage('')
+        setDeleteModal(false)
+    }
 
     const closeModal = () => {
-        setShowModal(false);
-        setModalMessage('');
-        setDeleteModal(false);
-    };
+        setShowModal(false)
+        setModalMessage('')
+        setDeleteModal(false)
+    }
 
     return (
         <>
@@ -221,7 +218,12 @@ const MyPostedJobs = () => {
                                         <th scope="col">Company</th>
                                         <th scope="col">Position</th>
                                         <th scope="col">Posted Date</th>
-                                        <th scope="col">Review GitGirls</th>
+                                        <th
+                                            scope="col"
+                                            style={{ width: '170px' }}
+                                        >
+                                            Review GitGirls
+                                        </th>
                                         <th scope="col">Remind Me</th>
                                         <th scope="col">Remove Job</th>
                                     </tr>
@@ -255,22 +257,29 @@ const MyPostedJobs = () => {
                                                 </button>
                                             </td>
                                             <td>
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-outline-primary"
+                                                <div
                                                     style={{
-                                                        color: '#332B3B',
-                                                        marginLeft: '-30px',
-                                                        borderColor: '#332B3B',
+                                                        display: 'flex',
+                                                        justifyContent: 'left',
                                                     }}
-                                                    onClick={() =>
-                                                        navigate(
-                                                            `/jobs/${job.id}`
-                                                        )
-                                                    }
                                                 >
-                                                    Job Detail
-                                                </button>
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-outline-primary"
+                                                        style={{
+                                                            color: '#332B3B',
+                                                            borderColor:
+                                                                '#332B3B',
+                                                        }}
+                                                        onClick={() =>
+                                                            navigate(
+                                                                `/jobs/${job.id}`
+                                                            )
+                                                        }
+                                                    >
+                                                        Job Detail
+                                                    </button>
+                                                </div>
                                             </td>
                                             <td>
                                                 <button
@@ -357,7 +366,7 @@ const MyPostedJobs = () => {
                 </div>
             </div>
         </>
-    );
-};
+    )
+}
 
 export default MyPostedJobs

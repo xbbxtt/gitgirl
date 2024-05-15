@@ -1,18 +1,17 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import banner_3 from '/src/banner_3.jpg';
-
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import banner_3 from '/src/banner_3.jpg'
 
 function Home() {
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(0)
 
     const handlePrev = () => {
-        setActiveIndex(activeIndex === 0 ? reviews.length - 1 : activeIndex - 1);
-    };
+        setActiveIndex(activeIndex === 0 ? reviews.length - 1 : activeIndex - 1)
+    }
 
     const handleNext = () => {
-        setActiveIndex(activeIndex === reviews.length - 1 ? 0 : activeIndex + 1);
-    };
+        setActiveIndex(activeIndex === reviews.length - 1 ? 0 : activeIndex + 1)
+    }
 
     const reviews = [
         {
@@ -41,8 +40,8 @@ function Home() {
             image: '/src/bb.png',
             testimonial:
                 'GitGirl has been an incredible platform for me to find opportunities in tech. The supportive community and the focus on diversity make it stand out.',
-        }
-    ];
+        },
+    ]
 
     return (
         <div>
@@ -78,16 +77,18 @@ function Home() {
                                 <h1
                                     style={{
                                         marginBottom: '30px',
-                                        fontSize: '60px',
+                                        fontSize: '61px',
+                                        color: '#5a414b',
                                     }}
                                 >
                                     Welcome to GitGirl
                                 </h1>
                                 <div
-                                    className="vr"
+                                    className="vl"
                                     style={{
                                         paddingLeft: '3px',
-                                        height: '80px',
+                                        borderLeft: '3px solid #5a414b',
+                                        height: '105px',
                                     }}
                                 >
                                     <p
@@ -99,10 +100,11 @@ function Home() {
                                             color: 'black',
                                         }}
                                     >
-                                        Join our network and level up your job
-                                        search with a diverse pool of highly
-                                        qualified women and femme-presenting
-                                        individuals in tech through GitGirl.
+                                        Join our network to enhance your job
+                                        search. Gain access to job listings from
+                                        leading employers committed to diversity
+                                        and inclusion, actively seeking women
+                                        and femme-identifying individuals.
                                     </p>
                                 </div>
                             </div>
@@ -114,7 +116,7 @@ function Home() {
                                     type="button"
                                     className="btn btn-block"
                                     style={{
-                                        backgroundColor: '#302939',
+                                        backgroundColor: '#e99b9b',
                                         color: 'white',
                                         border: 'none',
                                         textAlign: 'center',
@@ -157,10 +159,11 @@ function Home() {
                 className="card-title"
                 style={{
                     backgroundColor: 'transparent',
-                    color: '#302939',
+                    color: '#5a414b',
                     border: 'none',
                     marginBottom: '30px',
                     textAlign: 'center',
+                    fontSize: '45px',
                 }}
             >
                 What We Offer
@@ -193,8 +196,8 @@ function Home() {
                                 <p>{''}</p>
                                 <p>
                                     Creating a profile on GitGirl boosts your
-                                    visibility to inclusive companies hiring
-                                    women in tech.
+                                    visibility to inclusive tech companies
+                                    seeking women and femme-identifying talent.
                                 </p>
                             </div>
                         </div>
@@ -227,7 +230,7 @@ function Home() {
                                 <p>
                                     GitGirl is committed to bridging the gender
                                     gap in tech by prioritizing women and
-                                    femme-presenting individuals..
+                                    femme-identifying individuals.
                                 </p>
                             </div>
                         </div>
@@ -258,7 +261,7 @@ function Home() {
                                 <p>{''}</p>
                                 <p>
                                     GitGirl connects employers with qualified
-                                    women and femme-presenting tech talent
+                                    women and femme-identifying tech talent
                                     overlooked on traditional boards.
                                 </p>
                             </div>
@@ -266,7 +269,6 @@ function Home() {
                     </div>
                 </div>
             </div>
-
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-6">
@@ -296,80 +298,78 @@ function Home() {
                             <div
                                 className="grid-box"
                                 style={{
-                                    marginTop: '100px',
+                                    marginTop: '150px',
                                     marginBottom: '40px',
                                 }}
                             >
                                 <div className="d-flex align-items-center">
                                     <div
-                                        className="vr"
+                                        className="vl"
                                         style={{
                                             paddingLeft: '3px',
-                                            height: '100px',
+                                            borderLeft: '3px solid #5a414b',
+                                            height: '55px',
                                         }}
                                     >
                                         <h1
                                             className="mb-2"
-                                            style={{ marginLeft: '10px' }}
+                                            style={{
+                                                marginLeft: '10px',
+                                                color: '#5a414b',
+                                            }}
                                         >
                                             For Individuals
                                         </h1>
                                     </div>
-                                    <div>
-                                        <p style={{ marginTop: '100px' }}>
-                                            GitGirl offers employers access to a
-                                            diverse pool of highly qualified
-                                            women and femme-presenting
-                                            individuals in tech, fostering
-                                            inclusivity and enriching their
-                                            talent pipelines. By leveraging
-                                            GitGirl, employers can not only
-                                            diversify their tech teams but also
-                                            enhance their brand image by
-                                            showcasing a commitment to creating
-                                            an inclusive workplace, ultimately
-                                            attracting top talent and fostering
-                                            a positive company culture.
-                                        </p>
-                                        <div className="d-flex justify-content-between mt-3">
-                                            <div className="col">
-                                                <Link
-                                                    to="/signin"
-                                                    type="button"
-                                                    className="btn btn-block"
-                                                    style={{
-                                                        backgroundColor:
-                                                            '#302939',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        textAlign: 'center',
-                                                        width: '100px',
-                                                        marginLeft: '80px',
-                                                        marginTop: '20px',
-                                                    }}
-                                                >
-                                                    Sign In
-                                                </Link>
-                                            </div>
-                                            <div className="col">
-                                                <Link
-                                                    to="/signup"
-                                                    type="button"
-                                                    className="btn btn-block"
-                                                    style={{
-                                                        backgroundColor:
-                                                            '#302939',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        textAlign: 'center',
-                                                        width: '130px',
-                                                        marginRight: '30px',
-                                                        marginTop: '20px',
-                                                    }}
-                                                >
-                                                    Join Network
-                                                </Link>
-                                            </div>
+                                </div>
+                                <div>
+                                    <p style={{ marginTop: '10px' }}>
+                                        Are you a tech enthusiast eager to
+                                        advance your career? GitGirl welcomes
+                                        women and femme-identifying individuals
+                                        to join our platform and unlock a world
+                                        of opportunities. Access a wide range of
+                                        job listings from top employers
+                                        committed to diversity and inclusion.
+                                        Empower your career journey with GitGirl
+                                        today.
+                                    </p>
+                                    <div className="d-flex justify-content-between mt-3">
+                                        <div className="col">
+                                            <Link
+                                                to="/signin"
+                                                type="button"
+                                                className="btn btn-block"
+                                                style={{
+                                                    backgroundColor: '#5a414b',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    textAlign: 'center',
+                                                    width: '100px',
+                                                    marginLeft: '80px',
+                                                    marginTop: '20px',
+                                                }}
+                                            >
+                                                Sign In
+                                            </Link>
+                                        </div>
+                                        <div className="col">
+                                            <Link
+                                                to="/signup"
+                                                type="button"
+                                                className="btn btn-block"
+                                                style={{
+                                                    backgroundColor: '#5a414b',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    textAlign: 'center',
+                                                    width: '130px',
+                                                    marginRight: '60px',
+                                                    marginTop: '20px',
+                                                }}
+                                            >
+                                                Join Network
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -377,36 +377,41 @@ function Home() {
                         </div>
                     </div>
                 </div>
+
                 <div className="row justify-content-center mt-5">
                     <div className="col-md-5">
                         <div className="grid-container">
                             <div
                                 className="grid-box"
                                 style={{
-                                    marginBottom: '150px',
+                                    marginTop: '50px',
+                                    marginBottom: '40px',
                                 }}
                             >
                                 <div className="d-flex align-items-center">
                                     <div
-                                        className="vr"
+                                        className="vl"
                                         style={{
                                             paddingLeft: '3px',
+                                            borderLeft: '3px solid #5a414b',
+                                            height: '55px',
                                         }}
                                     >
                                         <h1
                                             className="mb-2"
                                             style={{
                                                 marginLeft: '10px',
+                                                color: '#5a414b',
                                             }}
                                         >
                                             For Employers
                                         </h1>
                                     </div>
                                 </div>
-                                <p>
+                                <p style={{ marginTop: '10px' }}>
                                     GitGirl offers employers access to a diverse
                                     pool of highly qualified women and
-                                    femme-presenting individuals in tech,
+                                    femme-identifying individuals in tech,
                                     fostering inclusivity and enriching their
                                     talent pipelines. By leveraging GitGirl,
                                     employers can not only diversify their tech
@@ -423,7 +428,7 @@ function Home() {
                                             type="button"
                                             className="btn btn-block"
                                             style={{
-                                                backgroundColor: '#302939',
+                                                backgroundColor: '#e99b9b',
                                                 color: 'white',
                                                 border: 'none',
                                                 textAlign: 'center',
@@ -441,7 +446,7 @@ function Home() {
                                             type="button"
                                             className="btn btn-block"
                                             style={{
-                                                backgroundColor: '#302939',
+                                                backgroundColor: '#e99b9b',
                                                 color: 'white',
                                                 border: 'none',
                                                 textAlign: 'center',
@@ -538,7 +543,7 @@ function Home() {
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home
