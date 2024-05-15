@@ -93,7 +93,7 @@ function Home() {
                                     style={{
                                         paddingLeft: '3px',
                                         borderLeft: '3px solid #5a414b',
-                                        height: '140px',
+                                        height: '100px',
                                     }}
                                 >
                                     <p
