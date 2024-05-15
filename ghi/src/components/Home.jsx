@@ -77,16 +77,18 @@ function Home() {
                                 <h1
                                     style={{
                                         marginBottom: '30px',
-                                        fontSize: '60px',
+                                        fontSize: '61px',
+                                        color: '#5a414b',
                                     }}
                                 >
                                     Welcome to GitGirl
                                 </h1>
                                 <div
-                                    className="vr"
+                                    className="vl"
                                     style={{
                                         paddingLeft: '3px',
-                                        height: '80px',
+                                        borderLeft: '3px solid #5a414b',
+                                        height: '105px',
                                     }}
                                 >
                                     <p
@@ -114,7 +116,7 @@ function Home() {
                                     type="button"
                                     className="btn btn-block"
                                     style={{
-                                        backgroundColor: '#302939',
+                                        backgroundColor: '#e99b9b',
                                         color: 'white',
                                         border: 'none',
                                         textAlign: 'center',
@@ -157,10 +159,11 @@ function Home() {
                 className="card-title"
                 style={{
                     backgroundColor: 'transparent',
-                    color: '#302939',
+                    color: '#5a414b',
                     border: 'none',
                     marginBottom: '30px',
                     textAlign: 'center',
+                    fontSize: '45px',
                 }}
             >
                 What We Offer
@@ -266,7 +269,6 @@ function Home() {
                     </div>
                 </div>
             </div>
-
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-6">
@@ -296,77 +298,78 @@ function Home() {
                             <div
                                 className="grid-box"
                                 style={{
-                                    marginTop: '100px',
+                                    marginTop: '150px',
                                     marginBottom: '40px',
                                 }}
                             >
                                 <div className="d-flex align-items-center">
                                     <div
-                                        className="vr"
+                                        className="vl"
                                         style={{
                                             paddingLeft: '3px',
-                                            height: '100px',
+                                            borderLeft: '3px solid #5a414b',
+                                            height: '55px',
                                         }}
                                     >
                                         <h1
                                             className="mb-2"
-                                            style={{ marginLeft: '10px' }}
+                                            style={{
+                                                marginLeft: '10px',
+                                                color: '#5a414b',
+                                            }}
                                         >
                                             For Individuals
                                         </h1>
                                     </div>
-                                    <div>
-                                        <p style={{ marginTop: '110px' }}>
-                                            Are you a tech enthusiast eager to
-                                            advance your career? GitGirl
-                                            welcomes women and femme-identifying
-                                            individuals to join our platform and
-                                            unlock a world of opportunities.
-                                            Access a wide range of job listings
-                                            from top employers committed to
-                                            diversity and inclusion. Empower
-                                            your career journey with GitGirl
-                                            today.
-                                        </p>
-                                        <div className="d-flex justify-content-between mt-3">
-                                            <div className="col">
-                                                <Link
-                                                    to="/signin"
-                                                    type="button"
-                                                    className="btn btn-block"
-                                                    style={{
-                                                        backgroundColor:
-                                                            '#302939',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        textAlign: 'center',
-                                                        width: '100px',
-                                                        marginLeft: '80px',
-                                                        marginTop: '20px',
-                                                    }}
-                                                >
-                                                    Sign In
-                                                </Link>
-                                            </div>
-                                            <div className="col">
-                                                <Link
-                                                    to="/signup"
-                                                    type="button"
-                                                    className="btn btn-block"
-                                                    style={{
-                                                        backgroundColor:
-                                                            '#302939',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        textAlign: 'center',
-                                                        width: '130px',
-                                                        marginRight: '30px',
-                                                        marginTop: '20px',
-                                                    }}
-                                                >
-                                                    Join Network
-                                                </Link>
-                                            </div>
+                                </div>
+                                <div>
+                                    <p style={{ marginTop: '10px' }}>
+                                        Are you a tech enthusiast eager to
+                                        advance your career? GitGirl welcomes
+                                        women and femme-identifying individuals
+                                        to join our platform and unlock a world
+                                        of opportunities. Access a wide range of
+                                        job listings from top employers
+                                        committed to diversity and inclusion.
+                                        Empower your career journey with GitGirl
+                                        today.
+                                    </p>
+                                    <div className="d-flex justify-content-between mt-3">
+                                        <div className="col">
+                                            <Link
+                                                to="/signin"
+                                                type="button"
+                                                className="btn btn-block"
+                                                style={{
+                                                    backgroundColor: '#5a414b',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    textAlign: 'center',
+                                                    width: '100px',
+                                                    marginLeft: '80px',
+                                                    marginTop: '20px',
+                                                }}
+                                            >
+                                                Sign In
+                                            </Link>
+                                        </div>
+                                        <div className="col">
+                                            <Link
+                                                to="/signup"
+                                                type="button"
+                                                className="btn btn-block"
+                                                style={{
+                                                    backgroundColor: '#5a414b',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    textAlign: 'center',
+                                                    width: '130px',
+                                                    marginRight: '60px',
+                                                    marginTop: '20px',
+                                                }}
+                                            >
+                                                Join Network
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -374,26 +377,31 @@ function Home() {
                         </div>
                     </div>
                 </div>
+
                 <div className="row justify-content-center mt-5">
                     <div className="col-md-5">
                         <div className="grid-container">
                             <div
                                 className="grid-box"
                                 style={{
-                                    marginBottom: '150px',
+                                    marginTop: '50px',
+                                    marginBottom: '40px',
                                 }}
                             >
                                 <div className="d-flex align-items-center">
                                     <div
-                                        className="vr"
+                                        className="vl"
                                         style={{
                                             paddingLeft: '3px',
+                                            borderLeft: '3px solid #5a414b',
+                                            height: '55px',
                                         }}
                                     >
                                         <h1
                                             className="mb-2"
                                             style={{
                                                 marginLeft: '10px',
+                                                color: '#5a414b',
                                             }}
                                         >
                                             For Employers
@@ -420,7 +428,7 @@ function Home() {
                                             type="button"
                                             className="btn btn-block"
                                             style={{
-                                                backgroundColor: '#302939',
+                                                backgroundColor: '#e99b9b',
                                                 color: 'white',
                                                 border: 'none',
                                                 textAlign: 'center',
@@ -438,7 +446,7 @@ function Home() {
                                             type="button"
                                             className="btn btn-block"
                                             style={{
-                                                backgroundColor: '#302939',
+                                                backgroundColor: '#e99b9b',
                                                 color: 'white',
                                                 border: 'none',
                                                 textAlign: 'center',
